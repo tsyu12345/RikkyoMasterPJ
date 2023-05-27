@@ -20,7 +20,8 @@
 全体の手順は、後述する「3.clone後の流れ」に記載しています。
 
 * 別途ダウンロードが必要なファイル群
-    * "MasterPJ/DroneSimulator/Assets/PLATEAU_TEST2.unity"
+    * "./DroneSimulator/Assets/PLATEAU_TEST2.unity"
+    * "./PLATEAU-SDK-for-Unity-v1.1.2.tgz"
 
 ## 3.clone後の流れ
 【1.動作環境】の準備が整ったら、以下の手順でclone後の初期設定を行ってください。
