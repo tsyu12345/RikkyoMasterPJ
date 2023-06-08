@@ -672,6 +672,10 @@ PrefabInstance:
       value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: -7168934882528302957, guid: f1312c7548916e248b0498901049e2dd, type: 3}
+      propertyPath: moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7168934882528302957, guid: f1312c7548916e248b0498901049e2dd, type: 3}
       propertyPath: fieldPlane
       value: 
       objectReference: {fileID: 1238473142}
@@ -701,7 +705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3012803013818724990, guid: f1312c7548916e248b0498901049e2dd, type: 3}
       propertyPath: m_BehaviorType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3012803013818724990, guid: f1312c7548916e248b0498901049e2dd, type: 3}
       propertyPath: m_InferenceDevice
@@ -1177,7 +1181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1411029289979472411, guid: 714ecf4b2cc73a647ad9a5ab9c1c7c7e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.13160339
+      value: 3.91
       objectReference: {fileID: 0}
     - target: {fileID: 1411029289979472411, guid: 714ecf4b2cc73a647ad9a5ab9c1c7c7e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1415,6 +1419,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2086889756}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2094275014 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1818248416243648443, guid: f1312c7548916e248b0498901049e2dd, type: 3}
+  m_PrefabInstance: {fileID: 755525824}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2094275015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094275014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 10
+  TakeActionsBetweenDecisions: 1
 --- !u!1001 &6392490467061176470
 PrefabInstance:
   m_ObjectHideFlags: 0

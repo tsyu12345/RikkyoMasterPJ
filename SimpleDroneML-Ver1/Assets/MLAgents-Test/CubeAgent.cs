@@ -5,11 +5,11 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 
-public class DroneAgent: Agent {
+public class CubeAgent: Agent {
 
     [SerializeField] private Transform target;
     private Rigidbody _rBody;
-    public float moveSpeed = 2f;
+    public float moveSpeed = 10f;
 
     public override void Initialize() {
         _rBody = GetComponent<Rigidbody>();
@@ -24,7 +24,7 @@ public class DroneAgent: Agent {
         }
 
         // Move the target to a new spot// Targetの位置のリセット
-        target.localPosition = new Vector3(Random.value*8-4, Random.value*8-4, Random.value*8-4);
+        target.localPosition = new Vector3(Random.value*8-4, 0.5f, Random.value*8-4);
 
     }
 
