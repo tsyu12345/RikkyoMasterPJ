@@ -8,8 +8,12 @@ using Unity.MLAgents.Sensors;
 public class DroneAgent: Agent {
 
     [SerializeField] private Transform target;
+    public Transform startZone;
+
     private Rigidbody _rBody;
     public float moveSpeed = 2f;
+    public bool powerOn = false;
+    
 
     public override void Initialize() {
         _rBody = GetComponent<Rigidbody>();
@@ -20,7 +24,9 @@ public class DroneAgent: Agent {
             // If the Agent fell, zero its momentum
             _rBody.angularVelocity = Vector3.zero;
             _rBody.velocity = Vector3.zero;
-            transform.localPosition = new Vector3(0.0f, 0.5f, 0.0f);
+            
+            //startZoneの真上にセット
+            transform.localPosition = new Vector3(startZone.localPosition.x, startZone.localPosition.y + 5, startZone.localPosition.z);
         }
 
         // Move the target to a new spot// Targetの位置のリセット
@@ -42,6 +48,13 @@ public class DroneAgent: Agent {
         controlSignal.x = actions.ContinuousActions[0];
         controlSignal.z = actions.ContinuousActions[1];
         controlSignal.y = actions.ContinuousActions[2];
+        //電源ON時はその高度を保持,rigidbodyのy軸方向をFreeze
+        if (powerOn) {
+            _rBody.constraints = RigidbodyConstraints.FreezePositionY;
+        } else {
+            _rBody.constraints = RigidbodyConstraints.None;
+        }
+
         //_rBody.AddForce(controlSignal * 10);
         transform.position += controlSignal * moveSpeed * Time.deltaTime;
 
@@ -65,9 +78,17 @@ public class DroneAgent: Agent {
         continuousActions[0] = Input.GetAxis("Horizontal");
         continuousActions[1] = Input.GetAxis("Vertical");
         continuousActions[2] = 0;
-        if (Input.GetKey(KeyCode.Q)) {
+        //Pキー押下で電源ON
+        if (Input.GetKey(KeyCode.P) && !powerOn) {
+            powerOn = true;
+        } else if (Input.GetKey(KeyCode.P) && powerOn) { //Pキー押下で電源OFF
+            powerOn = false;
+        }
+
+        //電源オンでかつ、スペースキー押下で上昇,上昇後の高度を保持
+        if (powerOn && Input.GetKey(KeyCode.Space)) {
             continuousActions[2] = 1;
-        } else if (Input.GetKey(KeyCode.E)) {
+        } else if(powerOn && Input.GetKey(KeyCode.E)) { //電源オンでかつ、Eキー押下で下降
             continuousActions[2] = -1;
         }
     }
