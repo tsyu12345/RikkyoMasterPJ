@@ -79,3 +79,518 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 PLATEAU-SDK-for-Unity-v1.1.2.tgz
 ml-agents/
+SimpleDroneML-Ver1/Assets/Plugin.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets.meta
+SimpleDroneML-Ver1/Assets/DroneAgents/DroneAgent_Ver2.cs
+SimpleDroneML-Ver1/Assets/DroneAgents/DroneAgent_Ver2.cs.meta
+SimpleDroneML-Ver1/Assets/DroneAgents/DronePatrol.prefab
+SimpleDroneML-Ver1/Assets/DroneAgents/DronePatrol.prefab.meta
+SimpleDroneML-Ver1/Assets/Plugin/Libs.meta
+SimpleDroneML-Ver1/Assets/Plugin/Libs/Grpc.Core.Api.meta
+SimpleDroneML-Ver1/Assets/Plugin/Libs/Grpc.Core.meta
+SimpleDroneML-Ver1/Assets/Plugin/Libs/Grpc.Core/lib.meta
+SimpleDroneML-Ver1/Assets/Plugin/Libs/Grpc.Core.Api/lib.meta
+SimpleDroneML-Ver1/Assets/Plugin/Libs/Grpc.Core.Api/lib/net45.meta
+SimpleDroneML-Ver1/Assets/Plugin/Libs/Grpc.Core/lib/net45.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Animations.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Editor.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/InputManager.asset
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/InputManager.asset.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/READ ME!.pdf
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/READ ME!.pdf.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scenes.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Animations/blue-red.anim
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Animations/blue-red.anim.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Animations/fan.anim
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Animations/fan.anim.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Animations/goalie.anim
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Animations/goalie.anim.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Animations/red-blue.anim
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Animations/red-blue.anim.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Editor/cmpl.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Editor/PA_DroneAxisInputEditor.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Editor/PA_DroneAxisInputEditor.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Editor/PA_DroneCameraEditor.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Editor/PA_DroneCameraEditor.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Editor/PA_DroneControllerEditor.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Editor/PA_DroneControllerEditor.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Editor/cmpl/PA_DronePackEditor.dll
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Editor/cmpl/PA_DronePackEditor.dll.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_BumbleBee \[electric\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_BumbleBee \[electric\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_BumbleBee \[golden\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_BumbleBee \[golden\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_BumbleBee \[jungle\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_BumbleBee \[jungle\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_BumbleBee \[silver\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_BumbleBee \[silver\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[desert recon\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[desert recon\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[disco\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[disco\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[drone patrol animated\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[drone patrol animated\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[drone patrol\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[drone patrol\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[space probe animated\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[space probe animated\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[space probe\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_Quad \[space probe\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_ToadMaterial \[clownfish\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_ToadMaterial \[clownfish\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_ToadMaterial \[ladybug\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_ToadMaterial \[ladybug\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_ToadMaterial \[racecar\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_ToadMaterial \[racecar\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_ToadMaterial \[warhawk\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_ToadMaterial \[warhawk\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[alien\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[alien\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[alien-animated\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[alien-animated\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[ancient\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[ancient\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[ancient-animated\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[ancient-animated\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[crystal\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[crystal\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[crystal-animated\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[crystal-animated\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[marine\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[marine\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[marine-animated\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/_UFOMaterial \[marine-animated\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Badge \[professional assets\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Badge \[professional assets\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/BeamMaterial \[cyan\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/BeamMaterial \[cyan\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/BeamMaterial \[lime\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/BeamMaterial \[lime\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/BeamMaterial \[red\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/BeamMaterial \[red\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/BeamMaterial \[yellow\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/BeamMaterial \[yellow\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Black.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Black.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Cannon \[Inside\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Cannon \[Inside\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Cannon \[Outside\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Cannon \[Outside\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/CannonBall \[Metalic\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/CannonBall \[Metalic\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/CannonBall \[RimGlow\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/CannonBall \[RimGlow\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Cubes.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Cubes.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Domino 52.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Domino 52.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Domino 63.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Domino 63.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/EmitRed.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/EmitRed.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/FanMain.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/FanMain.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/FanSwitch.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/FanSwitch.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Goalie.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Goalie.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Grass \[Mobile\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Grass \[Mobile\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Grey.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Grey.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/HardParticle.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/HardParticle.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Logo.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Logo.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/PlatformLogos.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/PlatformLogos.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Projector \[cyan\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Projector \[cyan\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Projector \[purple\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Projector \[purple\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Projector \[white\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Projector \[white\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Red.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Red.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Rock \[Mobile\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/Rock \[Mobile\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/SoccerBall.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/SoccerBall.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/SoccerGoal.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/SoccerGoal.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/SoccerNet \[Particle\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/SoccerNet \[Particle\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/SoftDot \[Particle\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/SoftDot \[Particle\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/SoftSquare \[Particle\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/SoftSquare \[Particle\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/TrafficCone.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/TrafficCone.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/VertexAlpha.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/VertexAlpha.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/ViveDroneRemote.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Materials/ViveDroneRemote.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/_FBX Mesh \[BumbleBee\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/_FBX Mesh \[BumbleBee\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/_FBX Mesh \[Quad\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/_FBX Mesh \[Quad\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/_FBX Mesh \[Toad\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/_FBX Mesh \[Toad\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/_FBX Mesh \[UFO\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/_FBX Mesh \[UFO\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Ball\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Ball\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Cannon\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Cannon\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Domino\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Domino\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Goalie\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Goalie\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Logo\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Logo\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[PlatFormLogos\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[PlatFormLogos\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[SoccerNet\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[SoccerNet\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[TrafficCone\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[TrafficCone\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Turbine\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[Turbine\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[ViveDroneRemote\].FBX
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/FBX Mesh \[ViveDroneRemote\].FBX.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/Materials.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/Materials/Default Material.mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Meshes/Materials/Default Material.mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/HDRI SkyBox \[Day\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/HDRI SkyBox \[Day\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/HDRI SkyBox \[Dusk\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/HDRI SkyBox \[Dusk\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/HDRI SkyLightBox \[Day\].hdr
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/HDRI SkyLightBox \[Day\].hdr.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/HDRI SkyLightBox \[Dusk\].hdr
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/HDRI SkyLightBox \[Dusk\].hdr.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/PhyscialMaterial \[SoccerBall\].physicMaterial
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/PhyscialMaterial \[SoccerBall\].physicMaterial.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/PhysicalMaterial \[Drone\].physicMaterial
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/PhysicalMaterial \[Drone\].physicMaterial.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/PostEffect \[Main\].asset
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/PostEffect \[Main\].asset.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/PostEffect \[Vive\].asset
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/PostEffect \[Vive\].asset.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/ReflectionProbe-0.exr
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/ReflectionProbe-0.exr.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/ReflectionProbe-1.exr
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/ReflectionProbe-1.exr.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/ReflectionProbe-2.exr
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/ReflectionProbe-2.exr.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/RenderMaterial \[DroneCamera\].mat
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/RenderMaterial \[DroneCamera\].mat.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/RenderTexture \[DroneCamera\].renderTexture
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/RenderTexture \[DroneCamera\].renderTexture.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/Terrain \[Playground\].asset
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/Terrain \[Playground\].asset.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_Dirt \[Albedo\](5.000,5.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_Dirt \[Albedo\](5.000,5.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_DirtGrass \[Albedo\](5.000,5.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_DirtGrass \[Albedo\](5.000,5.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_DryGrass \[Albedo\](15.000,15.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_DryGrass \[Albedo\](15.000,15.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_DryGrass2 \[Albedo\](5.000,5.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_DryGrass2 \[Albedo\](5.000,5.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_DryGrass3 \[Albedo\](5.000,5.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_DryGrass3 \[Albedo\](5.000,5.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_RockyGrass \[Albedo\](3.000,3.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Misc/_TerrainAutoUpgrade/layer_RockyGrass \[Albedo\](3.000,3.000)(0.000,0.000)(0.000,0.000,0.000),0.000,0.000.terrainlayer.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/_Drone \[BumbleBee\].prefab
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/_Drone \[BumbleBee\].prefab.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/_Drone \[Quad\].prefab
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/_Drone \[Quad\].prefab.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/_Drone \[Toad\].prefab
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/_Drone \[Toad\].prefab.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/_Drone \[UFO\].prefab
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/_Drone \[UFO\].prefab.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/CannonBall \[Glow\].prefab
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/CannonBall \[Glow\].prefab.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/CannonBall \[Iron\].prefab
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/CannonBall \[Iron\].prefab.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/Drone \[Camera\].prefab
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/Drone \[Camera\].prefab.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/Spark \[Particle Effect\].prefab
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/Spark \[Particle Effect\].prefab.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/VR 3DJoystick.prefab
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Prefabs/VR 3DJoystick.prefab.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scenes/DronePlayground \[Mobile\].unity
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scenes/DronePlayground \[Mobile\].unity.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scenes/DronePlayground \[OpenVR\].unity
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scenes/DronePlayground \[OpenVR\].unity.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scenes/DronePlayground.unity
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scenes/DronePlayground.unity.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scenes/DroneSelection.unity
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scenes/DroneSelection.unity.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/CameraTeleportEffect.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/CameraTeleportEffect.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/cmpl.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/ColliderProxy.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/ColliderProxy.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/DroneDistanceLimit.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/DroneDistanceLimit.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/DroneSelection.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/DroneSelection.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/EnviromentLighting.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/EnviromentLighting.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/LevelManager.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/LevelManager.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/LookAt.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/LookAt.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/NightLights.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/NightLights.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PA_DroneAxisInput.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PA_DroneAxisInput.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PA_DroneCamera.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PA_DroneCamera.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PA_DroneController.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PA_DroneController.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PA_ObjectID.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PA_ObjectID.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PAVR_3DJoystick.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PAVR_3DJoystick.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PAVR_DroneRemote.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/PAVR_DroneRemote.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/ProximityCannon.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/ProximityCannon.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/SoccerGame.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/SoccerGame.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/Turbine.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/Turbine.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/Turnable.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/Turnable.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/WebGLHideMouse.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/WebGLHideMouse.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/cmpl/PA_DronePack.dll
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Scripts/cmpl/PA_DronePack.dll.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/DronePatrolAnimated.shader
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/DronePatrolAnimated.shader.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/RimGlowShader.shader
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/RimGlowShader.shader.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/SpaceProbeAnimated.shader
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/SpaceProbeAnimated.shader.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/StandardShader \[DoubleSided\].shader
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/StandardShader \[DoubleSided\].shader.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/StandardSpecular \[DoubleSided\].shader
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/StandardSpecular \[DoubleSided\].shader.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/UFOAnimated.shader
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/UFOAnimated.shader.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/VertexAlpha.shader
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Shaders/VertexAlpha.shader.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/BumbleBee \[flying\].wav
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/BumbleBee \[flying\].wav.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Cannon \[Charging\].aiff
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Cannon \[Charging\].aiff.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Cannon \[Fire\].wav
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Cannon \[Fire\].wav.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Day \[Ambient\].wav
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Day \[Ambient\].wav.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Drone \[impact\].mp3
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Drone \[impact\].mp3.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Night \[Ambient\].wav
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Night \[Ambient\].wav.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Quad \[flying\].mp3
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Quad \[flying\].mp3.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Quad \[police chatter\].mp3
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Quad \[police chatter\].mp3.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Toad \[flying\].wav
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/Toad \[flying\].wav.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/UFO \[flying\].wav
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Sounds/UFO \[flying\].wav.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Albedo\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Albedo\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Albedo\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Albedo\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Albedo\] 3.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Albedo\] 3.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Albedo\] 4.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Albedo\] 4.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Ambient\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Ambient\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Emissive\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Emissive\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Emissive\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Emissive\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Emissive\] 3.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Emissive\] 3.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Emissive\] 4.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Emissive\] 4.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Metalness\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Metalness\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Metalness\].tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Metalness\].tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Normal\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Normal\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Normal\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_BumbleBee \[Normal\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[albedo-diffuse\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[albedo-diffuse\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[albedo-diffuse\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[albedo-diffuse\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[albedo-diffuse\] 3.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[albedo-diffuse\] 3.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[albedo-diffuse\] 4.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[albedo-diffuse\] 4.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission\] 3.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission\] 3.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission\] 4.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission\] 4.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission-animated\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission-animated\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission-animated\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[emission-animated\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[height\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[height\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[metal-gloss\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[metal-gloss\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[metal-gloss\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[metal-gloss\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[metal-gloss\] 3.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[metal-gloss\] 3.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[metal-gloss\] 4.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[metal-gloss\] 4.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[normal\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[normal\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[normal\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[normal\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[normal\] 3.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[normal\] 3.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[normal\] 4.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[normal\] 4.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[occlusion\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Quad \[occlusion\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Albedo\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Albedo\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Albedo\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Albedo\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Albedo\] 3.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Albedo\] 3.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Albedo\] 4.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Albedo\] 4.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Ambient\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Ambient\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Emissive\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Emissive\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Emissive\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Emissive\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Emissive\] 3.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Emissive\] 3.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Emissive\] 4.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Emissive\] 4.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Normal\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Normal\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Specular\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_Toad \[Specular\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Ambient\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Ambient\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Ambient\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Ambient\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Diffuse\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Diffuse\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Diffuse\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Diffuse\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Emmision\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Emmision\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Emmision\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Emmision\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Emmision\] 3.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Emmision\] 3.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Emmision\] 4.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Emmision\] 4.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Normal\] 1.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Normal\] 1.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Normal\] 2.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/_UFO \[Normal\] 2.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Badge \[diffuse\].tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Badge \[diffuse\].tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Badge \[emission\].tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Badge \[emission\].tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Badge \[metal-gloss\].tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Badge \[metal-gloss\].tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Badge \[normal\].tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Badge \[normal\].tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Cube \[Emission\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Cube \[Emission\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Dirt \[Albedo\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Dirt \[Albedo\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/DirtGrass \[Albedo\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/DirtGrass \[Albedo\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Domino25 \[Albedo\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Domino25 \[Albedo\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Domino25 \[Normal\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Domino25 \[Normal\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Domino36 \[Albedo\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Domino36 \[Albedo\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Domino36 \[Normal\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Domino36 \[Normal\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/DryGrass \[Albedo\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/DryGrass \[Albedo\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/DryGrass2 \[Albedo\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/DryGrass2 \[Albedo\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/DryGrass3 \[Albedo\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/DryGrass3 \[Albedo\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/FanMain \[Emission\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/FanMain \[Emission\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Goalie \[Albedo\].PNG
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Goalie \[Albedo\].PNG.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Logo \[Albedo\].png
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Logo \[Albedo\].png.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Logo \[Emission\].png
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Logo \[Emission\].png.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/PlatformLogos \[Albedo\].png
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/PlatformLogos \[Albedo\].png.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Rock \[Albedo\].png
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Rock \[Albedo\].png.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Rock \[Normal\].png
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/Rock \[Normal\].png.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/RockyGrass \[Albedo\].jpg
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/RockyGrass \[Albedo\].jpg.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/SoccerBall \[Albedo\].png
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/SoccerBall \[Albedo\].png.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/SoccerBall \[Normal\].tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/SoccerBall \[Normal\].tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/SoccerNet \[Albedo\].png
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/SoccerNet \[Albedo\].png.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/TrafficCone \[Albedo\].tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/TrafficCone \[Albedo\].tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/TrafficCone \[Normal\].tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/TrafficCone \[Normal\].tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/ViveDroneRemote_albedo.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/ViveDroneRemote_albedo.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/ViveDroneRemote_normal.tga
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/DronePack/Textures/ViveDroneRemote_normal.tga.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Prefabs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Scripts.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Prefabs/Joystick \[UI\].prefab
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Prefabs/Joystick \[UI\].prefab.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Scripts/PAUI_Joystick.cs
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Scripts/PAUI_Joystick.cs.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/ArrowLeft.png
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/ArrowLeft.png.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/ArrowRight.png
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/ArrowRight.png.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/joystick.png
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/joystick.png.meta
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/joystickHandle.png
+SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/joystickHandle.png.meta
