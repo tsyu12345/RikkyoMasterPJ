@@ -30,7 +30,8 @@ public class DroneAgent: Agent {
         }
 
         // Move the target to a new spot// Targetの位置のリセット
-        target.localPosition = new Vector3(Random.value*8-4, Random.value*8-4, Random.value*8-4);
+        //ステージの範囲内でランダムにTargetの位置を決定
+        target.localPosition = new Vector3(Random.Range(-8f, 8f), Random.Range(0f, 30f), Random.Range(-8f, 8f));
 
     }
 
