@@ -47,7 +47,13 @@ python -m venv .venv
 これにより仮想環境が有効化され、プロンプトの先頭に(.venv)が追加されます。
 以後の作業は、仮想環境が有効化された状態で行ってください。
 
-### 3.3 依存パッケージのインストール
+### 3.3 PyTorchのインストール
+本プロジェクトでは、CUDA版のPyTorchを使用しています。
+そのため、通常のpip installではインストールできないため、以下のコマンドを使用して、PyTorchをインストールしてください。
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117
+```
+### 3.4 その他の依存パッケージのインストール
 依存パッケージのインストールには、以下のコマンドを使用します。
 ```bash
 pip install -r requirements.txt
@@ -60,14 +66,9 @@ pip install -r requirements.txt
 ERROR: Could not find a version that satisfies the requirement torch==2.0.1+cu117 (from versions: 1.7.1, 1.8.0, 1.8.1, 1.9.0, 1.9.1, 1.10.0, 1.10.1, 1.10.2, 1.11.0, 1.12.0, 1.12.1, 1.13.0, 1.13.1, 2.0.0, 2.0.1)
 ERROR: No matching distribution found for torch==2.0.1+cu117
 ```
-これは、PyTorchのインストールに失敗したことを意味しますが、PyTorchのインストールは後述の手順で行うので、このエラーは無視してください。
+これは、PyTorchのインストールに失敗したことを意味しますが、PyTorchのインストールは前述の手順で行うので、このエラーは無視して手順3.3をもう一度実行して下さい。
 
-### 3.3.1 PyTorchのインストール
-本プロジェクトでは、CUDA版のPyTorchを使用しています。
-そのため、通常のpip installではインストールできないため、以下のコマンドを使用して、PyTorchをインストールしてください。
-```bash
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117
-```
+
 ### 3.4 大容量ファイルのダウンロード
 本プロジェクトでは、PLATEAUの大容量ファイルを扱うために、一部の依存ファイルをGoogle Driveに置いています。
 該当のファイルをダウンロードし、【2.大容量ファイルの扱い】に記載のディレクトリに配置してください。
