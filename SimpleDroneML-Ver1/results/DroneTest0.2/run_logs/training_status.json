@@ -1,23 +1,23 @@
 {
-    "DroneBehavior": {
+    "DroneAgent": {
         "checkpoints": [
             {
-                "steps": 5722,
-                "file_path": "results\\DroneTest0.2\\DroneBehavior\\DroneBehavior-5722.onnx",
-                "reward": 0.0,
-                "creation_time": 1686238854.5072827,
+                "steps": 5440,
+                "file_path": "results\\DroneTest0.2\\DroneAgent\\DroneAgent-5440.onnx",
+                "reward": -5.0,
+                "creation_time": 1686750463.4755554,
                 "auxillary_file_paths": [
-                    "results\\DroneTest0.2\\DroneBehavior\\DroneBehavior-5722.pt"
+                    "results\\DroneTest0.2\\DroneAgent\\DroneAgent-5440.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 5722,
-            "file_path": "results\\DroneTest0.2\\DroneBehavior.onnx",
-            "reward": 0.0,
-            "creation_time": 1686238854.5072827,
+            "steps": 5440,
+            "file_path": "results\\DroneTest0.2\\DroneAgent.onnx",
+            "reward": -5.0,
+            "creation_time": 1686750463.4755554,
             "auxillary_file_paths": [
-                "results\\DroneTest0.2\\DroneBehavior\\DroneBehavior-5722.pt"
+                "results\\DroneTest0.2\\DroneAgent\\DroneAgent-5440.pt"
             ]
         }
     },
