@@ -2,22 +2,22 @@
     "DroneAgent": {
         "checkpoints": [
             {
-                "steps": 5440,
-                "file_path": "results\\DroneTest0.2\\DroneAgent\\DroneAgent-5440.onnx",
+                "steps": 37543,
+                "file_path": "results\\DroneTest0.2\\DroneAgent\\DroneAgent-37543.onnx",
                 "reward": -5.0,
-                "creation_time": 1686750463.4755554,
+                "creation_time": 1687085709.9964638,
                 "auxillary_file_paths": [
-                    "results\\DroneTest0.2\\DroneAgent\\DroneAgent-5440.pt"
+                    "results\\DroneTest0.2\\DroneAgent\\DroneAgent-37543.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 5440,
+            "steps": 37543,
             "file_path": "results\\DroneTest0.2\\DroneAgent.onnx",
             "reward": -5.0,
-            "creation_time": 1686750463.4755554,
+            "creation_time": 1687085709.9964638,
             "auxillary_file_paths": [
-                "results\\DroneTest0.2\\DroneAgent\\DroneAgent-5440.pt"
+                "results\\DroneTest0.2\\DroneAgent\\DroneAgent-37543.pt"
             ]
         }
     },
