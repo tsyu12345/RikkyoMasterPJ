@@ -5,7 +5,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 
-public class DroneAgent: Agent {
+public class DroneAgent_Regacy: Agent {
 
     [SerializeField] private Transform target;
     public Transform startZone;
