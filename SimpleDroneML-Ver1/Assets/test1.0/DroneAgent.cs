@@ -37,11 +37,16 @@ public class DroneAgent : Agent {
         // エピソード開始時にドローンに初期推進力を与える
         playerRb.AddForce(transform.TransformDirection(new Vector3(0, 200.0f, 200.0f)));
 
-        //targetをフィールド内のランダムな位置に移動させる,y=0は固定
+        //targetをフィールド内のランダムな位置に移動させる,y=0は固定。tag : obstacleと重ならないようにする.
         target.localPosition = new Vector3(Random.Range(-8f, 8f), 0, Random.Range(-8f, 8f));
 
     }
 
+
+    /**TODO : 今はCheckPoint通過による報酬付与になっているのでTarget接触時に直す。
+    */
+
+    /**このメソッドは、Agentがオブジェクトに接触したときに呼ばれるunityのコールバック関数**/
     private void OnTriggerEnter(Collider other) {
         // タグが"CheckPoint"のオブジェクトに衝突した場合
         if (other.CompareTag("CheckPoint")) {
