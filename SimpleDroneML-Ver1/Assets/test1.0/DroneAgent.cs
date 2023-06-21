@@ -13,6 +13,13 @@ public class DroneAgent : Agent {
     public float tiltVel = 2f;
 
     public Transform target;
+    public float goalThreshold;
+
+    //フィールドの床
+    public GameObject plane;
+    public float limitAltitude = 30f;
+
+    public Transform startPlace;
 
     private Rigidbody playerRb;
     private float tiltAng = 45f;
@@ -23,13 +30,20 @@ public class DroneAgent : Agent {
         if(target == null) {
             throw new System.ArgumentNullException("target", "Arguments 'Target' is required");
         }
+        if(plane == null) {
+            throw new System.ArgumentNullException("plane", "Arguments 'Plane' is required");
+        }
+        if(startPlace == null) {
+            throw new System.ArgumentNullException("startPlace", "Arguments 'StartPlace' is required");
+        }
     }
 
     public override void OnEpisodeBegin() {
+        Debug.Log("OnEpisodeBegin() called");
         // 初期化処理
         cptCount = 0;
-        //所属するフィールド内のx=0, y=5, z=0の位置にドローンを移動させる
-        transform.localPosition = new Vector3(0, 5, 0);
+        //startPlaceの場所へ位置を初期化（y = 5は固定）
+        transform.localPosition = new Vector3(startPlace.localPosition.x, 5.0f, startPlace.localPosition.z);
         transform.rotation = Quaternion.identity;
         playerRb.velocity = Vector3.zero;
         playerRb.angularVelocity = Vector3.zero;
@@ -37,9 +51,8 @@ public class DroneAgent : Agent {
         // エピソード開始時にドローンに初期推進力を与える
         playerRb.AddForce(transform.TransformDirection(new Vector3(0, 200.0f, 200.0f)));
 
-        //targetをフィールド内のランダムな位置に移動させる,y=0は固定。tag : obstacleと重ならないようにする.
-        target.localPosition = new Vector3(Random.Range(-8f, 8f), 0, Random.Range(-8f, 8f));
-
+        //targetの位置をランダムに変更
+        target.localPosition = new Vector3(Random.Range(-4f, 4f), 1.0f, Random.Range(-4.8f, 4.8f));
     }
 
 
@@ -48,32 +61,92 @@ public class DroneAgent : Agent {
 
     /**このメソッドは、Agentがオブジェクトに接触したときに呼ばれるunityのコールバック関数**/
     private void OnTriggerEnter(Collider other) {
-        // タグが"CheckPoint"のオブジェクトに衝突した場合
-        if (other.CompareTag("CheckPoint")) {
-            // 報酬を追加し、チェックポイントカウントを増やす
-            AddReward(1.0f);
-            cptCount++;
-            // すべてのチェックポイントを通過した場合
-            if (cptCount >= 4) {
-                // ゴール報酬を追加し、エピソードを終了する
-                AddReward(10.0f);
-                EndEpisode();
-            }
-        } else if (other.CompareTag("Wall")) { // タグが"Wall"のオブジェクトに衝突した場合
+        if (other.CompareTag("obstacle")) { // タグが"Wall"のオブジェクトに衝突した場合
             // ペナルティ報酬を追加し、エピソードを終了する
-            AddReward(-5.0f);
+            AddReward(-1.0f);
+            EndEpisode();
+        } else if(other.CompareTag("target")) { // タグが"target"のオブジェクトに衝突した場合
+            AddReward(10.0f);
             EndEpisode();
         }
     }
 
+
+    /// <summary>
+    /// エージェントの観測を定義するメソッド
+    /// 今回は、ドローンの速度と回転（サイズ6）とターゲットの位置（サイズ２）の計8サイズを観測する
+    /// </summary>
     public override void CollectObservations(VectorSensor sensor) {
         // ドローンの速度を観察
         sensor.AddObservation(playerRb.velocity);
         // ドローンの回転を観察
         sensor.AddObservation(transform.rotation.eulerAngles);
+
+        // ターゲットの位置を観察(x,z)
+        sensor.AddObservation(target.localPosition.x);
+        sensor.AddObservation(target.localPosition.z);
     }
 
     public override void OnActionReceived(ActionBuffers actions) {
+        //入力に基づくドローンの制御を行う
+        Operation(actions);
+
+        // ターゲットとの距離を計算
+        float distanceToTarget = Vector3.Distance(transform.localPosition, target.localPosition);
+        if(distanceToTarget < goalThreshold) {
+            // ゴール報酬を追加し、エピソードを終了する
+            AddReward(10.0f);
+            EndEpisode();
+        }
+        
+        if(isOutRange(limitAltitude)) {
+            // ペナルティ報酬を追加し、エピソードを終了する
+            AddReward(-1.0f);
+            EndEpisode();
+        }
+    }
+
+    /// <summary>
+    /// ドローンがフィールド（Plane）外に出たかどうかを判定するメソッド
+    /// </summary>
+    /// <param name="yMax">フィールドの高さ(限界高度)</param>
+    /// <returns>フィールド外に出た場合はtrue、そうでない場合はfalseを返す</returns>
+    private bool isOutRange(float yMax) {
+        
+        // PlaneオブジェクトのTransformコンポーネントを取得
+        Transform planeTransform = plane.GetComponent<Transform>();
+
+        // Planeオブジェクトのローカルスケールを取得
+        Vector3 planeLocalScale = planeTransform.localScale;
+
+        // Planeオブジェクトの中心のローカル座標を取得
+        Vector3 planeCenterLocalPosition = planeTransform.localPosition;
+
+        // Planeオブジェクトの4辺のローカル座標を計算
+        Vector3 leftEdgeLocalPosition = planeCenterLocalPosition + new Vector3(-planeLocalScale.x / 2, 0, 0);
+        Vector3 rightEdgeLocalPosition = planeCenterLocalPosition + new Vector3(planeLocalScale.x / 2, 0, 0);
+        Vector3 topEdgeLocalPosition = planeCenterLocalPosition + new Vector3(0, 0, planeLocalScale.z / 2);
+        Vector3 bottomEdgeLocalPosition = planeCenterLocalPosition + new Vector3(0, 0, -planeLocalScale.z / 2);
+
+        //ドローンの位置がフィールドの範囲外かどうかを判定
+        var isInXRange = transform.localPosition.x < rightEdgeLocalPosition.x && transform.localPosition.x > leftEdgeLocalPosition.x;
+        var isInYRange = transform.localPosition.y < yMax && transform.localPosition.y > 0;
+        var isInZRange = transform.localPosition.z < topEdgeLocalPosition.z && transform.localPosition.z > bottomEdgeLocalPosition.z;
+
+        if(!isInYRange || !isInXRange || !isInZRange) {
+            Debug.Log("Out of range");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    /// <summary>
+    /// ドローンの制御系をまとめたラッパメソッド
+    /// </summary>
+    /// <param name="actions">Agent.OnActionReceived()の第１引数をそのまま代入</param>
+    private void Operation(ActionBuffers actions) {
         // 入力値を取得
         float horInput = actions.ContinuousActions[0];
         float verInput = actions.ContinuousActions[1];

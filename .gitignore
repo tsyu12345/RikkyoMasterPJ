@@ -2,6 +2,7 @@
 *.zip
 14100_yokohama-shi_2020_citygml_5_op
 13100_tokyo23-ku_2022_citygml_1_2_op
+MasterPJ.code-workspace
 
 .venv
 
@@ -594,3 +595,4 @@ SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/joystick.png
 SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/joystick.png.meta
 SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/joystickHandle.png
 SimpleDroneML-Ver1/Assets/ProfessionalAssets/UIPack/Sprites/joystickHandle.png.meta
+SimpleDroneML-Ver1/results/
