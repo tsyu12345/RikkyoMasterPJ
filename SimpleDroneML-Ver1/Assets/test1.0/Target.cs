@@ -28,7 +28,7 @@ public class Target : MonoBehaviour {
     */
     void OnCollisionEnter(Collision collision) {
         if(collision.gameObject.tag == "obstacle") {
-            transform.localPosition = new Vector3(Random.Range(-4f, 4f), 1.0f, Random.Range(-4.8f, 4.8f));
+            transform.localPosition = new Vector3(Random.Range(-4f, 4f), Random.Range(1.0f, 25), Random.Range(-4.8f, 4.8f));
         }
     }
 

@@ -24,6 +24,9 @@ public class DroneAgent : Agent {
     private Rigidbody playerRb;
     private float tiltAng = 45f;
     private int cptCount;
+    private float lowAltitudeTime = 0f;
+    private float lowAltitudeThreshold = 1f; // ドローンがこの高さ以下にいるときに計測を開始
+    private float timeThreshold = 5f; // この時間以上同じ高さにいるとペナルティを与える
 
     public override void Initialize() {
         playerRb = GetComponent<Rigidbody>();
@@ -52,7 +55,7 @@ public class DroneAgent : Agent {
         playerRb.AddForce(transform.TransformDirection(new Vector3(0, 200.0f, 200.0f)));
 
         //targetの位置をランダムに変更
-        target.localPosition = new Vector3(Random.Range(-4f, 4f), 1.0f, Random.Range(-4.8f, 4.8f));
+        target.localPosition = new Vector3(Random.Range(-4f, 4f), Random.Range(1.0f, limitAltitude - 5), Random.Range(-4.8f, 4.8f));
     }
 
 
@@ -63,7 +66,7 @@ public class DroneAgent : Agent {
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("obstacle")) { // タグが"Wall"のオブジェクトに衝突した場合
             // ペナルティ報酬を追加し、エピソードを終了する
-            AddReward(-1.0f);
+            AddReward(-5.0f);
             EndEpisode();
         } else if(other.CompareTag("target")) { // タグが"target"のオブジェクトに衝突した場合
             AddReward(10.0f);
@@ -74,17 +77,18 @@ public class DroneAgent : Agent {
 
     /// <summary>
     /// エージェントの観測を定義するメソッド
-    /// 今回は、ドローンの速度と回転（サイズ6）とターゲットの位置（サイズ２）の計8サイズを観測する
+    /// 今回は、ドローンの速度と回転,位置（サイズ９）とターゲットの位置（サイズ3）の計１２サイズを観測する
     /// </summary>
     public override void CollectObservations(VectorSensor sensor) {
         // ドローンの速度を観察
         sensor.AddObservation(playerRb.velocity);
         // ドローンの回転を観察
         sensor.AddObservation(transform.rotation.eulerAngles);
+        //ドローンの位置を観察
+        sensor.AddObservation(transform.localPosition);
 
-        // ターゲットの位置を観察(x,z)
-        sensor.AddObservation(target.localPosition.x);
-        sensor.AddObservation(target.localPosition.z);
+        // ターゲットの位置を観察(x,y,z)
+        sensor.AddObservation(target.localPosition);
     }
 
     public override void OnActionReceived(ActionBuffers actions) {
@@ -97,11 +101,29 @@ public class DroneAgent : Agent {
             // ゴール報酬を追加し、エピソードを終了する
             AddReward(10.0f);
             EndEpisode();
+        } else {
+            AddReward(0.0f);
         }
         
+        //異なる高度への移動を促すため、高度が変わらない場合はペナルティを与える
+            // ドローンの高さが一定値以下であるかチェック
+        if (transform.localPosition.y <= lowAltitudeThreshold) {
+            // 一定の高さ以下であれば、時間を計測
+            lowAltitudeTime += Time.fixedDeltaTime;
+        } else {
+            // 一定の高さ以上であれば、時間をリセット
+            lowAltitudeTime = 0f;
+        }
+
+        // 一定の時間以上同じ高さにいる場合、ペナルティを与える
+        if (lowAltitudeTime >= timeThreshold) {
+            AddReward(-0.5f);
+            lowAltitudeTime = 0f; // 時間をリセット
+        }
+
         if(isOutRange(limitAltitude)) {
             // ペナルティ報酬を追加し、エピソードを終了する
-            AddReward(-1.0f);
+            AddReward(-5.0f);
             EndEpisode();
         }
     }
