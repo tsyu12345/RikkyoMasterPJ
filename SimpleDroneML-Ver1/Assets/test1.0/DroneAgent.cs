@@ -55,7 +55,7 @@ public class DroneAgent : Agent {
         playerRb.AddForce(transform.TransformDirection(new Vector3(0, 200.0f, 200.0f)));
 
         //targetの位置をランダムに変更
-        target.localPosition = new Vector3(Random.Range(-4f, 4f), Random.Range(1.0f, limitAltitude - 5), Random.Range(-4.8f, 4.8f));
+        target.localPosition = new Vector3(Random.Range(-2f, 2f), Random.Range(1.0f, 2.0f), Random.Range(-2f, 2f));
     }
 
 
