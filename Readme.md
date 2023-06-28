@@ -77,6 +77,20 @@ ERROR: No matching distribution found for torch==2.0.1+cu117
 * https://drive.google.com/drive/folders/11aYBX--Aq5o3j_lfgYaOccpdMPw6VTEe?usp=sharing
 
 
+## 4.学習の再開
+既存モデルに追加学習を行う場合は、以下のコマンドを使用してください。
+```bash
+mlagents-learn path/to/your/config.yaml --run-id=yourModelName --resume
+```
+
+## 5.学習結果の確認
+TensorBoardを使用して、学習結果を確認することができます。
+以下のコマンドを使用して、TensorBoardを起動してください。
+```bash
+tensorboard --logdir your/model/dir
+```
+
+
 
 
 
