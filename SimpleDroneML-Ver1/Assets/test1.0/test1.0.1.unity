@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1446898212025606290, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: goalThreshold
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 1494666132668562826, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -182,9 +186,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8675445659726561561, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 27.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
       propertyPath: m_BehaviorType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: m_BrainParameters.NumStackedVectorObservations
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
@@ -195,6 +211,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1446898212025606290, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: goalThreshold
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 1494666132668562826, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -248,8 +268,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
       propertyPath: m_BehaviorType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: m_BrainParameters.NumStackedVectorObservations
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
@@ -260,6 +288,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1446898212025606290, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: goalThreshold
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 1494666132668562826, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -313,8 +345,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
       propertyPath: m_BehaviorType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: m_BrainParameters.NumStackedVectorObservations
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
@@ -419,6 +459,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1446898212025606290, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: goalThreshold
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 1494666132668562826, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -472,8 +516,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
       propertyPath: m_BehaviorType
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675445659726561566, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}
+      propertyPath: m_BrainParameters.NumStackedVectorObservations
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b844b6fef84daa469ebbaa77f7a26da, type: 3}

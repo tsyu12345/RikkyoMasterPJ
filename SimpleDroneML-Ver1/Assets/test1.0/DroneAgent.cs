@@ -14,6 +14,7 @@ public class DroneAgent : Agent {
 
     public Transform target;
     public float goalThreshold;
+    private bool isReachTarget = false;
 
     //フィールドの床
     public GameObject plane;
@@ -46,16 +47,22 @@ public class DroneAgent : Agent {
         // 初期化処理
         cptCount = 0;
         //startPlaceの場所へ位置を初期化（y = 5は固定）
-        transform.localPosition = new Vector3(startPlace.localPosition.x, 5.0f, startPlace.localPosition.z);
+        transform.localPosition = new Vector3(startPlace.localPosition.x, 20.0f, startPlace.localPosition.z);
         transform.rotation = Quaternion.identity;
         playerRb.velocity = Vector3.zero;
         playerRb.angularVelocity = Vector3.zero;
 
         // エピソード開始時にドローンに初期推進力を与える
-        playerRb.AddForce(transform.TransformDirection(new Vector3(0, 200.0f, 200.0f)));
+        playerRb.AddForce(transform.TransformDirection(new Vector3(0, 200.0f, 0.0f)));
 
         //targetの位置をランダムに変更
-        target.localPosition = new Vector3(Random.Range(-2f, 2f), Random.Range(1.0f, 2.0f), Random.Range(-2f, 2f));
+        if(isReachTarget) {
+            target.localPosition = new Vector3(Random.Range(-2f, 2f), Random.Range(1.0f, 2.0f), Random.Range(-2f, 2f));
+        } else {
+            //targetの位置を変更しない
+            target.localPosition = target.localPosition;
+        }
+        
     }
 
 
@@ -66,10 +73,11 @@ public class DroneAgent : Agent {
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("obstacle")) { // タグが"Wall"のオブジェクトに衝突した場合
             // ペナルティ報酬を追加し、エピソードを終了する
-            AddReward(-5.0f);
+            AddReward(-1.0f);
             EndEpisode();
         } else if(other.CompareTag("target")) { // タグが"target"のオブジェクトに衝突した場合
-            AddReward(10.0f);
+            AddReward(1.0f);
+            isReachTarget = true;
             EndEpisode();
         }
     }
@@ -99,10 +107,14 @@ public class DroneAgent : Agent {
         float distanceToTarget = Vector3.Distance(transform.localPosition, target.localPosition);
         if(distanceToTarget < goalThreshold) {
             // ゴール報酬を追加し、エピソードを終了する
-            AddReward(10.0f);
+            AddReward(1.0f);
+            this.isReachTarget = true;
             EndEpisode();
+            Debug.Log("close target");
+
         } else {
-            AddReward(0.0f);
+            AddReward(-1.0f);
+            this.isReachTarget = false;
         }
         
         //異なる高度への移動を促すため、高度が変わらない場合はペナルティを与える
@@ -115,15 +127,9 @@ public class DroneAgent : Agent {
             lowAltitudeTime = 0f;
         }
 
-        // 一定の時間以上同じ高さにいる場合、ペナルティを与える
-        if (lowAltitudeTime >= timeThreshold) {
-            AddReward(-0.5f);
-            lowAltitudeTime = 0f; // 時間をリセット
-        }
-
         if(isOutRange(limitAltitude)) {
             // ペナルティ報酬を追加し、エピソードを終了する
-            AddReward(-5.0f);
+            //AddReward(-1.0f);
             EndEpisode();
         }
     }
