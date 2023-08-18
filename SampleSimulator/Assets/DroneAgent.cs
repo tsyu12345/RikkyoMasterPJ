@@ -28,6 +28,34 @@ namespace Drone {
         public bool isGetSupplie = false; // 物資を持っているかどうか
 
         private Rigidbody Rbody;
+
+
+        void Update() {
+
+            //倉庫の上空に来たら報酬を与える
+            var isOnWarehouse = isOnAiry("warehouse", 8.0f);
+            if(isOnWarehouse && !isGetSupplie) {
+                Debug.Log("[Agent] Drone now on warehouse");
+                AddReward(0.5f);
+            }
+            //Shelterに物資を運んだら報酬を与える
+            var isOnShelter = isOnAiry("shelter", 8.0f);
+            if(isOnShelter && isGetSupplie) {
+                Debug.Log("[Agent] Drone now on shelter");
+                AddReward(0.5f);
+            }
+        }
+
+        /**
+        オブジェクトとの衝突イベントハンドラー
+        */
+        void OnTriggerEnter(Collider other) {
+            if(other.gameObject.tag == "obstacle") {
+                Debug.Log("[Agent] Hit Obstacle");
+                AddReward(-1.0f);
+                EndEpisode();
+            }
+        }
         public override void Initialize() {
             Rbody = GetComponent<Rigidbody>();
             if(yLimit == 0) {
@@ -38,19 +66,37 @@ namespace Drone {
         public override void OnEpisodeBegin() {
             // ドローンの位置をDronePlatformの位置に初期化
             Vector3 pos = new Vector3(DronePlatform.transform.localPosition.x, DronePlatform.transform.localPosition.y + 1f, DronePlatform.transform.localPosition.z);
+            transform.localPosition = pos;
+            //物資を倉庫に戻す
+            Supplie.transform.parent = Warehouse.transform;
         }
 
-        public override void CollectObservations(VectorSensor sensor) {}
+        public override void CollectObservations(VectorSensor sensor) {
+            // ドローンの速度を観察
+            sensor.AddObservation(Rbody.velocity);
+            // ドローンの回転を観察
+            sensor.AddObservation(transform.rotation.eulerAngles);
+        }
+
+
+
 
         public override void OnActionReceived(ActionBuffers actions) {
             Control(actions);
             DiscreateControl(actions);
 
             //Fieldから離れたらリセット
+            if(transform.localPosition.y > yLimit || transform.localPosition.y < 0) {
+                Debug.Log("[Agent] Out of range");
+                EndEpisode();
+                AddReward(-1.0f);
+            }
+            
+            /*
             if(isOutRange(yLimit)) {
                 Debug.Log("Out of range");
                 EndEpisode();
-            }
+            }*/
         }
 
         public override void Heuristic(in ActionBuffers actionsOut) {
@@ -62,9 +108,9 @@ namespace Drone {
             float rotInput = Input.GetAxis("Mouse X");
             //　ドローンの操作系:Discrete な行動
             //物資をとる
-            int getMode = Input.GetKey(KeyCode.G) ? 1 : 0;
+            bool getMode = Input.GetKey(KeyCode.G) ? true : false;
             // 物資を離す
-            int releaseMode = Input.GetKey(KeyCode.R) ? 1 : 0;
+            bool releaseMode = Input.GetKey(KeyCode.R) ? true : false;
 
             // 入力をエージェントのアクションに割り当てます
             var continuousAct = actionsOut.ContinuousActions;
@@ -76,8 +122,12 @@ namespace Drone {
 
             var discreteAct = actionsOut.DiscreteActions;
             discreteAct[0] = 0;
-            if (getMode == 1) discreteAct[0] = 1;
-            if (releaseMode == 1) discreteAct[0] = 2;
+            if (getMode) {
+                discreteAct[0] = 1;
+            }
+            if (releaseMode) {
+                discreteAct[0] = 2;
+            }
         }
 
         /// <summary>
@@ -127,29 +177,36 @@ namespace Drone {
         /// <param name="actions">エージェントの行動選択</param>//  
         private void DiscreateControl(ActionBuffers actions) {
             // 入力値を取得
-            int getMode = actions.DiscreteActions[0];
-            int releaseMode = actions.DiscreteActions[0];
-
+            int action = actions.DiscreteActions[0];
+            var getMode = action == 1 ? true : false;
+            var releaseMode = action == 2 ? true : false;
+                
             //ドローンの位置とWarehouseの位置を取得し、ドローンがWarehouseの上にいるかどうかを判定
-            var allowance = 3.0f;
-            var isOnWarehouse = transform.localPosition.x < Warehouse.transform.localPosition.x + allowance && transform.localPosition.x > Warehouse.transform.localPosition.x - allowance
-                && transform.localPosition.z < Warehouse.transform.localPosition.z + allowance && transform.localPosition.z > Warehouse.transform.localPosition.z - allowance;
+            var isOnWarehouse = isOnAiry("warehouse", 8.0f);
 
             // 物資を取る
-            if (getMode == 1 && isOnWarehouse && !isGetSupplie) {
-                Debug.Log("Get Supplie");
+            if (getMode && isOnWarehouse && !isGetSupplie) {
+                Debug.Log("[Agent] Get Supplie");
                 // 物資を取る : オブジェクトの親をドローンに設定
                 Supplie.transform.parent = transform;
                 // 物資の位置をドローンの下部に設定
                 Supplie.transform.localPosition = new Vector3(0, -0.7f, 0);
                 isGetSupplie = true;
+                AddReward(1.0f);
             }
 
-            // 物資を離す
-            if (releaseMode == 1) {
+            // 避難所の上空で物資を離す
+            var isOnShelter = isOnAiry("shelter", 8.0f);
+            if (releaseMode && isGetSupplie) {
+                Debug.Log("[Agent] Release Supplie");
                 // 物資を離す
                 Supplie.transform.parent = Field.transform;
                 isGetSupplie = false;
+                if(isOnShelter) {
+                    AddReward(1.0f);
+                } else {
+                    AddReward(-1.0f);
+                }
             }
         }
 
@@ -186,6 +243,15 @@ namespace Drone {
             } else {
                 return false;
             }
+        }
+
+
+        private bool isOnAiry(string tagName, float allowance) {
+            var gObject = GameObject.FindWithTag(tagName);
+            var position = gObject.transform.localPosition;
+            var isOnAiry = transform.localPosition.x < position.x + allowance && transform.localPosition.x > position.x - allowance
+                && transform.localPosition.z < position.z + allowance && transform.localPosition.z > position.z - allowance;
+            return isOnAiry;
         }
 
     }
