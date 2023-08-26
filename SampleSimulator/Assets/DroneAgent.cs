@@ -197,19 +197,18 @@ namespace Drone {
 
             // 避難所の上空で物資を離す
             var isOnShelter = isOnAiry("shelter", 8.0f);
-            if (releaseMode && isGetSupplie) {
+            if (isOnShelter && isGetSupplie) {
                 Debug.Log("[Agent] Release Supplie");
                 // 物資を離す
                 Supplie.transform.parent = Field.transform;
                 isGetSupplie = false;
-                if(isOnShelter) {
+                if(releaseMode) {
                     AddReward(1.0f);
                 } else {
                     AddReward(-1.0f);
                 }
             }
         }
-
 
         /// <summary>
         /// ドローンがフィールド（Field）外に出たかどうかを判定するメソッド
