@@ -46,6 +46,19 @@ namespace Drone {
                 Debug.Log("[Agent] Drone now on shelter");
                 AddReward(0.5f);
             }
+
+            //倉庫との距離が近い場合は報酬を与える
+            var distanceToWarehouse = Vector3.Distance(transform.localPosition, Warehouse.transform.localPosition);
+            if(distanceToWarehouse < 10.0f) {
+                Debug.Log("[Agent] Drone is close to warehouse");
+                AddReward(0.5f);
+            }
+            //物資を持っていて、避難所との距離が近い場合は報酬を与える
+            var distanceToShelter = Vector3.Distance(transform.localPosition, Warehouse.transform.localPosition);
+            if(distanceToShelter < 10.0f && isGetSupplie) {
+                Debug.Log("[Agent] Drone is close to shelter");
+                AddReward(0.5f);
+            }
         }
 
         /**
@@ -194,14 +207,18 @@ namespace Drone {
             var isOnWarehouse = isOnAiry("warehouse", 8.0f);
 
             // 物資を取る
-            if (getMode && isOnWarehouse && !isGetSupplie) {
-                Debug.Log("[Agent] Get Supplie");
-                // 物資を取る : オブジェクトの親をドローンに設定
-                Supplie.transform.parent = transform;
-                // 物資の位置をドローンの下部に設定
-                Supplie.transform.localPosition = new Vector3(0, -0.7f, 0);
-                isGetSupplie = true;
-                AddReward(1.0f);
+            if (getMode) { 
+                if(isOnWarehouse && !isGetSupplie) {
+                    Debug.Log("[Agent] Get Supplie");
+                    // 物資を取る : オブジェクトの親をドローンに設定
+                    Supplie.transform.parent = transform;
+                    // 物資の位置をドローンの下部に設定
+                    Supplie.transform.localPosition = new Vector3(0, -0.7f, 0);
+                    isGetSupplie = true;
+                    AddReward(1.0f);
+                } else {
+                    AddReward(-1.0f);
+                }
             }
 
             // 避難所の上空で物資を離す
