@@ -20,6 +20,7 @@ namespace Drone {
         public float verticalForce = 20f; // 上昇・下降速度
         public float forwardTiltAmount = 0; // 前傾角
         public float sidewaysTiltAmount = 0; // 横傾角
+        public float rotAmount = 0; // 回転角
         public float tiltVel = 2f; // 傾きの変化速度
         public float tiltAng = 45f; // 傾きの最大角度
         public float yLimit = 50.0f; //高度制限
@@ -28,6 +29,7 @@ namespace Drone {
         public bool isGetSupplie = false; // 物資を持っているかどうか
 
         private Rigidbody Rbody;
+        private float rot;
 
 
         void Update() {
@@ -101,11 +103,18 @@ namespace Drone {
 
         public override void Heuristic(in ActionBuffers actionsOut) {
             // ドローンの操縦系:Continuous な行動
-            float horInput = Input.GetAxis("Horizontal");
-            float verInput = Input.GetAxis("Vertical");
-            float upInput = Input.GetKey(KeyCode.Q) ? 1 : 0;
-            float downInput = Input.GetKey(KeyCode.E) ? 1 : 0;
-            float rotInput = Input.GetAxis("Mouse X");
+            
+            float horInput = MyGetAxis("Horizontal");
+            float verInput = MyGetAxis("Vertical");
+            float upInput = Input.GetKey(KeyCode.Q) ? 1f : 0f;
+            float downInput = Input.GetKey(KeyCode.E) ? 1f : 0f;
+            float rotInput = 0f;
+            float rightRotInput = Input.GetKey(KeyCode.RightArrow) ? 1f : 0f;
+            float leftRotInput = Input.GetKey(KeyCode.LeftArrow) ? 1f : 0f;
+            //Debug.Log($"[Agent] Rotation Input:{rotInput}");
+            //Rotを割り当てる
+            rotInput = rightRotInput - leftRotInput;
+
             //　ドローンの操作系:Discrete な行動
             //物資をとる
             bool getMode = Input.GetKey(KeyCode.G) ? true : false;
@@ -119,6 +128,7 @@ namespace Drone {
             continuousAct[2] = upInput;
             continuousAct[3] = downInput;
             continuousAct[4] = rotInput;
+            rot = rotInput;
 
             var discreteAct = actionsOut.DiscreteActions;
             discreteAct[0] = 0;
@@ -159,16 +169,15 @@ namespace Drone {
                 Rbody.AddForce(Vector3.down * verticalForce * downInput);
             }
 
-            // ドローンの回転処理（Y軸周り）
-            transform.Rotate(0, rotInput * rotSpeed * Time.fixedDeltaTime, 0);
 
             // 入力に基づいて傾きを計算
             sidewaysTiltAmount = Mathf.Lerp(sidewaysTiltAmount, -horInput * tiltAng, tiltVel * Time.fixedDeltaTime);
             forwardTiltAmount = Mathf.Lerp(forwardTiltAmount, verInput * tiltAng, tiltVel * Time.fixedDeltaTime);
+            rotAmount += rotInput * rotSpeed * Time.fixedDeltaTime;
 
-            // 傾きをドローンに適用
-            Quaternion targetRot = Quaternion.Euler(forwardTiltAmount, 0, sidewaysTiltAmount);
-            transform.localRotation = targetRot;
+            // 傾き・回転をドローンに適用
+            Quaternion targetRot = Quaternion.Euler(forwardTiltAmount, rotAmount, sidewaysTiltAmount);
+            transform.rotation = targetRot;
         }
 
         /// <summary>
@@ -251,6 +260,31 @@ namespace Drone {
             var isOnAiry = transform.localPosition.x < position.x + allowance && transform.localPosition.x > position.x - allowance
                 && transform.localPosition.z < position.z + allowance && transform.localPosition.z > position.z - allowance;
             return isOnAiry;
+        }
+
+
+        private float MyGetAxis(string axisName) {
+            float axis = 0;
+            switch (axisName) {
+                case "Horizontal":
+                    if(Input.GetKey(KeyCode.D)) {
+                        axis = 1f;
+                    } else if(Input.GetKey(KeyCode.A)) {
+                        axis = -1f;
+                    }
+                    break;
+                
+                case "Vertical":
+                    if(Input.GetKey(KeyCode.W)) {
+                        axis = 1f;
+                    } else if(Input.GetKey(KeyCode.S)) {
+                        axis = -1f;
+                    }
+                    break;
+            }
+            //線形補間の利用
+            axis = Mathf.Lerp(0, axis, 0.5f);
+            return axis;
         }
 
     }
