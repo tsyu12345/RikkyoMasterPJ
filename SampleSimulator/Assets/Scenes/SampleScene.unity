@@ -123,6 +123,69 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &316321020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 316321021}
+  - component: {fileID: 316321022}
+  m_Layer: 0
+  m_Name: SensorCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &316321021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316321020}
+  m_LocalRotation: {x: 0.24397026, y: -0, z: -0, w: 0.9697827}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2067533678}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 28.242, y: 0, z: 0}
+--- !u!114 &316321022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316321020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensorCenter
+  m_DetectableTags:
+  - obstacle
+  - warehouse
+  - shelter
+  - supplie
+  m_RaysPerDirection: 6
+  m_MaxRayDegrees: 70
+  m_SphereCastRadius: 0.5
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  m_ObservationStacks: 1
+  m_AlternatingRayOrder: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: 0
 --- !u!1 &399097833
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,6 +434,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2240881192534159605, guid: 973e30aed52df874a8a9b583c4cf06d6, type: 3}
   m_PrefabInstance: {fileID: 495642511}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &611036270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 611036271}
+  - component: {fileID: 611036272}
+  m_Layer: 0
+  m_Name: WareHouseRangeBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &611036271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611036270}
+  m_LocalRotation: {x: -0.72247344, y: -0, z: -0, w: 0.69139874}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 475800776}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: -92.518, y: 0, z: 0}
+--- !u!65 &611036272
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611036270}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11, y: 11, z: 5}
+  m_Center: {x: 0, y: 0, z: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +830,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1986001223037603061, guid: 96496085dd1dbe8448cf843e84514f2e, type: 3}
   m_PrefabInstance: {fileID: 475800775}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1152303405 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7771610393326129165, guid: 0563aec57abbbe043b28ce560c6e6b9e, type: 3}
+  m_PrefabInstance: {fileID: 7771610393256117985}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1335402453
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,7 +952,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1565349070}
   - component: {fileID: 1565349072}
-  - component: {fileID: 1565349071}
+  - component: {fileID: 1565349073}
   m_Layer: 0
   m_Name: Supplie
   m_TagString: supplie
@@ -863,19 +976,6 @@ Transform:
   m_Father: {fileID: 475800776}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1565349071
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1565349069}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &1565349072
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -887,8 +987,21 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2, y: 2.5, z: 2}
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!65 &1565349073
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565349069}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2.5, z: 2}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1725210171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,7 +1327,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2067533677}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.4, y: 7.87, z: 31.3}
+  m_LocalPosition: {x: -30.11, y: 7.87, z: -15.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1222,6 +1335,7 @@ Transform:
   - {fileID: 447152311}
   - {fileID: 1786226452}
   - {fileID: 2069178394}
+  - {fileID: 316321021}
   m_Father: {fileID: 399097834}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1259,6 +1373,7 @@ MonoBehaviour:
   MaxStep: 10000
   DronePlatform: {fileID: 1840084339}
   Warehouse: {fileID: 1148261543}
+  Shelter: {fileID: 1152303405}
   Supplie: {fileID: 1565349069}
   Field: {fileID: 399097833}
   moveSpeed: 5
@@ -1269,7 +1384,7 @@ MonoBehaviour:
   rotAmount: 0
   tiltVel: 2
   tiltAng: 45
-  yLimit: 50
+  yLimit: 100
   isGetSupplie: 0
 --- !u!114 &2067533681
 MonoBehaviour:
@@ -1307,7 +1422,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 8b3764b142dffbb4ba31494fe82e5fb3, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 1
   m_BehaviorType: 0
   m_BehaviorName: DroneAgent
@@ -1366,14 +1481,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069178393}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.10585205, y: -0, z: -0, w: 0.9943819}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2067533678}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -12.153, y: 0, z: 0}
 --- !u!114 &2069178395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1386,7 +1501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SensorName: RayPerceptionSensor
+  m_SensorName: RayPerceptionSensorFront
   m_DetectableTags:
   - obstacle
   - warehouse

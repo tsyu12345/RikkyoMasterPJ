@@ -11,6 +11,7 @@ namespace Drone {
         [Header("Operation Targets")]
         public GameObject DronePlatform; //ドローンの離着陸プラットフォーム 
         public GameObject Warehouse; //　物資倉庫
+        public GameObject Shelter; // 避難所
         public GameObject Supplie; // 物資
         public GameObject Field; // フィールド
 
@@ -30,6 +31,12 @@ namespace Drone {
 
         private Rigidbody Rbody;
         private float rot;
+
+        //環境の範囲値(x, y, z)を格納した変数     
+        private float[] fieldXRange = new float[2];
+        private float[] fieldYRange = new float[2];
+        private float[] fieldZRange = new float[2];
+
 
 
         void Update() {
@@ -70,12 +77,28 @@ namespace Drone {
                 AddReward(-1.0f);
                 EndEpisode();
             }
+            if(other.gameObject.tag == "warehouserange") {
+                Debug.Log("[Agent] in range warehouse");
+                AddReward(0.5f);
+            }
         }
         public override void Initialize() {
             Rbody = GetComponent<Rigidbody>();
             if(yLimit == 0) {
                 throw new System.ArgumentNullException("yLimit", "Arguments 'yLimit' is required");
             }
+
+            //Fieldの範囲値を取得
+            var FieldTransform = Field.transform;
+            var FieldLocalScale = FieldTransform.localScale;
+            var FieldCenterLocalPosition = FieldTransform.localPosition;
+            fieldXRange[0] = FieldCenterLocalPosition.x - FieldLocalScale.x / 2;
+            fieldXRange[1] = FieldCenterLocalPosition.x + FieldLocalScale.x / 2;
+            fieldYRange[0] = FieldCenterLocalPosition.y - FieldLocalScale.y / 2;
+            fieldYRange[1] = FieldCenterLocalPosition.y + FieldLocalScale.y / 2;
+            fieldZRange[0] = FieldCenterLocalPosition.z - FieldLocalScale.z / 2;
+            fieldZRange[1] = FieldCenterLocalPosition.z + FieldLocalScale.z / 2;
+
         }
 
         public override void OnEpisodeBegin() {
@@ -84,6 +107,14 @@ namespace Drone {
             transform.localPosition = pos;
             //物資を倉庫に戻す
             Supplie.transform.parent = Warehouse.transform;
+
+            //倉庫と避難所が重なっている限りwhile
+            while(Vector3.Distance(Warehouse.transform.localPosition, Shelter.transform.localPosition) < 10.0f) {
+                //倉庫と避難所の位置をlocal内でランダムに設定
+                Warehouse.transform.localPosition = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0, Random.Range(fieldZRange[0], fieldZRange[1]));
+                Shelter.transform.localPosition = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0, Random.Range(fieldZRange[0], fieldZRange[1]));
+            }
+            Debug.Log("[Agent] Episode Initialize Compleat");
         }
 
         public override void CollectObservations(VectorSensor sensor) {
