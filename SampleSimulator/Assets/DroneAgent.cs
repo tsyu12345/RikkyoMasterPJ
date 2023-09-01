@@ -29,6 +29,11 @@ namespace Drone {
         [Header("State of Drone")]
         public bool isGetSupplie = false; // 物資を持っているかどうか
 
+        public bool isOnWarehouse = false; // 倉庫の範囲内にいるかどうか
+
+        public bool isOnShelter = false; // 避難所の範囲内にいるかどうか
+
+        //private props
         private Rigidbody Rbody;
         private float rot;
 
@@ -42,13 +47,11 @@ namespace Drone {
         void Update() {
 
             //倉庫の上空に来たら報酬を与える
-            var isOnWarehouse = isOnAiry("warehouse", 8.0f);
             if(isOnWarehouse && !isGetSupplie) {
                 Debug.Log("[Agent] Drone now on warehouse");
                 AddReward(0.5f);
             }
             //Shelterに物資を運んだら報酬を与える
-            var isOnShelter = isOnAiry("shelter", 8.0f);
             if(isOnShelter && isGetSupplie) {
                 Debug.Log("[Agent] Drone now on shelter");
                 AddReward(0.5f);
@@ -79,7 +82,31 @@ namespace Drone {
             }
             if(other.gameObject.tag == "warehouserange") {
                 Debug.Log("[Agent] in range warehouse");
-                AddReward(0.5f);
+                isOnWarehouse = true;
+                if(!isGetSupplie) {
+                    AddReward(0.5f);
+                }
+            }
+            if(other.gameObject.tag == "shelterrange") {
+                Debug.Log("[Agent] in range shelter");
+                isOnShelter = true;
+                if(isGetSupplie) {
+                    AddReward(0.5f);
+                }
+            }
+        }
+
+        /**
+        * オブジェクトとの接触が解除されたときのイベントハンドラー
+        */
+        void OnTriggerExit(Collider other) {
+            if(other.gameObject.tag == "warehouserange") {
+                Debug.Log("[Agent] out of range warehouse");
+                isOnWarehouse = false;
+            }
+            if(other.gameObject.tag == "shelterrange") {
+                Debug.Log("[Agent] out of range shelter");
+                isOnShelter = false;
             }
         }
         public override void Initialize() {
@@ -128,7 +155,7 @@ namespace Drone {
 
 
         public override void OnActionReceived(ActionBuffers actions) {
-            Control(actions);
+            ContinuousControl(actions);
             DiscreateControl(actions);
 
             //Fieldから離れたらリセット
@@ -188,7 +215,7 @@ namespace Drone {
         /// ドローンの操作系
         /// </summary>
         /// <param name="actions"></param>
-        private void Control(ActionBuffers actions) {
+        private void ContinuousControl(ActionBuffers actions) {
             // 入力値を取得
             float horInput = actions.ContinuousActions[0];
             float verInput = actions.ContinuousActions[1];
@@ -235,33 +262,36 @@ namespace Drone {
             var releaseMode = action == 2 ? true : false;
                 
             //ドローンの位置とWarehouseの位置を取得し、ドローンがWarehouseの上にいるかどうかを判定
-            var isOnWarehouse = isOnAiry("warehouse", 8.0f);
 
-            // 物資を取る
+            // 物資を取るを選択した場合
             if (getMode) { 
                 if(isOnWarehouse && !isGetSupplie) {
                     Debug.Log("[Agent] Get Supplie");
                     // 物資を取る : オブジェクトの親をドローンに設定
                     Supplie.transform.parent = transform;
                     // 物資の位置をドローンの下部に設定
-                    Supplie.transform.localPosition = new Vector3(0, -0.7f, 0);
+                    Supplie.transform.localPosition = new Vector3(0, -3f, 0);
+                    //物資の重力を無効化 TODO:将来的には重力有効の状態で、ぶら下がり状態を実装する
+                    Supplie.GetComponent<Rigidbody>().useGravity = false;
                     isGetSupplie = true;
                     AddReward(1.0f);
-                } else {
+                } else { //Getを選択したが、物資取得範囲外の場合
                     AddReward(-1.0f);
                 }
             }
 
             // 避難所の上空で物資を離す
-            var isOnShelter = isOnAiry("shelter", 8.0f);
-            if (isOnShelter && isGetSupplie) {
-                Debug.Log("[Agent] Release Supplie");
-                // 物資を離す
+            if(releaseMode) {
+                //物資を落とす
                 Supplie.transform.parent = Field.transform;
+                Supplie.GetComponent<Rigidbody>().useGravity = true;
                 isGetSupplie = false;
-                if(releaseMode) {
+                Debug.Log("[Agent] Release Supplie");
+                if (isOnShelter && isGetSupplie) {
                     AddReward(1.0f);
-                } else {
+                    Debug.Log("[Agent] Release Supplie on Shelter");
+                    EndEpisode();
+                } else { //Releaseを選択したが、物資を持っていない場合
                     AddReward(-1.0f);
                 }
             }
@@ -301,14 +331,6 @@ namespace Drone {
             }
         }
 
-
-        private bool isOnAiry(string tagName, float allowance) {
-            var gObject = GameObject.FindWithTag(tagName);
-            var position = gObject.transform.localPosition;
-            var isOnAiry = transform.localPosition.x < position.x + allowance && transform.localPosition.x > position.x - allowance
-                && transform.localPosition.z < position.z + allowance && transform.localPosition.z > position.z - allowance;
-            return isOnAiry;
-        }
 
 
         private float MyGetAxis(string axisName) {
