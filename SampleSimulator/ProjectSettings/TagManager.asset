@@ -8,6 +8,8 @@ TagManager:
   - shelter
   - supplie
   - obstacle
+  - warehouserange
+  - shelterrange
   layers:
   - Default
   - TransparentFX
