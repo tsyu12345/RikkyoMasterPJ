@@ -5,6 +5,7 @@ using Unity.MLAgents.Sensors;
 
 namespace Drone {
 
+    //TODO:Agent以外のオブジェクトに関連する処理を、各オブジェクトごとに分割する
 
     public class DroneAgent : Agent {
 
@@ -132,15 +133,24 @@ namespace Drone {
             // ドローンの位置をDronePlatformの位置に初期化
             Vector3 pos = new Vector3(DronePlatform.transform.localPosition.x, DronePlatform.transform.localPosition.y + 1f, DronePlatform.transform.localPosition.z);
             transform.localPosition = pos;
-            //物資を倉庫に戻す
-            Supplie.transform.parent = Warehouse.transform;
-
+            //ドローンの状態を初期化
+            isGetSupplie = false;
+            isOnWarehouse = false;
+            isOnShelter = false;
+        
             //倉庫と避難所が重なっている限りwhile
             while(Vector3.Distance(Warehouse.transform.localPosition, Shelter.transform.localPosition) < 10.0f) {
                 //倉庫と避難所の位置をlocal内でランダムに設定
                 Warehouse.transform.localPosition = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0, Random.Range(fieldZRange[0], fieldZRange[1]));
                 Shelter.transform.localPosition = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0, Random.Range(fieldZRange[0], fieldZRange[1]));
             }
+
+            //物資を倉庫に戻す->座標をリセット
+            Supplie.transform.parent = Warehouse.transform;
+            Supplie.transform.localPosition = new Vector3(0,0.5f,0);
+            Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            Supplie.GetComponent<Rigidbody>().useGravity = true;
+
             Debug.Log("[Agent] Episode Initialize Compleat");
         }
 
@@ -149,6 +159,8 @@ namespace Drone {
             sensor.AddObservation(Rbody.velocity);
             // ドローンの回転を観察
             sensor.AddObservation(transform.rotation.eulerAngles);
+            //自身の現在位置（x,y,z）を観察
+            sensor.AddObservation(transform.localPosition);
         }
 
 
@@ -267,12 +279,16 @@ namespace Drone {
             if (getMode) { 
                 if(isOnWarehouse && !isGetSupplie) {
                     Debug.Log("[Agent] Get Supplie");
+                    //物資の重力を無効化 TODO:将来的には重力有効の状態で、ぶら下がり状態を実装する
+                    Supplie.GetComponent<Rigidbody>().useGravity = false;
                     // 物資を取る : オブジェクトの親をドローンに設定
                     Supplie.transform.parent = transform;
                     // 物資の位置をドローンの下部に設定
-                    Supplie.transform.localPosition = new Vector3(0, -3f, 0);
-                    //物資の重力を無効化 TODO:将来的には重力有効の状態で、ぶら下がり状態を実装する
-                    Supplie.GetComponent<Rigidbody>().useGravity = false;
+                    Supplie.transform.localPosition = new Vector3(0, -4f, 0);
+                    Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    //位置を固定
+                    Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    
                     isGetSupplie = true;
                     AddReward(1.0f);
                 } else { //Getを選択したが、物資取得範囲外の場合
@@ -283,8 +299,11 @@ namespace Drone {
             // 避難所の上空で物資を離す
             if(releaseMode) {
                 //物資を落とす
-                Supplie.transform.parent = Field.transform;
                 Supplie.GetComponent<Rigidbody>().useGravity = true;
+                Supplie.transform.parent = Field.transform;
+                //位置を固定解除
+                Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
                 isGetSupplie = false;
                 Debug.Log("[Agent] Release Supplie");
                 if (isOnShelter && isGetSupplie) {
