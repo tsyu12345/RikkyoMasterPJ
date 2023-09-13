@@ -47,23 +47,6 @@ namespace Drone {
 
         void Update() {
 
-            //倉庫の上空に来たら報酬を与える
-            if(isOnWarehouse && !isGetSupplie) {
-                Debug.Log("[Agent] Drone now on warehouse");
-                AddReward(0.5f);
-            }
-            //Shelterに物資を運んだら報酬を与える
-            if(isOnShelter && isGetSupplie) {
-                Debug.Log("[Agent] Drone now on shelter");
-                AddReward(0.5f);
-            }
-
-            //倉庫との距離が近い場合は報酬を与える
-            var distanceToWarehouse = Vector3.Distance(transform.localPosition, Warehouse.transform.localPosition);
-            if(distanceToWarehouse < 10.0f) {
-                Debug.Log("[Agent] Drone is close to warehouse");
-                AddReward(0.5f);
-            }
             //物資を持っていて、避難所との距離が近い場合は報酬を与える
             var distanceToShelter = Vector3.Distance(transform.localPosition, Warehouse.transform.localPosition);
             if(distanceToShelter < 10.0f && isGetSupplie) {
@@ -291,8 +274,6 @@ namespace Drone {
                     
                     isGetSupplie = true;
                     AddReward(1.0f);
-                } else { //Getを選択したが、物資取得範囲外の場合
-                    AddReward(-1.0f);
                 }
             }
 
@@ -304,15 +285,17 @@ namespace Drone {
                 //位置を固定解除
                 Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
-                isGetSupplie = false;
-                Debug.Log("[Agent] Release Supplie");
+                Debug.Log("[Agent] Action:Release Supplie");
                 if (isOnShelter && isGetSupplie) {
                     AddReward(1.0f);
                     Debug.Log("[Agent] Release Supplie on Shelter");
                     EndEpisode();
-                } else { //Releaseを選択したが、物資を持っていない場合
+                } else if(!isOnShelter && isGetSupplie) { //避難所の上空以外で物資を離した場合
+                    print("[Agent] Release Supplie on Field. But not on Shelter");
                     AddReward(-1.0f);
+                    EndEpisode();
                 }
+                isGetSupplie = false;
             }
         }
 
