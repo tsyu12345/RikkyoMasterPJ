@@ -1,0 +1,7 @@
+behaviors:
+  DroneAgent:
+    trainer_type: imitation
+    behavioral_cloning:
+      demo_path: ../demos/DroneDemo0.1.demo
+      strength: 1.0
+      epochs: 3
