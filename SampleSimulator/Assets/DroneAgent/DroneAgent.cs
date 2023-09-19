@@ -46,13 +46,6 @@ namespace Drone {
 
 
         void Update() {
-
-            //物資を持っていて、避難所との距離が近い場合は報酬を与える
-            var distanceToShelter = Vector3.Distance(transform.localPosition, Warehouse.transform.localPosition);
-            if(distanceToShelter < 10.0f && isGetSupplie) {
-                Debug.Log("[Agent] Drone is close to shelter");
-                AddReward(0.5f);
-            }
         }
 
         /**
@@ -283,21 +276,25 @@ namespace Drone {
                 Supplie.transform.parent = Field.transform;
                 //位置を固定解除
                 Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-
+                
                 Debug.Log("[Agent] Action:Release Supplie");
                 if (isOnShelter && isGetSupplie) {
                     AddReward(1.0f);
                     Debug.Log("[Agent] Release Supplie on Shelter");
+                    isGetSupplie = false;
                     EndEpisode();
+                    return;
                 } else if(!isGetSupplie) { //物資を持っていない状態で物資を離した場合
                     AddReward(-0.5f);
                     Debug.Log("[Agent] not get Supplie... but Agent did release");
+                    isGetSupplie = false;
                 } else if(!isOnShelter && isGetSupplie) { //避難所の上空以外で物資を離した場合
                     Debug.Log("[Agent] Release Supplie on Field. But not on Shelter");
                     AddReward(-1.0f);
+                    isGetSupplie = false;
                     EndEpisode();
+                    return;
                 }
-                isGetSupplie = false;
             }
         }
 
