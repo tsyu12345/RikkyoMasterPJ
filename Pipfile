@@ -3,6 +3,10 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[scripts]
+learn = "powershell -File ./learning.ps1"
+setup = "powershell -File ./set_learn_conf.ps1"
+
 [packages]
 absl-py = "==1.4.0"
 attrs = "==23.1.0"
