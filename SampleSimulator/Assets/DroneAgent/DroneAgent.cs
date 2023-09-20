@@ -71,6 +71,11 @@ namespace Drone {
                     AddReward(0.5f);
                 }
             }
+            //ガイドレールを追加
+            if(other.gameObject.tag == "checkpoint") {
+                //Debug.Log("[Agent] Hit Rail");
+                AddReward(0.5f);
+            }
         }
 
         /**
@@ -283,7 +288,6 @@ namespace Drone {
                     Debug.Log("[Agent] Release Supplie on Shelter");
                     isGetSupplie = false;
                     EndEpisode();
-                    return;
                 } else if(!isGetSupplie) { //物資を持っていない状態で物資を離した場合
                     AddReward(-0.5f);
                     Debug.Log("[Agent] not get Supplie... but Agent did release");
@@ -293,7 +297,6 @@ namespace Drone {
                     AddReward(-1.0f);
                     isGetSupplie = false;
                     EndEpisode();
-                    return;
                 }
             }
         }
