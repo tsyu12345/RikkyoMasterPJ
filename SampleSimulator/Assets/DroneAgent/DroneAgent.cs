@@ -27,12 +27,18 @@ namespace Drone {
         public float tiltAng = 45f; // 傾きの最大角度
         public float yLimit = 50.0f; //高度制限
 
+
+        [Header("Stability Parameters")]
+        public float maxTiltAngle = 30f; // 姿勢が安定と判断するための最大傾斜角度（度）
+        public float maxSpeed = 10f; // 姿勢が安定と判断するための最大速度（m/s）
+
         [Header("State of Drone")]
         public bool isGetSupplie = false; // 物資を持っているかどうか
 
         public bool isOnWarehouse = false; // 倉庫の範囲内にいるかどうか
 
         public bool isOnShelter = false; // 避難所の範囲内にいるかどうか
+
 
         //private props
         private Rigidbody Rbody;
@@ -61,7 +67,7 @@ namespace Drone {
                 Debug.Log("[Agent] in range warehouse");
                 isOnWarehouse = true;
                 if(!isGetSupplie) {
-                    AddReward(0.5f);
+                    AddReward(0.3f);
                 }
             }
             if(other.gameObject.tag == "shelterrange") {
@@ -74,7 +80,7 @@ namespace Drone {
             //ガイドレールを追加
             if(other.gameObject.tag == "checkpoint") {
                 //Debug.Log("[Agent] Hit Rail");
-                AddReward(0.5f);
+                AddReward(0.1f);
             }
         }
 
@@ -119,12 +125,18 @@ namespace Drone {
             isOnWarehouse = false;
             isOnShelter = false;
         
-            //倉庫と避難所が重なっている限りwhile
-            while(Vector3.Distance(Warehouse.transform.localPosition, Shelter.transform.localPosition) < 10.0f) {
-                //倉庫と避難所の位置をlocal内でランダムに設定
-                Warehouse.transform.localPosition = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0, Random.Range(fieldZRange[0], fieldZRange[1]));
-                Shelter.transform.localPosition = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0, Random.Range(fieldZRange[0], fieldZRange[1]));
+            //倉庫と避難所の位置をランダムに初期化
+            /*FIXME:無限ループになる場合があり、プロジェクトがフリーズする。
+            Vector3 WarehousePos = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0.5f, Random.Range(fieldZRange[0], fieldZRange[1]));
+            Vector3 ShelterPos = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0.5f, Random.Range(fieldZRange[0], fieldZRange[1]));
+            Warehouse.transform.localPosition = WarehousePos;
+            Shelter.transform.localPosition = ShelterPos;
+            //倉庫と避難所の位置が重ならないようにする
+            while(Vector3.Distance(Warehouse.transform.localPosition, Shelter.transform.localPosition) < 10) {
+                WarehousePos = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0.5f, Random.Range(fieldZRange[0], fieldZRange[1]));
+                Warehouse.transform.localPosition = WarehousePos;
             }
+            */
 
             //物資を倉庫に戻す->座標をリセット
             Supplie.transform.parent = Warehouse.transform;
@@ -150,6 +162,7 @@ namespace Drone {
         public override void OnActionReceived(ActionBuffers actions) {
             ContinuousControl(actions);
             DiscreateControl(actions);
+            //EvaluateStability();
 
             //Fieldから離れたらリセット
             if(transform.localPosition.y > yLimit || transform.localPosition.y < 0) {
@@ -332,6 +345,32 @@ namespace Drone {
                 return true;
             } else {
                 return false;
+            }
+        }
+
+
+        /// <summary>
+        /// ドローンの姿勢が安定しているかどうかを判断し、報酬を付与するメソッド
+        /// </summary>
+        private void EvaluateStability() {
+            // ドローンの現在の角度を取得
+            Vector3 currentAngles = transform.rotation.eulerAngles;
+
+            // ドローンの現在の速度を取得
+            Vector3 currentSpeed = Rbody.velocity;
+
+            // 姿勢が安定しているかどうかを判断
+            bool isStable = Mathf.Abs(currentAngles.x) <= maxTiltAngle &&
+                            Mathf.Abs(currentAngles.z) <= maxTiltAngle &&
+                            currentSpeed.magnitude <= maxSpeed;
+
+            // 報酬を付与
+            if (isStable) {
+                Debug.Log("[Agent] Stable");
+                AddReward(0.1f); // 姿勢が安定していれば報酬を付与
+            } else {
+                Debug.Log("[Agent] Unstable");
+                AddReward(-0.1f); // 姿勢が不安定であれば報酬を減らす
             }
         }
 
