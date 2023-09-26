@@ -18,7 +18,6 @@ torchvision = {version = "*", index = "pytorch"}
 torchaudio = {version = "*", index = "pytorch"}
 mlagents = {version = "*", index = "pypi"}
 mlagents-envs = {version = "*", index = "pypi"}
-numpy = "*"
 
 [dev-packages]
 
