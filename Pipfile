@@ -18,6 +18,8 @@ torchvision = {version = "*", index = "pytorch"}
 torchaudio = {version = "*", index = "pytorch"}
 mlagents = {version = "*", index = "pypi"}
 mlagents-envs = {version = "*", index = "pypi"}
+protobuf = "==3.20.0"
+onnx = "*"
 
 [dev-packages]
 
