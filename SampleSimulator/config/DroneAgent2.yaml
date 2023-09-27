@@ -23,14 +23,14 @@ behaviors:
         strength: 0.01
         gamma: 0.99
         encoding_size: 128
-        demo_path: ./SampleSimulator/Assets/Demonstrations/DronePilotDemo.demo
+        demo_path: ./SampleSimulator/Assets/Demonstrations/DronePilotDemo2.demo
     keep_checkpoints: 100
     time_horizon: 1000
     summary_freq: 10000
     max_steps: 50000000
     threaded: true
     behavioral_cloning:
-      demo_path: ./SampleSimulator/Assets/Demonstrations/DronePilotDemo.demo
+      demo_path: ./SampleSimulator/Assets/Demonstrations/DronePilotDemo2.demo
       steps: 0
       strength: 1.0
       samples_per_update: 0

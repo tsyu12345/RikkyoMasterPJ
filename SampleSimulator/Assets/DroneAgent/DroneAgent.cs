@@ -60,27 +60,27 @@ namespace Drone {
         void OnTriggerEnter(Collider other) {
             if(other.gameObject.tag == "obstacle") {
                 Debug.Log("[Agent] Hit Obstacle");
-                AddReward(-1.0f);
+                AddReward(-10.0f);
                 EndEpisode();
             }
             if(other.gameObject.tag == "warehouserange") {
                 Debug.Log("[Agent] in range warehouse");
                 isOnWarehouse = true;
                 if(!isGetSupplie) {
-                    AddReward(0.3f);
+                    AddReward(0.5f);
                 }
             }
             if(other.gameObject.tag == "shelterrange") {
                 Debug.Log("[Agent] in range shelter");
                 isOnShelter = true;
                 if(isGetSupplie) {
-                    AddReward(0.5f);
+                    AddReward(1.0f);
                 }
             }
             //ガイドレールを追加
             if(other.gameObject.tag == "checkpoint") {
                 //Debug.Log("[Agent] Hit Rail");
-                AddReward(0.1f);
+                AddReward(2.0f);
             }
         }
 
@@ -167,8 +167,8 @@ namespace Drone {
             //Fieldから離れたらリセット
             if(transform.localPosition.y > yLimit || transform.localPosition.y < 0) {
                 Debug.Log("[Agent] Out of range");
-                EndEpisode();
                 AddReward(-1.0f);
+                EndEpisode();
             }
             
             /*
@@ -283,7 +283,7 @@ namespace Drone {
                     Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     
                     isGetSupplie = true;
-                    AddReward(1.0f);
+                    AddReward(5.0f);
                 }
             }
 
@@ -297,12 +297,12 @@ namespace Drone {
                 
                 Debug.Log("[Agent] Action:Release Supplie");
                 if (isOnShelter && isGetSupplie) {
-                    AddReward(1.0f);
+                    AddReward(10.0f);
                     Debug.Log("[Agent] Release Supplie on Shelter");
                     isGetSupplie = false;
                     EndEpisode();
                 } else if(!isGetSupplie) { //物資を持っていない状態で物資を離した場合
-                    AddReward(-0.5f);
+                    AddReward(-1.0f);
                     Debug.Log("[Agent] not get Supplie... but Agent did release");
                     isGetSupplie = false;
                 } else if(!isOnShelter && isGetSupplie) { //避難所の上空以外で物資を離した場合
