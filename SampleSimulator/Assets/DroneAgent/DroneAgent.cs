@@ -184,7 +184,6 @@ namespace Drone {
             float verInput = MyGetAxis("Vertical");
             float upInput = Input.GetKey(KeyCode.Q) ? 1f : 0f;
             float downInput = Input.GetKey(KeyCode.E) ? 1f : 0f;
-            float rotInput = 0.0f; 
             float leftRotStrength = Input.GetKey(KeyCode.LeftArrow) ? 1 : 0;
             float rightRotStrength = Input.GetKey(KeyCode.RightArrow) ? 1 : 0;
 
@@ -305,6 +304,7 @@ namespace Drone {
                     AddReward(-1.0f);
                     Debug.Log("[Agent] not get Supplie... but Agent did release");
                     isGetSupplie = false;
+                    EndEpisode();
                 } else if(!isOnShelter && isGetSupplie) { //避難所の上空以外で物資を離した場合
                     Debug.Log("[Agent] Release Supplie on Field. But not on Shelter");
                     AddReward(-10.0f);
