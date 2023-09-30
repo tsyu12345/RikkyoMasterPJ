@@ -17,9 +17,9 @@ namespace Drone {
         public GameObject Field; // フィールド
 
         [Header("Movement Parameters")]
-        public float moveSpeed = 5f; // 移動速度
+        public float moveSpeed = 2f; // 移動速度
         public float rotSpeed = 100f; // 回転速度
-        public float verticalForce = 20f; // 上昇・下降速度
+        public float verticalForce = 10f; // 上昇・下降速度
         public float forwardTiltAmount = 0; // 前傾角
         public float sidewaysTiltAmount = 0; // 横傾角
         public float rotAmount = 0; // 回転角
