@@ -67,20 +67,20 @@ namespace Drone {
                 Debug.Log("[Agent] in range warehouse");
                 isOnWarehouse = true;
                 if(!isGetSupplie) {
-                    AddReward(0.5f);
+                    AddReward(5.0f);
                 }
             }
             if(other.gameObject.tag == "shelterrange") {
                 Debug.Log("[Agent] in range shelter");
                 isOnShelter = true;
                 if(isGetSupplie) {
-                    AddReward(1.0f);
+                    AddReward(5.0f);
                 }
             }
             //ガイドレールを追加
             if(other.gameObject.tag == "checkpoint") {
                 //Debug.Log("[Agent] Hit Rail");
-                AddReward(2.0f);
+                AddReward(2.5f);
             }
         }
 
@@ -167,7 +167,7 @@ namespace Drone {
             //Fieldから離れたらリセット
             if(transform.localPosition.y > yLimit || transform.localPosition.y < 0) {
                 Debug.Log("[Agent] Out of range");
-                AddReward(-1.0f);
+                AddReward(-10.0f);
                 EndEpisode();
             }
             
@@ -184,12 +184,9 @@ namespace Drone {
             float verInput = MyGetAxis("Vertical");
             float upInput = Input.GetKey(KeyCode.Q) ? 1f : 0f;
             float downInput = Input.GetKey(KeyCode.E) ? 1f : 0f;
-            int rotInput = 0; //回転のみ離散値
-            int rightRotInput = Input.GetKey(KeyCode.RightArrow) ? 1 : 0;
-            int leftRotInput = Input.GetKey(KeyCode.LeftArrow) ? 1 : 0;
-            //Debug.Log($"[Agent] Rotation Input:{rotInput}");
-            //Rotを割り当てる
-            rotInput = rightRotInput - leftRotInput;
+            float rotInput = 0.0f; 
+            float leftRotStrength = Input.GetKey(KeyCode.LeftArrow) ? 1 : 0;
+            float rightRotStrength = Input.GetKey(KeyCode.RightArrow) ? 1 : 0;
 
             //　ドローンの操作系:Discrete な行動
             //物資をとる
@@ -203,6 +200,8 @@ namespace Drone {
             continuousAct[1] = verInput;
             continuousAct[2] = upInput;
             continuousAct[3] = downInput;
+            continuousAct[4] = leftRotStrength;
+            continuousAct[5] = rightRotStrength;
 
             var discreteAct = actionsOut.DiscreteActions;
             discreteAct[0] = 0;
@@ -212,8 +211,6 @@ namespace Drone {
             if (releaseMode) {
                 discreteAct[0] = 2;
             }
-            //回転の方向
-            discreteAct[1] = rotInput;
         }
 
         /// <summary>
@@ -226,8 +223,9 @@ namespace Drone {
             float verInput = actions.ContinuousActions[1];
             float upInput = actions.ContinuousActions[2];
             float downInput = actions.ContinuousActions[3];
-            //回転だけ離散値
-            int rotInput = actions.DiscreteActions[1];
+            float leftRotStrength = actions.ContinuousActions[4]; // 左回転の強さ
+            float rightRotStrength = actions.ContinuousActions[5]; // 右回転の強さ
+            
             // 移動方向を計算
             Vector3 moveDirection = new Vector3(horInput, 0, verInput) * moveSpeed;
             // Rigidbodyに力を加えてドローンを移動させる
@@ -247,9 +245,11 @@ namespace Drone {
 
 
             // 入力に基づいて傾き・回転を計算
+            float actualRotStrength = rightRotStrength - leftRotStrength;
+
             sidewaysTiltAmount = Mathf.Lerp(sidewaysTiltAmount, -horInput * tiltAng, tiltVel * Time.fixedDeltaTime);
             forwardTiltAmount = Mathf.Lerp(forwardTiltAmount, verInput * tiltAng, tiltVel * Time.fixedDeltaTime);
-            rotAmount += rotInput * rotSpeed * Time.fixedDeltaTime;
+            rotAmount += actualRotStrength * rotSpeed * Time.fixedDeltaTime;
 
             // 傾き・回転をドローンに適用
             Quaternion targetRot = Quaternion.Euler(forwardTiltAmount, rotAmount, sidewaysTiltAmount);
@@ -283,7 +283,7 @@ namespace Drone {
                     Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     
                     isGetSupplie = true;
-                    AddReward(5.0f);
+                    AddReward(8.0f);
                 }
             }
 
@@ -307,7 +307,7 @@ namespace Drone {
                     isGetSupplie = false;
                 } else if(!isOnShelter && isGetSupplie) { //避難所の上空以外で物資を離した場合
                     Debug.Log("[Agent] Release Supplie on Field. But not on Shelter");
-                    AddReward(-1.0f);
+                    AddReward(-10.0f);
                     isGetSupplie = false;
                     EndEpisode();
                 }
