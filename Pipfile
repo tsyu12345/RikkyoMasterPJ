@@ -12,6 +12,7 @@ name = "pytorch"
 learn = "powershell -File ./learning.ps1"
 learn-exe = "powershell -File ./learning-exe.ps1"
 freezepip = "pip freeze > requirements.txt"
+board = "tensorboard --logdir=./results --port=6006"
 
 [packages]
 torch = {version="==1.8.2", index="pytorch"}
