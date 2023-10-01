@@ -60,7 +60,7 @@ namespace Drone {
         void OnTriggerEnter(Collider other) {
             if(other.gameObject.tag == "obstacle") {
                 Debug.Log("[Agent] Hit Obstacle");
-                AddReward(-10.0f);
+                AddReward(-20.0f);
                 EndEpisode();
             }
             if(other.gameObject.tag == "warehouserange") {
@@ -74,13 +74,13 @@ namespace Drone {
                 Debug.Log("[Agent] in range shelter");
                 isOnShelter = true;
                 if(isGetSupplie) {
-                    AddReward(5.0f);
+                    AddReward(8.0f);
                 }
             }
             //ガイドレールを追加
             if(other.gameObject.tag == "checkpoint") {
                 //Debug.Log("[Agent] Hit Rail");
-                AddReward(2.5f);
+                AddReward(1.0f);
             }
         }
 
@@ -118,7 +118,7 @@ namespace Drone {
 
         public override void OnEpisodeBegin() {
             // ドローンの位置をDronePlatformの位置に初期化
-            Vector3 pos = new Vector3(DronePlatform.transform.localPosition.x, DronePlatform.transform.localPosition.y + 1f, DronePlatform.transform.localPosition.z);
+            Vector3 pos = new Vector3(DronePlatform.transform.localPosition.x, DronePlatform.transform.localPosition.y + 3f, DronePlatform.transform.localPosition.z);
             transform.localPosition = pos;
             //ドローンの状態を初期化
             isGetSupplie = false;
@@ -296,12 +296,12 @@ namespace Drone {
                 
                 Debug.Log("[Agent] Action:Release Supplie");
                 if (isOnShelter && isGetSupplie) {
-                    AddReward(10.0f);
+                    AddReward(20.0f);
                     Debug.Log("[Agent] Release Supplie on Shelter");
                     isGetSupplie = false;
                     EndEpisode();
                 } else if(!isGetSupplie) { //物資を持っていない状態で物資を離した場合
-                    AddReward(-1.0f);
+                    AddReward(-10.0f);
                     Debug.Log("[Agent] not get Supplie... but Agent did release");
                     isGetSupplie = false;
                     EndEpisode();

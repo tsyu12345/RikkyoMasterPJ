@@ -1038,7 +1038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 669972290579536796, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
       propertyPath: m_BrainParameters.NumStackedVectorObservations
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 669972290579536796, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
@@ -1095,6 +1095,10 @@ PrefabInstance:
     - target: {fileID: 669972290579536798, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
       propertyPath: verticalForce
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 669972290579536799, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
+      propertyPath: DecisionPeriod
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
