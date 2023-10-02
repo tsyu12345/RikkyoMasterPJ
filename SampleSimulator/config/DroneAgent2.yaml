@@ -12,24 +12,24 @@ behaviors:
       learning_rate_schedule: linear
     network_settings:
       normalize: false
-      hidden_units: 256
-      num_layers: 2
+      hidden_units: 128
+      num_layers: 3
       vis_encode_type: simple
     reward_signals:
       extrinsic:
         gamma: 0.99
         strength: 1.0
       gail:
-        strength: 0.5
+        strength: 1.0
         gamma: 0.99
-        demo_path: ./SampleSimulator/Assets/Demonstrations/DronePilotDemo2.demo
+        demo_path: ./SampleSimulator/Assets/Demonstrations/DronePilotDemo2_1.demo
     keep_checkpoints: 100
-    time_horizon: 1000
+    time_horizon: 10000
     summary_freq: 10000
     max_steps: 50000000
     threaded: true
     behavioral_cloning:
-      demo_path: ./SampleSimulator/Assets/Demonstrations/DronePilotDemo2.demo
+      demo_path: ./SampleSimulator/Assets/Demonstrations/DronePilotDemo2_1.demo
       steps: 0
       strength: 1.0
-      samples_per_update: 0
+      samples_per_update: 2
