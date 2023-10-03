@@ -9,6 +9,10 @@ namespace Drone {
 
     public class DroneAgent : Agent {
 
+        [Header("Learning Mode")]
+        public bool OnlyFlyingControl = false;
+        public bool SimulatorMode = true;
+
         [Header("Operation Targets")]
         public GameObject DronePlatform; //ドローンの離着陸プラットフォーム 
         public GameObject Warehouse; //　物資倉庫
@@ -44,61 +48,21 @@ namespace Drone {
         private Rigidbody Rbody;
         private float rot;
 
+        private int passCheckCount = 0; //通過したガイドレールの数
+
         //環境の範囲値(x, y, z)を格納した変数     
         private float[] fieldXRange = new float[2];
         private float[] fieldYRange = new float[2];
         private float[] fieldZRange = new float[2];
 
 
-
-        void Update() {
-        }
-
-        /**
-        オブジェクトとの衝突イベントハンドラー
-        */
-        void OnTriggerEnter(Collider other) {
-            if(other.gameObject.tag == "obstacle") {
-                Debug.Log("[Agent] Hit Obstacle");
-                //AddReward(-20.0f);
-                EndEpisode();
-            }
-            if(other.gameObject.tag == "warehouserange") {
-                Debug.Log("[Agent] in range warehouse");
-                isOnWarehouse = true;
-                if(!isGetSupplie) {
-                    AddReward(5.0f);
-                }
-            }
-            if(other.gameObject.tag == "shelterrange") {
-                Debug.Log("[Agent] in range shelter");
-                isOnShelter = true;
-                if(isGetSupplie) {
-                    AddReward(8.0f);
-                }
-            }
-            //ガイドレールを追加
-            if(other.gameObject.tag == "checkpoint") {
-                //Debug.Log("[Agent] Hit Rail");
-                AddReward(1.0f);
-            }
-        }
-
-        /**
-        * オブジェクトとの接触が解除されたときのイベントハンドラー
-        */
-        void OnTriggerExit(Collider other) {
-            if(other.gameObject.tag == "warehouserange") {
-                Debug.Log("[Agent] out of range warehouse");
-                isOnWarehouse = false;
-            }
-            if(other.gameObject.tag == "shelterrange") {
-                Debug.Log("[Agent] out of range shelter");
-                isOnShelter = false;
-            }
-        }
         public override void Initialize() {
             Rbody = GetComponent<Rigidbody>();
+
+            if(OnlyFlyingControl && SimulatorMode) {
+                throw new System.ArgumentException("Arguments 'OnlyFlyingControl' and 'SimulatorMode' cannot be true at the same time");
+            }
+
             if(yLimit == 0) {
                 throw new System.ArgumentNullException("yLimit", "Arguments 'yLimit' is required");
             }
@@ -137,15 +101,76 @@ namespace Drone {
                 Warehouse.transform.localPosition = WarehousePos;
             }
             */
-
-            //物資を倉庫に戻す->座標をリセット
-            Supplie.transform.parent = Warehouse.transform;
-            Supplie.transform.localPosition = new Vector3(0,0.5f,0);
-            Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            Supplie.GetComponent<Rigidbody>().useGravity = true;
-
+            if(SimulatorMode) {
+                //物資を倉庫に戻す->座標をリセット
+                Supplie.transform.parent = Warehouse.transform;
+                Supplie.transform.localPosition = new Vector3(0,0.5f,0);
+                Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                Supplie.GetComponent<Rigidbody>().useGravity = true;
+            } else if(OnlyFlyingControl) {
+                passCheckCount = 0;
+            }
+            Rbody.AddForce(transform.TransformDirection(new Vector3(0, 200.0f, 200.0f)));
             Debug.Log("[Agent] Episode Initialize Compleat");
         }
+
+
+
+        void Update() {
+        }
+
+        /**
+        オブジェクトとの衝突イベントハンドラー
+        */
+        void OnTriggerEnter(Collider other) {
+            if(other.gameObject.tag == "obstacle") {
+                Debug.Log("[Agent] Hit Obstacle");
+                AddReward(-5.0f);
+                EndEpisode();
+            }
+            if(other.gameObject.tag == "warehouserange") {
+                Debug.Log("[Agent] in range warehouse");
+                isOnWarehouse = true;
+                if(!isGetSupplie) {
+                    AddReward(5.0f);
+                }
+            }
+            if(other.gameObject.tag == "shelterrange") {
+                Debug.Log("[Agent] in range shelter");
+                isOnShelter = true;
+                if(isGetSupplie) {
+                    AddReward(8.0f);
+                }
+            }
+            //ガイドレールを追加
+            if(other.gameObject.tag == "checkpoint") {
+                //Debug.Log("[Agent] Hit Rail");
+                AddReward(1.0f);
+                passCheckCount += 1;
+                int checkPointCount = GameObject.FindGameObjectsWithTag("checkpoint").Length; // タグ名を持つゲームオブジェクトの個数を取得
+                //飛行制御のみの場合、全てのガイドレールを通過したらエピソードを終了する
+                if(OnlyFlyingControl && passCheckCount == checkPointCount) {
+                    Debug.Log("[Agent] All CheckPoint Passed");
+                    AddReward(20.0f);
+                    EndEpisode();
+                }
+            }
+        }
+
+        /**
+        * オブジェクトとの接触が解除されたときのイベントハンドラー
+        */
+        void OnTriggerExit(Collider other) {
+            if(other.gameObject.tag == "warehouserange") {
+                Debug.Log("[Agent] out of range warehouse");
+                isOnWarehouse = false;
+            }
+            if(other.gameObject.tag == "shelterrange") {
+                Debug.Log("[Agent] out of range shelter");
+                isOnShelter = false;
+            }
+        }
+        
 
         public override void CollectObservations(VectorSensor sensor) {
             // ドローンの速度を観察
