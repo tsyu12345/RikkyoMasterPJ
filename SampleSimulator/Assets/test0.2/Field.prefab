@@ -1230,7 +1230,12 @@ PrefabInstance:
       propertyPath: DronePlatform
       value: 
       objectReference: {fileID: 1409581110632137976}
-    m_RemovedComponents: []
+    - target: {fileID: 7110107481410087700, guid: 5298d234ff8eb5f448b9dcb8646226c1, type: 3}
+      propertyPath: Record
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7773236231220146316, guid: 5298d234ff8eb5f448b9dcb8646226c1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5298d234ff8eb5f448b9dcb8646226c1, type: 3}
 --- !u!4 &6413705777062103866 stripped
 Transform:
