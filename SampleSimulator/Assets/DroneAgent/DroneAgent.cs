@@ -110,7 +110,7 @@ namespace Drone {
             } else if(OnlyFlyingControl) {
                 passCheckCount = 0;
             }
-            Rbody.AddForce(transform.TransformDirection(new Vector3(0, 200.0f, 200.0f)));
+            Rbody.AddForce(transform.TransformDirection(new Vector3(0, 10.0f, 10.0f)));
             Debug.Log("[Agent] Episode Initialize Compleat");
         }
 
