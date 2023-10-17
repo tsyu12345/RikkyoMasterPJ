@@ -9,9 +9,6 @@ namespace Drone {
 
     public class DroneAgent : Agent {
 
-        [Header("Learning Mode")]
-        public bool OnlyFlyingControl = false;
-        public bool SimulatorMode = true;
 
         [Header("Operation Targets")]
         public GameObject DronePlatform; //ドローンの離着陸プラットフォーム 
@@ -19,6 +16,8 @@ namespace Drone {
         public GameObject Shelter; // 避難所
         public GameObject Supplie; // 物資
         public GameObject Field; // フィールド
+
+        public int CheckPointCount = 6; // ガイドレールの数
 
         [Header("Movement Parameters")]
         public float moveSpeed = 2f; // 移動速度
@@ -59,13 +58,13 @@ namespace Drone {
         public override void Initialize() {
             Rbody = GetComponent<Rigidbody>();
 
-            if(OnlyFlyingControl && SimulatorMode) {
-                throw new System.ArgumentException("Arguments 'OnlyFlyingControl' and 'SimulatorMode' cannot be true at the same time");
-            }
+            
 
             if(yLimit == 0) {
                 throw new System.ArgumentNullException("yLimit", "Arguments 'yLimit' is required");
             }
+
+            CheckPointCount = GameObject.FindGameObjectsWithTag("checkpoint").Length;
 
             //Fieldの範囲値を取得
             var FieldTransform = Field.transform;
@@ -101,15 +100,19 @@ namespace Drone {
                 Warehouse.transform.localPosition = WarehousePos;
             }
             */
-            if(SimulatorMode) {
-                //物資を倉庫に戻す->座標をリセット
-                Supplie.transform.parent = Warehouse.transform;
-                Supplie.transform.localPosition = new Vector3(0,0.5f,0);
-                Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                Supplie.GetComponent<Rigidbody>().useGravity = true;
-            } else if(OnlyFlyingControl) {
-                passCheckCount = 0;
+            
+            //物資を倉庫に戻す->座標をリセット
+            Supplie.transform.parent = Warehouse.transform;
+            Supplie.transform.localPosition = new Vector3(0,0.5f,0);
+            Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            Supplie.GetComponent<Rigidbody>().useGravity = true;
+            passCheckCount = 0;
+
+            //CheckPointを復活させる
+            foreach(GameObject checkpoint in GameObject.FindGameObjectsWithTag("checkpoint")) {
+                checkpoint.SetActive(true);
             }
+
             Rbody.AddForce(transform.TransformDirection(new Vector3(0, 10.0f, 10.0f)));
             Debug.Log("[Agent] Episode Initialize Compleat");
         }
@@ -142,17 +145,17 @@ namespace Drone {
                     AddReward(8.0f);
                 }
             }
-            //ガイドレールを追加
+            //ガイドレールを追加.同じガイドレールに何度も衝突することを防ぐため、ガイドレールに衝突したらガイドレールを消す
             if(other.gameObject.tag == "checkpoint") {
                 //Debug.Log("[Agent] Hit Rail");
                 AddReward(1.0f);
                 passCheckCount += 1;
-                int checkPointCount = GameObject.FindGameObjectsWithTag("checkpoint").Length; // タグ名を持つゲームオブジェクトの個数を取得
+                other.gameObject.SetActive(false);
                 //飛行制御のみの場合、全てのガイドレールを通過したらエピソードを終了する
-                if(OnlyFlyingControl && passCheckCount == checkPointCount) {
+                if(passCheckCount == CheckPointCount) {
                     Debug.Log("[Agent] All CheckPoint Passed");
                     AddReward(20.0f);
-                    EndEpisode();
+                    //EndEpisode();
                 }
             }
         }
