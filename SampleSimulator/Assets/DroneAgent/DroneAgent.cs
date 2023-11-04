@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
@@ -17,8 +19,6 @@ namespace Drone {
         public GameObject Supplie; // 物資
         public GameObject Field; // フィールド
 
-        public int CheckPointCount = 6; // ガイドレールの数
-
         [Header("Movement Parameters")]
         public float moveSpeed = 2f; // 移動速度
         public float rotSpeed = 100f; // 回転速度
@@ -31,10 +31,7 @@ namespace Drone {
         public float yLimit = 50.0f; //高度制限
 
 
-        [Header("Stability Parameters")]
-        public float maxTiltAngle = 30f; // 姿勢が安定と判断するための最大傾斜角度（度）
-        public float maxSpeed = 10f; // 姿勢が安定と判断するための最大速度（m/s）
-
+    
         [Header("State of Drone")]
         public bool isGetSupplie = false; // 物資を持っているかどうか
 
@@ -47,24 +44,20 @@ namespace Drone {
         private Rigidbody Rbody;
         private float rot;
 
-        private int passCheckCount = 0; //通過したガイドレールの数
-
         //環境の範囲値(x, y, z)を格納した変数     
         private float[] fieldXRange = new float[2];
         private float[] fieldYRange = new float[2];
         private float[] fieldZRange = new float[2];
 
+        private int checkPointCount = 0; //チェックポイントの数
+
 
         public override void Initialize() {
             Rbody = GetComponent<Rigidbody>();
 
-            
-
             if(yLimit == 0) {
                 throw new System.ArgumentNullException("yLimit", "Arguments 'yLimit' is required");
             }
-
-            CheckPointCount = GameObject.FindGameObjectsWithTag("checkpoint").Length;
 
             //Fieldの範囲値を取得
             var FieldTransform = Field.transform;
@@ -87,29 +80,19 @@ namespace Drone {
             isGetSupplie = false;
             isOnWarehouse = false;
             isOnShelter = false;
+
+            checkPointCount = 0;
         
-            //倉庫と避難所の位置をランダムに初期化
-            /*FIXME:無限ループになる場合があり、プロジェクトがフリーズする。
-            Vector3 WarehousePos = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0.5f, Random.Range(fieldZRange[0], fieldZRange[1]));
-            Vector3 ShelterPos = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0.5f, Random.Range(fieldZRange[0], fieldZRange[1]));
-            Warehouse.transform.localPosition = WarehousePos;
-            Shelter.transform.localPosition = ShelterPos;
-            //倉庫と避難所の位置が重ならないようにする
-            while(Vector3.Distance(Warehouse.transform.localPosition, Shelter.transform.localPosition) < 10) {
-                WarehousePos = new Vector3(Random.Range(fieldXRange[0], fieldXRange[1]), 0.5f, Random.Range(fieldZRange[0], fieldZRange[1]));
-                Warehouse.transform.localPosition = WarehousePos;
-            }
-            */
             
             //物資を倉庫に戻す->座標をリセット
             Supplie.transform.parent = Warehouse.transform;
             Supplie.transform.localPosition = new Vector3(0,0.5f,0);
             Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
             Supplie.GetComponent<Rigidbody>().useGravity = true;
-            passCheckCount = 0;
-
             //CheckPointを復活させる
-            foreach(GameObject checkpoint in GameObject.FindGameObjectsWithTag("checkpoint")) {
+            var checkPoints = GetsGameObjectsIncludeDeactive("checkpoint");
+
+            foreach(GameObject checkpoint in checkPoints) {
                 checkpoint.SetActive(true);
             }
 
@@ -148,14 +131,13 @@ namespace Drone {
             //ガイドレールを追加.同じガイドレールに何度も衝突することを防ぐため、ガイドレールに衝突したらガイドレールを消す
             if(other.gameObject.tag == "checkpoint") {
                 //Debug.Log("[Agent] Hit Rail");
-                AddReward(1.0f);
-                passCheckCount += 1;
+                AddReward(2.0f);
                 other.gameObject.SetActive(false);
-                //飛行制御のみの場合、全てのガイドレールを通過したらエピソードを終了する
-                if(passCheckCount == CheckPointCount) {
-                    Debug.Log("[Agent] All CheckPoint Passed");
-                    AddReward(20.0f);
-                    //EndEpisode();
+                checkPointCount++;
+                if(checkPointCount == GetsGameObjectsIncludeDeactive("checkpoint").Count) {
+                    Debug.Log("[Agent] All CheckPoint");
+                    AddReward(10.0f);
+                    EndEpisode();
                 }
             }
         }
@@ -180,8 +162,6 @@ namespace Drone {
             sensor.AddObservation(Rbody.velocity);
             // ドローンの回転を観察
             sensor.AddObservation(transform.rotation.eulerAngles);
-            //自身の現在位置（x,y,z）を観察
-            sensor.AddObservation(transform.localPosition);
         }
 
 
@@ -283,6 +263,7 @@ namespace Drone {
             transform.rotation = targetRot;
         }
 
+
         /// <summary>
         /// ドローンの「物資を持つ」「物資を離す」などの離散系行動制御関数
         /// </summary>
@@ -299,7 +280,8 @@ namespace Drone {
             if (getMode) { 
                 if(isOnWarehouse && !isGetSupplie) {
                     Debug.Log("[Agent] Get Supplie");
-                    //物資の重力を無効化 TODO:将来的には重力有効の状態で、ぶら下がり状態を実装する
+                    //物資の重力を無効化 
+                    //TODO:将来的には重力有効の状態で、ぶら下がり状態を実装する
                     Supplie.GetComponent<Rigidbody>().useGravity = false;
                     // 物資を取る : オブジェクトの親をドローンに設定
                     Supplie.transform.parent = transform;
@@ -314,7 +296,7 @@ namespace Drone {
                 }
             }
 
-            // 避難所の上空で物資を離す
+            // 物資を離すを選択した場合
             if(releaseMode) {
                 //物資を落とす
                 Supplie.GetComponent<Rigidbody>().useGravity = true;
@@ -324,7 +306,7 @@ namespace Drone {
                 
                 Debug.Log("[Agent] Action:Release Supplie");
                 if (isOnShelter && isGetSupplie) {
-                    AddReward(20.0f);
+                    AddReward(10.0f);
                     Debug.Log("[Agent] Release Supplie on Shelter");
                     isGetSupplie = false;
                     EndEpisode();
@@ -335,7 +317,7 @@ namespace Drone {
                     EndEpisode();
                 } else if(!isOnShelter && isGetSupplie) { //避難所の上空以外で物資を離した場合
                     Debug.Log("[Agent] Release Supplie on Field. But not on Shelter");
-                    //AddReward(-10.0f);
+                    AddReward(-10.0f);
                     isGetSupplie = false;
                     EndEpisode();
                 }
@@ -377,33 +359,6 @@ namespace Drone {
         }
 
 
-        /// <summary>
-        /// ドローンの姿勢が安定しているかどうかを判断し、報酬を付与するメソッド
-        /// </summary>
-        private void EvaluateStability() {
-            // ドローンの現在の角度を取得
-            Vector3 currentAngles = transform.rotation.eulerAngles;
-
-            // ドローンの現在の速度を取得
-            Vector3 currentSpeed = Rbody.velocity;
-
-            // 姿勢が安定しているかどうかを判断
-            bool isStable = Mathf.Abs(currentAngles.x) <= maxTiltAngle &&
-                            Mathf.Abs(currentAngles.z) <= maxTiltAngle &&
-                            currentSpeed.magnitude <= maxSpeed;
-
-            // 報酬を付与
-            if (isStable) {
-                Debug.Log("[Agent] Stable");
-                AddReward(0.1f); // 姿勢が安定していれば報酬を付与
-            } else {
-                Debug.Log("[Agent] Unstable");
-                AddReward(-0.1f); // 姿勢が不安定であれば報酬を減らす
-            }
-        }
-
-
-
         private float MyGetAxis(string axisName) {
             float axis = 0;
             switch (axisName) {
@@ -428,6 +383,16 @@ namespace Drone {
             return axis;
         }
 
+
+        private List<GameObject> GetsGameObjectsIncludeDeactive(string tag) {
+            List<GameObject> objectsWithTag = new List<GameObject>();
+            foreach (GameObject obj in Resources.FindObjectsOfTypeAll<GameObject>()) {
+                if (obj.tag == tag) {
+                    objectsWithTag.Add(obj);
+                }
+            }
+            return objectsWithTag;
+        }
     }
 
 }
