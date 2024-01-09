@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -18,6 +19,7 @@ namespace Drone {
         public GameObject Shelter; // 避難所
         public GameObject Supplie; // 物資
         public GameObject Field; // フィールド
+        public GameObject Destination; // 現在AIが考えている目的地
 
         [Header("Movement Parameters")]
         public float moveSpeed = 2f; // 移動速度
@@ -44,6 +46,8 @@ namespace Drone {
         private Rigidbody Rbody;
         private float rot;
 
+        private NavMeshAgent NavAI;
+
         //環境の範囲値(x, y, z)を格納した変数     
         private float[] fieldXRange = new float[2];
         private float[] fieldYRange = new float[2];
@@ -54,6 +58,8 @@ namespace Drone {
 
         public override void Initialize() {
             Rbody = GetComponent<Rigidbody>();
+            NavAI = GetComponent<NavMeshAgent>();
+
 
             if(yLimit == 0) {
                 throw new System.ArgumentNullException("yLimit", "Arguments 'yLimit' is required");
@@ -81,21 +87,16 @@ namespace Drone {
             isOnWarehouse = false;
             isOnShelter = false;
 
-            checkPointCount = 0;
-        
-            
             //物資を倉庫に戻す->座標をリセット
             Supplie.transform.parent = Warehouse.transform;
             Supplie.transform.localPosition = new Vector3(0,0.5f,0);
             Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
             Supplie.GetComponent<Rigidbody>().useGravity = true;
-            //CheckPointを復活させる
-            var checkPoints = GetsGameObjectsIncludeDeactive("checkpoint");
 
-            foreach(GameObject checkpoint in checkPoints) {
-                checkpoint.SetActive(true);
-            }
-
+            //TODO;ナビAIの目的地の設定➞ここは将来的にエージェントの行動によって変更するようにする
+            //とりあえず今はデモで倉庫を指定
+            NavAI.SetDestination(Warehouse.transform.position);
+            
             Rbody.AddForce(transform.TransformDirection(new Vector3(0, 10.0f, 10.0f)));
             Debug.Log("[Agent] Episode Initialize Compleat");
         }
@@ -324,39 +325,6 @@ namespace Drone {
             }
         }
 
-        /// <summary>
-        /// ドローンがフィールド（Field）外に出たかどうかを判定するメソッド
-        /// </summary>
-        /// <param name="yMax">フィールドの高さ(限界高度)</param>
-        /// <returns>フィールド外に出た場合はtrue、そうでない場合はfalseを返す</returns>
-        private bool isOutRange(float yMax) {
-            
-            // FieldオブジェクトのTransformコンポーネントを取得
-            var FieldTransform = Field.transform;
-
-            // Fieldオブジェクトのローカルスケールを取得
-            Vector3 FieldLocalScale = FieldTransform.localScale;
-
-            // Fieldオブジェクトの中心のローカル座標を取得
-            Vector3 FieldCenterLocalPosition = FieldTransform.localPosition;
-
-            // Fieldオブジェクトの4辺のローカル座標を計算
-            Vector3 leftEdgeLocalPosition = FieldCenterLocalPosition + new Vector3(-FieldLocalScale.x / 2, 0, 0);
-            Vector3 rightEdgeLocalPosition = FieldCenterLocalPosition + new Vector3(FieldLocalScale.x / 2, 0, 0);
-            Vector3 topEdgeLocalPosition = FieldCenterLocalPosition + new Vector3(0, 0, FieldLocalScale.z / 2);
-            Vector3 bottomEdgeLocalPosition = FieldCenterLocalPosition + new Vector3(0, 0, -FieldLocalScale.z / 2);
-
-            //ドローンの位置がフィールドの範囲外かどうかを判定
-            var isInXRange = transform.localPosition.x < rightEdgeLocalPosition.x && transform.localPosition.x > leftEdgeLocalPosition.x;
-            var isInYRange = transform.localPosition.y < yMax && transform.localPosition.y > 0;
-            var isInZRange = transform.localPosition.z < topEdgeLocalPosition.z && transform.localPosition.z > bottomEdgeLocalPosition.z;
-
-            if(!isInYRange || !isInXRange || !isInZRange) {
-                return true;
-            } else {
-                return false;
-            }
-        }
 
 
         private float MyGetAxis(string axisName) {
