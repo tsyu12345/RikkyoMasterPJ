@@ -19,7 +19,6 @@ namespace Drone {
         public GameObject Shelter; // 避難所
         public GameObject Supplie; // 物資
         public GameObject Field; // フィールド
-        public GameObject[] DestinationList; // 向かうべき目的地のリスト。このリストのIndexから選択する
 
         [Header("Movement Parameters")]
         public float yLimit = 50.0f; //高度制限
@@ -41,35 +40,25 @@ namespace Drone {
 
         //private props
         private Rigidbody Rbody;
-
         private NavMeshAgent NavAI;
-
-        //環境の範囲値(x, y, z)を格納した変数     
-        private float[] fieldXRange = new float[2];
-        private float[] fieldYRange = new float[2];
-        private float[] fieldZRange = new float[2];
+        private GameObject[] DestinationList; //目的地のリスト
 
 
 
-        public override void Initialize() {
+        void Start() {
             Rbody = GetComponent<Rigidbody>();
             NavAI = GetComponent<NavMeshAgent>();
+
+            //目的地のリストを作成
+            DestinationList = new GameObject[3];
+            DestinationList[0] = null;
+            DestinationList[1] = Warehouse;
+            DestinationList[2] = Shelter;
 
 
             if(yLimit == 0) {
                 throw new System.ArgumentNullException("yLimit", "Arguments 'yLimit' is required");
             }
-
-            //Fieldの範囲値を取得
-            var FieldTransform = Field.transform;
-            var FieldLocalScale = FieldTransform.localScale;
-            var FieldCenterLocalPosition = FieldTransform.localPosition;
-            fieldXRange[0] = FieldCenterLocalPosition.x - FieldLocalScale.x / 2;
-            fieldXRange[1] = FieldCenterLocalPosition.x + FieldLocalScale.x / 2;
-            fieldYRange[0] = FieldCenterLocalPosition.y - FieldLocalScale.y / 2;
-            fieldYRange[1] = FieldCenterLocalPosition.y + FieldLocalScale.y / 2;
-            fieldZRange[0] = FieldCenterLocalPosition.z - FieldLocalScale.z / 2;
-            fieldZRange[1] = FieldCenterLocalPosition.z + FieldLocalScale.z / 2;
 
         }
 
@@ -77,6 +66,7 @@ namespace Drone {
             // ドローンの位置をDronePlatformの位置に初期化
             Vector3 pos = new Vector3(DronePlatform.transform.localPosition.x, 10f, DronePlatform.transform.localPosition.z);
             transform.localPosition = pos;
+            NavAI.baseOffset = 10f;
             //ドローンの状態を初期化
             isGetSupplie = false;
             isOnWarehouse = false;
@@ -88,7 +78,9 @@ namespace Drone {
             Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
             Supplie.GetComponent<Rigidbody>().useGravity = true;
             
-            Rbody.AddForce(transform.TransformDirection(new Vector3(0, 10.0f, 10.0f)));
+            InitializeRandomPositions();
+
+
             Debug.Log("[Agent] Episode Initialize Compleat");
         }
 
@@ -103,18 +95,19 @@ namespace Drone {
         void OnTriggerEnter(Collider other) {
             if(other.gameObject.tag == "obstacle") {
                 Debug.Log("[Agent] Hit Obstacle");
-                AddReward(-5.0f);
+                AddReward(-1.0f);
                 EndEpisode();
+                return;
             }
             if(other.gameObject.tag == "warehouserange") {
                 Debug.Log("[Agent] in range warehouse");
                 isOnWarehouse = true;
-                AddReward(5.0f);
+                //AddReward(5.0f);
             }
             if(other.gameObject.tag == "shelterrange") {
                 Debug.Log("[Agent] in range shelter");
                 isOnShelter = true;
-                AddReward(5.0f);
+                //AddReward(5.0f);
             }
 
         }
@@ -131,20 +124,24 @@ namespace Drone {
                 Debug.Log("[Agent] out of range shelter");
                 isOnShelter = false;
                 EndEpisode();
+                return;
             }
         }
         
 
         public override void CollectObservations(VectorSensor sensor) {
-            // ドローンの速度,高度を観察
+            // ドローンの速度,高度, 位置を観察
             sensor.AddObservation(moveSpeed);
             sensor.AddObservation(altitude);
+            sensor.AddObservation(transform.localPosition);
             //現在の物資状態を観察
             sensor.AddObservation(isGetSupplie);
             //現在のドローンの位置状態を観察
             sensor.AddObservation(isOnShelter);
             sensor.AddObservation(isOnWarehouse);
-
+            //各種オブジェクトの位置を観察
+            sensor.AddObservation(Warehouse.transform.localPosition);
+            sensor.AddObservation(Shelter.transform.localPosition);
         }
 
 
@@ -156,8 +153,9 @@ namespace Drone {
             //Fieldから離れたらリセット
             if(transform.localPosition.y > yLimit || transform.localPosition.y < 0) {
                 Debug.Log("[Agent] Out of range");
-                AddReward(-10.0f);
+                AddReward(-1.0f);
                 EndEpisode();
+                return;
             }
         }
 
@@ -194,26 +192,42 @@ namespace Drone {
         private void DiscreateControl(ActionBuffers actions) {
             // 入力値を取得
             int ModeAction = actions.DiscreteActions[0];
-            int DestinationAction = actions.DiscreteActions[1];
+            int DestinationAction = actions.DiscreteActions[1]; //0: 空中待機, 1: 倉庫, 2: 避難所
 
             var getMode = ModeAction == 1 ? true : false;
             var releaseMode = ModeAction == 2 ? true : false;
             var choiceDestination = DestinationList[DestinationAction];
+
+            NavAI.isStopped = false;
                 
             //目的地を設定
-            NavAI.SetDestination(choiceDestination.transform.position);
-            transform.LookAt(choiceDestination.transform.position);
             Destination = choiceDestination;
 
-            if(!isGetSupplie && DestinationAction == 1) { //物資を持っていない状態で避難所を選択した場合
-                AddReward(-10.0f);
-                EndEpisode();
+            if(choiceDestination == Shelter) {
+                NavAI.SetDestination(choiceDestination.transform.position);
+                transform.LookAt(choiceDestination.transform.position);
+            } else if(choiceDestination == Warehouse) {
+                NavAI.SetDestination(choiceDestination.transform.position);
+                transform.LookAt(choiceDestination.transform.position);
+            } else if(choiceDestination == null) {
+                NavAI.isStopped = true;
             }
+
+
+
             // 物資を取るを選択した場合
             if (getMode) { 
                 if(isOnWarehouse && !isGetSupplie) {
                     GetSupplie();
-                    AddReward(10.0f);
+                    AddReward(1.0f);
+                } else if(isGetSupplie) {
+                    AddReward(-1.0f);
+                    Debug.Log("[Agent] already get Supplie");
+                } else if(!isOnWarehouse) {
+                    AddReward(-1.0f);
+                    Debug.Log("[Agent] not in range warehouse");
+                    EndEpisode();
+                    return;
                 }
             }
 
@@ -222,20 +236,23 @@ namespace Drone {
                 ReleaseSupplie();
                 Debug.Log("[Agent] Action:Release Supplie");
                 if (isOnShelter && isGetSupplie) {
-                    AddReward(10.0f);
+                    AddReward(1.0f);
                     Debug.Log("[Agent] Release Supplie on Shelter");
                     isGetSupplie = false;
                     EndEpisode();
+                    return;
                 } else if(!isGetSupplie) { //物資を持っていない状態で物資を離した場合
-                    AddReward(-10.0f);
+                    AddReward(-1.0f);
                     Debug.Log("[Agent] not get Supplie... but Agent did release");
                     isGetSupplie = false;
                     EndEpisode();
+                    return;
                 } else if(!isOnShelter && isGetSupplie) { //避難所の上空以外で物資を離した場合
                     Debug.Log("[Agent] Release Supplie on Field. But not on Shelter");
-                    AddReward(-10.0f);
+                    AddReward(-1.0f);
                     isGetSupplie = false;
                     EndEpisode();
+                    return;
                 }
             }
         }
@@ -302,7 +319,38 @@ namespace Drone {
             }
             return objectsWithTag;
         }
-    }
 
+
+        private void InitializeRandomPositions(float someMinimumDistance = 10f) {
+            Vector3 fieldSize = Field.GetComponent<Collider>().bounds.size;
+            Vector3 fieldCenter = Field.transform.position;
+
+            Vector3 newWarehousePos, newShelterPos;
+            int maxAttempts = 100; // 最大試行回数を設定
+            int attempts = 0;
+
+            do {
+                newWarehousePos = GenerateRandomPosition(fieldCenter, fieldSize);
+                newShelterPos = GenerateRandomPosition(fieldCenter, fieldSize);
+                attempts++;
+            } while (Vector3.Distance(newWarehousePos, newShelterPos) < someMinimumDistance && attempts < maxAttempts);
+
+            if (attempts >= maxAttempts) {
+                Debug.LogWarning("Failed to place Warehouse and Shelter sufficiently apart");
+                return; // 適切な位置を見つけられなかった場合は処理を中断
+            }
+
+            newWarehousePos.y = Warehouse.transform.localPosition.y;
+            newShelterPos.y = Shelter.transform.localPosition.y;
+            Warehouse.transform.localPosition = newWarehousePos;
+            Shelter.transform.localPosition = newShelterPos;
+        }
+
+        private Vector3 GenerateRandomPosition(Vector3 center, Vector3 size) {
+            float x = Random.Range(center.x - size.x / 2, center.x + size.x / 2);
+            float z = Random.Range(center.z - size.z / 2, center.z + size.z / 2);
+            return new Vector3(x, 0, z); // y座標は0としておき、後で変更する
+        }
+    }
 }
 
