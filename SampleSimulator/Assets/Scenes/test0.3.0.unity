@@ -506,12 +506,16 @@ PrefabInstance:
       value: DroneAgent
       objectReference: {fileID: 0}
     - target: {fileID: 669972290579536796, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 669972290579536796, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
       propertyPath: m_BrainParameters.VectorActionSpaceType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 669972290579536796, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
-      value: 14
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 669972290579536796, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
       propertyPath: m_BrainParameters.VectorActionSize.Array.size
@@ -541,6 +545,10 @@ PrefabInstance:
       propertyPath: Field
       value: 
       objectReference: {fileID: 129645929}
+    - target: {fileID: 669972290579536798, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
+      propertyPath: MaxStep
+      value: 30000
+      objectReference: {fileID: 0}
     - target: {fileID: 669972290579536798, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
       propertyPath: Shelter
       value: 
@@ -575,7 +583,7 @@ PrefabInstance:
       objectReference: {fileID: 1784999457}
     - target: {fileID: 669972290579536799, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}
       propertyPath: DecisionPeriod
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ab1dafa65f0d03458fc700079642e3f, type: 3}

@@ -142,6 +142,11 @@ namespace Drone {
             //各種オブジェクトの位置を観察
             sensor.AddObservation(Warehouse.transform.localPosition);
             sensor.AddObservation(Shelter.transform.localPosition);
+            //obstacleの位置を観察
+            var obstacles = GetsGameObjectsIncludeDeactive("obstacle");
+            foreach(var obstacle in obstacles) {
+                sensor.AddObservation(obstacle.transform.localPosition);
+            }
         }
 
 
@@ -150,6 +155,13 @@ namespace Drone {
         public override void OnActionReceived(ActionBuffers actions) {
             ContinuousControl(actions);
             DiscreateControl(actions);
+            if(isGetSupplie && isOnShelter) {
+                Debug.Log("[Agent] Get Supplie on Shelter");
+                AddReward(0.5f);
+            } else if(isGetSupplie && isOnWarehouse) {
+                Debug.Log("[Agent] Get Supplie on Warehouse");
+                AddReward(-0.2f);
+            }
             //Fieldから離れたらリセット
             if(transform.localPosition.y > yLimit || transform.localPosition.y < 0) {
                 Debug.Log("[Agent] Out of range");
@@ -206,9 +218,15 @@ namespace Drone {
             if(choiceDestination == Shelter) {
                 NavAI.SetDestination(choiceDestination.transform.position);
                 transform.LookAt(choiceDestination.transform.position);
+                if(isGetSupplie) {
+                    AddReward(3.0f);
+                }
             } else if(choiceDestination == Warehouse) {
                 NavAI.SetDestination(choiceDestination.transform.position);
                 transform.LookAt(choiceDestination.transform.position);
+                if(isGetSupplie) {
+                    AddReward(-5.0f);
+                }
             } else if(choiceDestination == null) {
                 NavAI.isStopped = true;
             }
@@ -219,7 +237,7 @@ namespace Drone {
             if (getMode) { 
                 if(isOnWarehouse && !isGetSupplie) {
                     GetSupplie();
-                    AddReward(1.0f);
+                    AddReward(10.0f);
                 } else if(isGetSupplie) {
                     AddReward(-1.0f);
                     Debug.Log("[Agent] already get Supplie");
@@ -236,21 +254,18 @@ namespace Drone {
                 ReleaseSupplie();
                 Debug.Log("[Agent] Action:Release Supplie");
                 if (isOnShelter && isGetSupplie) {
-                    AddReward(1.0f);
+                    AddReward(10.0f);
                     Debug.Log("[Agent] Release Supplie on Shelter");
-                    isGetSupplie = false;
                     EndEpisode();
                     return;
                 } else if(!isGetSupplie) { //物資を持っていない状態で物資を離した場合
                     AddReward(-1.0f);
                     Debug.Log("[Agent] not get Supplie... but Agent did release");
-                    isGetSupplie = false;
                     EndEpisode();
                     return;
                 } else if(!isOnShelter && isGetSupplie) { //避難所の上空以外で物資を離した場合
                     Debug.Log("[Agent] Release Supplie on Field. But not on Shelter");
                     AddReward(-1.0f);
-                    isGetSupplie = false;
                     EndEpisode();
                     return;
                 }
@@ -281,6 +296,7 @@ namespace Drone {
             Supplie.transform.parent = Field.transform;
             //位置を固定解除
             Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            isGetSupplie = false;
         }
 
 
