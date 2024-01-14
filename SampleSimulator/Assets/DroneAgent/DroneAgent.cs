@@ -157,6 +157,12 @@ namespace Drone {
         public override void OnActionReceived(ActionBuffers actions) {
             ContinuousControl(actions);
             DiscreateControl(actions);
+
+            //物資を持っている状態で、避難所との距離が近い程1.0に近づく報酬を与える
+            var distanceToShelter = Vector3.Distance(transform.localPosition, Shelter.transform.localPosition);
+            if(isGetSupplie) {
+                AddReward(1.0f - distanceToShelter / 100f);
+            }
             
             //Fieldから離れたらリセット
             if(transform.localPosition.y > yLimit || transform.localPosition.y < 0) {
