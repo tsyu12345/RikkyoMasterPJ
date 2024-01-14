@@ -77,6 +77,8 @@ namespace Drone {
             Supplie.transform.localPosition = new Vector3(0,0.5f,0);
             Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
             Supplie.GetComponent<Rigidbody>().useGravity = true;
+            //scaleは1.0に戻す
+            Supplie.transform.localScale = new Vector3(1,1,1);
             
             InitializeRandomPositions();
 
@@ -155,17 +157,11 @@ namespace Drone {
         public override void OnActionReceived(ActionBuffers actions) {
             ContinuousControl(actions);
             DiscreateControl(actions);
-            if(isGetSupplie && isOnShelter) {
-                Debug.Log("[Agent] Get Supplie on Shelter");
-                AddReward(0.5f);
-            } else if(isGetSupplie && isOnWarehouse) {
-                Debug.Log("[Agent] Get Supplie on Warehouse");
-                AddReward(-0.2f);
-            }
+            
             //Fieldから離れたらリセット
             if(transform.localPosition.y > yLimit || transform.localPosition.y < 0) {
                 Debug.Log("[Agent] Out of range");
-                AddReward(-1.0f);
+                SetReward(-1.0f);
                 EndEpisode();
                 return;
             }
@@ -203,7 +199,7 @@ namespace Drone {
         /// <param name="actions">エージェントの行動選択</param>//  
         private void DiscreateControl(ActionBuffers actions) {
             // 入力値を取得
-            int ModeAction = actions.DiscreteActions[0];
+            int ModeAction = actions.DiscreteActions[0]; //0: 待機, 1: 物資を取る, 2: 物資を離す
             int DestinationAction = actions.DiscreteActions[1]; //0: 空中待機, 1: 倉庫, 2: 避難所
 
             var getMode = ModeAction == 1 ? true : false;
@@ -219,13 +215,18 @@ namespace Drone {
                 NavAI.SetDestination(choiceDestination.transform.position);
                 transform.LookAt(choiceDestination.transform.position);
                 if(isGetSupplie) {
-                    AddReward(10.0f);
+                    AddReward(0.5f);
                 }
             } else if(choiceDestination == Warehouse) {
                 NavAI.SetDestination(choiceDestination.transform.position);
                 transform.LookAt(choiceDestination.transform.position);
+                if(!isGetSupplie) {
+                    AddReward(0.25f);
+                }
             } else if(choiceDestination == null) {
                 NavAI.isStopped = true;
+                //現在の位置を維持
+                NavAI.SetDestination(transform.position);
             }
 
 
@@ -234,15 +235,11 @@ namespace Drone {
             if (getMode) { 
                 if(isOnWarehouse && !isGetSupplie) {
                     GetSupplie();
-                    AddReward(10.0f);
+                    AddReward(1.0f);
                 } else if(isGetSupplie) {
-                    AddReward(-1.0f);
                     Debug.Log("[Agent] already get Supplie");
                 } else if(!isOnWarehouse) {
-                    AddReward(-1.0f);
-                    Debug.Log("[Agent] not in range warehouse");
-                    EndEpisode();
-                    return;
+                    Debug.Log("[Agent] Get Supplie on Field. not on Warehouse");
                 }
             }
 
@@ -251,18 +248,15 @@ namespace Drone {
                 ReleaseSupplie();
                 Debug.Log("[Agent] Action:Release Supplie");
                 if (isOnShelter && isGetSupplie) {
-                    AddReward(10.0f);
-                    Debug.Log("[Agent] GOAL!! Release Supplie on Shelter");
+                    AddReward(1.0f);
+                    Debug.Log("[Agent] !!GOAL!! Release Supplie on Shelter");
                     EndEpisode();
                     return;
                 } else if(!isGetSupplie) { //物資を持っていない状態で物資を離した場合
-                    AddReward(-1.0f);
                     Debug.Log("[Agent] not get Supplie... but Agent did release");
-                    EndEpisode();
-                    return;
                 } else if(!isOnShelter && isGetSupplie) { //避難所の上空以外で物資を離した場合
                     Debug.Log("[Agent] Release Supplie on Field. But not on Shelter");
-                    AddReward(-1.0f);
+                    SetReward(-1.0f);
                     EndEpisode();
                     return;
                 }
