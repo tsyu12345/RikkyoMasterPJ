@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+SampleSimulator/Assets/Models/** filter=lfs diff=lfs merge=lfs -text
+SampleSimulator/Assets/Models/test0.3/** filter=lfs diff=lfs merge=lfs -text
