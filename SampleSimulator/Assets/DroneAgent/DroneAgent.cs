@@ -219,14 +219,11 @@ namespace Drone {
                 NavAI.SetDestination(choiceDestination.transform.position);
                 transform.LookAt(choiceDestination.transform.position);
                 if(isGetSupplie) {
-                    AddReward(3.0f);
+                    AddReward(10.0f);
                 }
             } else if(choiceDestination == Warehouse) {
                 NavAI.SetDestination(choiceDestination.transform.position);
                 transform.LookAt(choiceDestination.transform.position);
-                if(isGetSupplie) {
-                    AddReward(-5.0f);
-                }
             } else if(choiceDestination == null) {
                 NavAI.isStopped = true;
             }
@@ -255,7 +252,7 @@ namespace Drone {
                 Debug.Log("[Agent] Action:Release Supplie");
                 if (isOnShelter && isGetSupplie) {
                     AddReward(10.0f);
-                    Debug.Log("[Agent] Release Supplie on Shelter");
+                    Debug.Log("[Agent] GOAL!! Release Supplie on Shelter");
                     EndEpisode();
                     return;
                 } else if(!isGetSupplie) { //物資を持っていない状態で物資を離した場合
