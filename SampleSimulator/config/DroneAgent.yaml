@@ -2,13 +2,13 @@ behaviors:
   DroneAgent:
     trainer_type: ppo
     hyperparameters:
-      batch_size: 512
+      batch_size: 5120
       buffer_size: 10240
-      learning_rate: 3e-4
-      beta: 0.005
-      epsilon: 0.3
-      lambd: 0.95
-      num_epoch: 3
+      learning_rate: 1e-4
+      beta: 1e-4
+      epsilon: 0.1
+      lambd: 0.9
+      num_epoch: 5
       learning_rate_schedule: linear
     network_settings:
       normalize: false
@@ -17,9 +17,9 @@ behaviors:
       vis_encode_type: simple
     reward_signals:
       extrinsic:
-        gamma: 0.9
-        strength: 1.0
+        gamma: 0.8
+        strength: 0.1
     keep_checkpoints: 5
     max_steps: 500000
-    time_horizon: 3
+    time_horizon: 120
     summary_freq: 1000
