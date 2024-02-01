@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -12,13 +13,19 @@ namespace Drone {
 
     public class DroneAgent : Agent {
 
-
+        [Header("UI")]
+        public TextMeshProUGUI GetSupplieCounter;
+        private int GetSupplieCount = 0;
+        public TextMeshProUGUI GoalCounter;
+        private int GoalCount = 0;
         [Header("Operation Targets")]
         public GameObject DronePlatform; //ドローンの離着陸プラットフォーム 
         public GameObject Warehouse; //　物資倉庫
         public GameObject Shelter; // 避難所
         public GameObject Supplie; // 物資
-        public GameObject Field; // フィールド
+        public GameObject FieldPlane; // フィールド
+        public GameObject FieldArea;
+
 
         [Header("Movement Parameters")]
         public float yLimit = 50.0f; //高度制限
@@ -89,6 +96,8 @@ namespace Drone {
 
 
         void Update() {
+            //FIXME:なぜかSupplieのscaleが変わってしまうので、毎フレームscaleを1.0に戻す
+            Supplie.transform.localScale = new Vector3(1,1,1);
         }
 
         /**
@@ -159,7 +168,7 @@ namespace Drone {
             DiscreateControl(actions);
 
             
-            //Fieldから離れたらリセット
+            //FieldPlaneから離れたらリセット
             if(transform.localPosition.y > yLimit || transform.localPosition.y < 0) {
                 Debug.Log("[Agent] Out of range");
                 SetReward(-1.0f);
@@ -217,6 +226,8 @@ namespace Drone {
                 transform.LookAt(choiceDestination.transform.position);
                 if(isGetSupplie) {
                     AddReward(0.5f);
+                } else {
+                    AddReward(-0.25f);
                 }
             } else if(choiceDestination == Warehouse) {
                 NavAI.SetDestination(choiceDestination.transform.position);
@@ -230,38 +241,49 @@ namespace Drone {
                 NavAI.SetDestination(transform.position);
             }
 
+            //GetSupplie状態で避難所を選択したなかった場合
+            if(isGetSupplie && choiceDestination != Shelter) {
+                SetReward(-1.0f);
+                EndEpisode();
+                return;
+            }
+
 
 
             // 物資を取るを選択した場合
             if (getMode) { 
                 if(isOnWarehouse && !isGetSupplie) {
                     GetSupplie();
-                    AddReward(1.0f);
+                    AddReward(0.5f);
                 } else if(isGetSupplie) {
                     Debug.Log("[Agent] already get Supplie");
                 } else if(!isOnWarehouse) {
-                    Debug.Log("[Agent] Get Supplie on Field. not on Warehouse");
+                    Debug.Log("[Agent] Get Supplie on FieldPlane. not on Warehouse");
                 }
             }
 
             // 物資を離すを選択した場合
             if(releaseMode) {
-                ReleaseSupplie();
                 Debug.Log("[Agent] Action:Release Supplie");
                 if (isOnShelter && isGetSupplie) {
                     AddReward(1.0f);
                     Debug.Log("[Agent] !!GOAL!! Release Supplie on Shelter");
+                    ReleaseSupplie();
+                    GoalCount++;
+                    GoalCounter.text = GoalCount.ToString();
                     EndEpisode();
-                    return;
                 } else if(!isGetSupplie) { //物資を持っていない状態で物資を離した場合
                     Debug.Log("[Agent] not get Supplie... but Agent did release");
+                    ReleaseSupplie();
                 } else if(!isOnShelter && isGetSupplie) { //避難所の上空以外で物資を離した場合
-                    Debug.Log("[Agent] Release Supplie on Field. But not on Shelter");
+                    Debug.Log("[Agent] Release Supplie on FieldPlane. But not on Shelter");
                     SetReward(-1.0f);
+                    ReleaseSupplie();
                     EndEpisode();
-                    return;
                 }
             }
+
+
         }
 
 
@@ -279,13 +301,15 @@ namespace Drone {
             Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             
             isGetSupplie = true;
+            GetSupplieCount++;
+            GetSupplieCounter.text = GetSupplieCount.ToString();
         }
 
 
         private void ReleaseSupplie() {
             //物資を落とす
             Supplie.GetComponent<Rigidbody>().useGravity = true;
-            Supplie.transform.parent = Field.transform;
+            Supplie.transform.parent = FieldArea.transform;
             //位置を固定解除
             Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             isGetSupplie = false;
@@ -330,16 +354,16 @@ namespace Drone {
 
 
         private void InitializeRandomPositions(float someMinimumDistance = 10f) {
-            Vector3 fieldSize = Field.GetComponent<Collider>().bounds.size;
-            Vector3 fieldCenter = Field.transform.position;
+            Vector3 fieldPlaneSize = FieldPlane.GetComponent<Collider>().bounds.size;
+            Vector3 fieldPlaneCenter = FieldPlane.transform.position;
 
             Vector3 newWarehousePos, newShelterPos;
             int maxAttempts = 100; // 最大試行回数を設定
             int attempts = 0;
 
             do {
-                newWarehousePos = GenerateRandomPosition(fieldCenter, fieldSize);
-                newShelterPos = GenerateRandomPosition(fieldCenter, fieldSize);
+                newWarehousePos = GenerateRandomPosition(fieldPlaneCenter, fieldPlaneSize);
+                newShelterPos = GenerateRandomPosition(fieldPlaneCenter, fieldPlaneSize);
                 attempts++;
             } while (Vector3.Distance(newWarehousePos, newShelterPos) < someMinimumDistance && attempts < maxAttempts);
 
