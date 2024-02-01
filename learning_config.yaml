@@ -1,4 +1,4 @@
-RUN_ID: "test0.2.5"
-CONFIG_PATH: "./SampleSimulator/config/DroneAgent2.yaml"
+RUN_ID: "test0.3.1"
+CONFIG_PATH: "./SampleSimulator/config/DroneAgent.yaml"
 EXE_PATH: "./SampleSimulator/build/SampleSimulator.exe"
 
