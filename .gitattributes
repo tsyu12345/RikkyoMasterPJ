@@ -5,3 +5,4 @@ SampleSimulator/Assets/Models/test0.3/** filter=lfs diff=lfs merge=lfs -text
 SampleSimulator/Assets/TextMesh[[:space:]]Pro/Examples[[:space:]]&[[:space:]]Extras/** filter=lfs diff=lfs merge=lfs -text
 SampleSimulator/Assets/TextMesh[[:space:]]Pro/Fonts/** filter=lfs diff=lfs merge=lfs -text
 SampleSimulator/Assets/TextMesh[[:space:]]Pro/** filter=lfs diff=lfs merge=lfs -text
+SampleSimulator/Assets/DroneAgent/test0.3.1/** filter=lfs diff=lfs merge=lfs -text
