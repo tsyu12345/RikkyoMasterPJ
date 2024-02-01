@@ -23,7 +23,9 @@ namespace Drone {
         public GameObject Warehouse; //　物資倉庫
         public GameObject Shelter; // 避難所
         public GameObject Supplie; // 物資
-        public GameObject Field; // フィールド
+        public GameObject FieldPlane; // フィールド
+        public GameObject FieldArea;
+
 
         [Header("Movement Parameters")]
         public float yLimit = 50.0f; //高度制限
@@ -166,7 +168,7 @@ namespace Drone {
             DiscreateControl(actions);
 
             
-            //Fieldから離れたらリセット
+            //FieldPlaneから離れたらリセット
             if(transform.localPosition.y > yLimit || transform.localPosition.y < 0) {
                 Debug.Log("[Agent] Out of range");
                 SetReward(-1.0f);
@@ -256,7 +258,7 @@ namespace Drone {
                 } else if(isGetSupplie) {
                     Debug.Log("[Agent] already get Supplie");
                 } else if(!isOnWarehouse) {
-                    Debug.Log("[Agent] Get Supplie on Field. not on Warehouse");
+                    Debug.Log("[Agent] Get Supplie on FieldPlane. not on Warehouse");
                 }
             }
 
@@ -274,7 +276,7 @@ namespace Drone {
                     Debug.Log("[Agent] not get Supplie... but Agent did release");
                     ReleaseSupplie();
                 } else if(!isOnShelter && isGetSupplie) { //避難所の上空以外で物資を離した場合
-                    Debug.Log("[Agent] Release Supplie on Field. But not on Shelter");
+                    Debug.Log("[Agent] Release Supplie on FieldPlane. But not on Shelter");
                     SetReward(-1.0f);
                     ReleaseSupplie();
                     EndEpisode();
@@ -307,7 +309,7 @@ namespace Drone {
         private void ReleaseSupplie() {
             //物資を落とす
             Supplie.GetComponent<Rigidbody>().useGravity = true;
-            Supplie.transform.parent = Field.transform;
+            Supplie.transform.parent = FieldArea.transform;
             //位置を固定解除
             Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             isGetSupplie = false;
@@ -352,16 +354,16 @@ namespace Drone {
 
 
         private void InitializeRandomPositions(float someMinimumDistance = 10f) {
-            Vector3 fieldSize = Field.GetComponent<Collider>().bounds.size;
-            Vector3 fieldCenter = Field.transform.position;
+            Vector3 fieldPlaneSize = FieldPlane.GetComponent<Collider>().bounds.size;
+            Vector3 fieldPlaneCenter = FieldPlane.transform.position;
 
             Vector3 newWarehousePos, newShelterPos;
             int maxAttempts = 100; // 最大試行回数を設定
             int attempts = 0;
 
             do {
-                newWarehousePos = GenerateRandomPosition(fieldCenter, fieldSize);
-                newShelterPos = GenerateRandomPosition(fieldCenter, fieldSize);
+                newWarehousePos = GenerateRandomPosition(fieldPlaneCenter, fieldPlaneSize);
+                newShelterPos = GenerateRandomPosition(fieldPlaneCenter, fieldPlaneSize);
                 attempts++;
             } while (Vector3.Distance(newWarehousePos, newShelterPos) < someMinimumDistance && attempts < maxAttempts);
 
