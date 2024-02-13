@@ -29,7 +29,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poe.tasks]
 hoge.shell = "echo hoge"
-learn.shell = "powershell -File ./learning.ps1"
-learn-exe.shell = "powershell -File ./learning-exe.ps1"
+learn = { cmd = "powershell -File ./learning.ps1 $@", help = "Run the learning script with optional arguments." }
+learn-exe = { cmd = "powershell -File ./learning-exe.ps1 $@", help = "Run the learning-exe script with optional arguments." }
 freezepip.shell = "pip freeze > ./requirements.txt"
 board.shell = "tensorboard --logdir=./results --port=6006"
