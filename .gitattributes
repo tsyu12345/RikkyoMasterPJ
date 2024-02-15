@@ -6,3 +6,5 @@ SampleSimulator/Assets/TextMesh[[:space:]]Pro/Examples[[:space:]]&[[:space:]]Ext
 SampleSimulator/Assets/TextMesh[[:space:]]Pro/Fonts/** filter=lfs diff=lfs merge=lfs -text
 SampleSimulator/Assets/TextMesh[[:space:]]Pro/** filter=lfs diff=lfs merge=lfs -text
 SampleSimulator/Assets/DroneAgent/test0.3.1/** filter=lfs diff=lfs merge=lfs -text
+MAEasySimulator/Assets/StreamingAssets/** filter=lfs diff=lfs merge=lfs -text
+MAEasySimulator/Assets/Scenes/** filter=lfs diff=lfs merge=lfs -text
