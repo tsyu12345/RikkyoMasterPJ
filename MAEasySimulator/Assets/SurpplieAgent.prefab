@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 4663562311006893364}
   - component: {fileID: 2903862041861937330}
   - component: {fileID: -4218993929161807159}
+  - component: {fileID: -6657309541605253924}
+  - component: {fileID: -1073448179587111684}
+  - component: {fileID: 6890476890023401154}
   m_Layer: 0
   m_Name: SurpplieAgent
   m_TagString: Untagged
@@ -78,6 +81,79 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-6657309541605253924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567794751423368210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68b4d1aa2cd0f934092f2e90fa44bf37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 10
+  verticalForce: 10
+  tiltAng: 10
+  tiltVel: 5
+  rotSpeed: 100
+  sidewaysTiltAmount: 0
+  forwardTiltAmount: 0
+  rotAmount: 0
+--- !u!114 &-1073448179587111684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567794751423368210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 3
+      BranchSizes: 01000000
+    VectorActionSize: 
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 1
+  m_BehaviorType: 0
+  m_BehaviorName: Surpplier
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
+--- !u!114 &6890476890023401154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567794751423368210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce9d240c166db74d87830c2b91693a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  DronePlatform: {fileID: 0}
+  Supplie: {fileID: 0}
+  FieldFloor: {fileID: 0}
+  FieldArea: {fileID: 0}
+  isGetSupplie: 0
+  isOnShelter: 0
 --- !u!1001 &393291724298388612
 PrefabInstance:
   m_ObjectHideFlags: 0
