@@ -8,6 +8,9 @@ TagManager:
   - SOSArea
   - Obstacle
   - CommunicateTower
+  - Surpplier
+  - Spy
+  - Shelter
   layers:
   - Default
   - TransparentFX
