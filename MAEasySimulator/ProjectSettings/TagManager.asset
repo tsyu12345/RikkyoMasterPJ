@@ -12,6 +12,7 @@ TagManager:
   - Spy
   - Shelter
   - Surpplie
+  - Station
   layers:
   - Default
   - TransparentFX

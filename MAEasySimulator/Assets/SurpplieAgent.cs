@@ -16,6 +16,7 @@ public class SurpplieAgent : Agent {
 
     [Header("State of Drone")]
     public bool isGetSupplie = false; // 物資を持っているかどうか
+    public bool wasRelease = false; // 物資を投下したかどうか
     //public bool isOnShelter = false; // 避難所の範囲内にいるかどうか
 
     private DroneController Ctrl;
@@ -31,6 +32,7 @@ public class SurpplieAgent : Agent {
         Ctrl.onReceiveMsg += OnReceiveMessage;
         Ctrl.onCrash += OnCrash;
         Ctrl.onEmptyBattery += OnEmpty;
+        Ctrl.onChargingBattery += OnChargingBattery;
         Ctrl.RegisterTeam(gameObject.tag);
         StartPosition = transform.localPosition;
         Supplie.GetComponent<SurpplieBox>().onLandingShelter += OnLandingSurpplieForShelter;
@@ -57,11 +59,9 @@ public class SurpplieAgent : Agent {
 
         if (doRelease) {
             ReleaseSupplie();
-        } else if (doGetSupplie && !isGetSupplie) { //TODO:物資が近くにあるかどうかの判定
+        } else if (doGetSupplie) {
             GetSupplie();
         }
-
-        RewardDefinition();
     }
 
     public override void Heuristic(in ActionBuffers actionsOut) {
@@ -77,17 +77,15 @@ public class SurpplieAgent : Agent {
 
 
     /// <summary>
-    /// TODO:報酬設計とエピソード終了定義
-    /// </summary>
-    private void RewardDefinition() {
-        
-    }
-
-    /// <summary>
     /// 物資が避難所に着陸した時のイベントハンドラー
     /// </summary>
     private void OnLandingSurpplieForShelter() {
-        AddReward(1f);
+        AddReward(1.0f);
+    }
+
+    private void OnChargingBattery() {
+        Debug.Log(LogPrefix + "Charging Battery");
+        AddReward(0.5f);
     }
 
 
@@ -111,15 +109,22 @@ public class SurpplieAgent : Agent {
 
     private void OnCrash(Vector3 position) {
         Debug.Log(LogPrefix + "Crash at " + position);
+        SetReward(-1.0f);
         EndEpisode();
     }
 
     private void OnEmpty() {
         Debug.Log(LogPrefix + "Battery is empty");
+        SetReward(-1.0f);
         EndEpisode();
     }
 
-    private void GetSupplie() {
+    private void GetSupplie() { //TODO:物資が近くにあるかどうかの判定
+
+        if(wasRelease || isGetSupplie){
+            return;
+        }
+
         Debug.Log("[Agent] Get Supplie");
         //物資の重力を無効化 
         Supplie.GetComponent<Rigidbody>().useGravity = false;
@@ -133,15 +138,17 @@ public class SurpplieAgent : Agent {
         Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         isGetSupplie = true;
         GetSupplieCount++;
+        AddReward(0.1f);
         //GetSupplieCounter.text = GetSupplieCount.ToString();
     }
-    private void ReleaseSupplie() {
+    private void ReleaseSupplie() { 
         //物資を落とす
         Supplie.GetComponent<Rigidbody>().useGravity = true;
         Supplie.transform.parent = FieldArea.transform;
         //位置を固定解除
         Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         isGetSupplie = false;
+        wasRelease = true;
     }
 
     private void Reset() {
@@ -156,7 +163,7 @@ public class SurpplieAgent : Agent {
         Ctrl.Rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
         //バッテリーをリセット
         Ctrl.batteryLevel = 100;
-        GetSupplie();
+        //GetSupplie();
     }
 
     

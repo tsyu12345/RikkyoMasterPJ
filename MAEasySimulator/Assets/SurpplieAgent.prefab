@@ -57,7 +57,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -160,6 +160,7 @@ MonoBehaviour:
   Supplie: {fileID: 1464484887366625871, guid: 973e30aed52df874a8a9b583c4cf06d6, type: 3}
   FieldArea: {fileID: 0}
   isGetSupplie: 0
+  wasRelease: 0
 --- !u!114 &-3713612480836557185
 MonoBehaviour:
   m_ObjectHideFlags: 0

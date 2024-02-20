@@ -31,6 +31,8 @@ public class DroneController : MonoBehaviour {
     public OnCrash onCrash;
     public delegate void OnEmptyButtery();
     public OnEmptyButtery onEmptyBattery;
+    public delegate void OnChargingBattery();
+    public OnChargingBattery onChargingBattery;
     /***/
     public List<string> CommunicateTargetTags;
     private string Team;
@@ -46,9 +48,14 @@ public class DroneController : MonoBehaviour {
         if (other.transform.parent != transform) { //子要素のコライダーは無視
             return;
         }
+        Debug.LogWarning("DroneController: OnTriggerEnter" + other.tag);
         if (CrashTags.Contains(other.tag)) {
             onCrash?.Invoke(other.transform.position);
             FreeFall();
+        }
+        if(other.tag == "Station") {
+            onChargingBattery?.Invoke();
+            Charge();
         }
     }
 
@@ -169,6 +176,11 @@ public class DroneController : MonoBehaviour {
         }
         onEmptyBattery?.Invoke();
         FreeFall();
+    }
+
+    private void Charge() {
+        //TODO:1秒ごとにバッテリーを充電
+        batteryLevel = 100;
     }
 
     //NOTE：以下はTello SDKを参考

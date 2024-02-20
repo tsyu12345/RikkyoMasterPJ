@@ -64,18 +64,25 @@ public class SpyAgent : Agent {
     private void RewardDefinition() {
         //1エピソード中に避難所を検出した回数に応じて報酬を与える
         if (_findCount > 0) {
-            SetReward(0.1f * _findCount);
+            AddReward(0.5f);
         }
     }
 
     private void OnCrash(Vector3 position) {
         Debug.Log(LogPrefix + "Crash at " + position);
+        SetReward(-1.0f);
         EndEpisode();
     }
 
     private void OnEmpty() {
         Debug.Log(LogPrefix + "Battery is empty");
-        //EndEpisode();
+        SetReward(-1.0f);
+        EndEpisode();
+    }
+
+    private void OnChargingBattery() {
+        Debug.Log(LogPrefix + "Charging Battery");
+        AddReward(0.5f);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut) {
