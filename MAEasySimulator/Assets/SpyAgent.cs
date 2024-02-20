@@ -20,13 +20,17 @@ public class SpyAgent : Agent {
     private delegate void OnFindShelter(Vector3 pos);
     private OnFindShelter _onFindShelter;
     private string LogPrefix = "[Agent Spy]";
+    private Vector3 StartPosition;
     
     void Start() {
         _controller = GetComponent<DroneController>();
         _env = GetComponentInParent<EnvManager>();
         _controller.RegisterTeam(gameObject.tag);
         _controller.AddCommunicateTarget(targetTag);
+        _controller.onCrash += OnCrash;
+        _controller.onEmptyBattery += OnEmpty;
         Sensor = transform.Find("Sensor");
+        StartPosition = transform.localPosition;
     }
 
     public override void OnEpisodeBegin() {
@@ -58,7 +62,20 @@ public class SpyAgent : Agent {
     }
 
     private void RewardDefinition() {
-        
+        //1エピソード中に避難所を検出した回数に応じて報酬を与える
+        if (_findCount > 0) {
+            SetReward(0.1f * _findCount);
+        }
+    }
+
+    private void OnCrash(Vector3 position) {
+        Debug.Log(LogPrefix + "Crash at " + position);
+        EndEpisode();
+    }
+
+    private void OnEmpty() {
+        Debug.Log(LogPrefix + "Battery is empty");
+        //EndEpisode();
     }
 
     public override void Heuristic(in ActionBuffers actionsOut) {
@@ -74,6 +91,16 @@ public class SpyAgent : Agent {
         _findCount++;
         _controller.Communicate(pos.ToString());
         Debug.Log(LogPrefix + "Find shelter at " + pos.ToString());
+    }
+
+
+    private void Reset() {
+        _findCount = 0;
+        transform.localPosition = StartPosition;
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
+        _controller.batteryLevel = 100;
+        _controller.Rbody.useGravity = false;
+        _controller.Rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
     }
 
 

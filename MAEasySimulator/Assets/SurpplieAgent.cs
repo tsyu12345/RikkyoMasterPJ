@@ -33,11 +33,11 @@ public class SurpplieAgent : Agent {
         Ctrl.onEmptyBattery += OnEmpty;
         Ctrl.RegisterTeam(gameObject.tag);
         StartPosition = transform.localPosition;
+        Supplie.GetComponent<SurpplieBox>().onLandingShelter += OnLandingSurpplieForShelter;
     }
 
     public override void OnEpisodeBegin() {
         env.InitializeRandomPositions();
-        StartPosition = transform.localPosition;
         Reset();
     }
     public override void CollectObservations(VectorSensor sensor) {
@@ -80,7 +80,14 @@ public class SurpplieAgent : Agent {
     /// TODO:報酬設計とエピソード終了定義
     /// </summary>
     private void RewardDefinition() {
+        
+    }
 
+    /// <summary>
+    /// 物資が避難所に着陸した時のイベントハンドラー
+    /// </summary>
+    private void OnLandingSurpplieForShelter() {
+        AddReward(1f);
     }
 
 
@@ -109,7 +116,7 @@ public class SurpplieAgent : Agent {
 
     private void OnEmpty() {
         Debug.Log(LogPrefix + "Battery is empty");
-        //EndEpisode();
+        EndEpisode();
     }
 
     private void GetSupplie() {
@@ -141,9 +148,9 @@ public class SurpplieAgent : Agent {
         /*
         Vector3 pos = new Vector3(DronePlatform.transform.localPosition.x, DronePlatform.transform.localPosition.y + 3f, DronePlatform.transform.localPosition.z);
         transform.localPosition = pos;
-        transform.localRotation = Quaternion.Euler(0, 0, 0);
         */
         transform.localPosition = StartPosition;
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
         //Rigidbodyの状態をリセット
         Ctrl.Rbody.useGravity = false;
         Ctrl.Rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;

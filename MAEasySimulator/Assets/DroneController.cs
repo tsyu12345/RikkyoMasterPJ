@@ -37,11 +37,15 @@ public class DroneController : MonoBehaviour {
 
     void Start() {
         Rbody = GetComponent<Rigidbody>();
+        Rbody.useGravity = false;
         communicateArea.transform.localScale = new Vector3(communicationRange, communicationRange, communicationRange);
         StartCoroutine(BatteryDrainCoroutine());
     }
 
     void OnTriggerEnter(Collider other) {
+        if (other.transform.parent != transform) { //子要素のコライダーは無視
+            return;
+        }
         if (CrashTags.Contains(other.tag)) {
             onCrash?.Invoke(other.transform.position);
             FreeFall();
@@ -161,7 +165,7 @@ public class DroneController : MonoBehaviour {
         while (batteryLevel > 0) {
             yield return new WaitForSeconds(1);
             batteryLevel -= batteryDrainRate;
-            Debug.Log($"Battery Level: {batteryLevel}%");
+            //Debug.Log($"Battery Level: {batteryLevel}%");
         }
         onEmptyBattery?.Invoke();
         FreeFall();

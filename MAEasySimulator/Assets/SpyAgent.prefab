@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 174229908787394523}
   - component: {fileID: -646215098736134583}
   - component: {fileID: 8559800387565644961}
+  - component: {fileID: -3061991587590451448}
   m_Layer: 0
   m_Name: SpyAgent
   m_TagString: Spy
@@ -163,6 +164,7 @@ MonoBehaviour:
   communicateArea: {fileID: 0}
   CrashTags:
   - Surpplier
+  - Obstacle
   - Spy
   Rbody: {fileID: 0}
   CommunicateTargetTags:
@@ -255,6 +257,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &-3061991587590451448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6760585562241815342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: ObstractSensor
+  m_DetectableTags:
+  - Spy
+  - Surpplier
+  - Obstacle
+  m_RaysPerDirection: 3
+  m_MaxRayDegrees: 70
+  m_SphereCastRadius: 0.5
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  m_ObservationStacks: 1
+  m_AlternatingRayOrder: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: 0
 --- !u!1 &7326297137937280723
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +386,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
