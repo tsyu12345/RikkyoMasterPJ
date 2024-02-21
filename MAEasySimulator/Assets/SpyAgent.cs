@@ -76,13 +76,13 @@ public class SpyAgent : Agent {
 
     private void OnEmpty() {
         Debug.Log(LogPrefix + "Battery is empty");
-        SetReward(-1.0f);
-        EndEpisode();
     }
 
     private void OnChargingBattery() {
         Debug.Log(LogPrefix + "Charging Battery");
-        AddReward(0.5f);
+        if(_controller.batteryLevel < 20) {
+            AddReward(0.5f);
+        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut) {
@@ -106,8 +106,10 @@ public class SpyAgent : Agent {
         transform.localPosition = StartPosition;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         _controller.batteryLevel = 100;
+        _controller.Rbody.velocity = Vector3.zero;
         _controller.Rbody.useGravity = false;
-        _controller.Rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+        //X,Z回転を固定
+        _controller.Rbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
 

@@ -18,6 +18,7 @@ public class SurpplieAgent : Agent {
     public bool isGetSupplie = false; // 物資を持っているかどうか
     public bool wasRelease = false; // 物資を投下したかどうか
     //public bool isOnShelter = false; // 避難所の範囲内にいるかどうか
+    public bool canGetSupplie = false; // 物資を取得できるかどうか
 
     private DroneController Ctrl;
     private EnvManager env;
@@ -35,7 +36,11 @@ public class SurpplieAgent : Agent {
         Ctrl.onChargingBattery += OnChargingBattery;
         Ctrl.RegisterTeam(gameObject.tag);
         StartPosition = transform.localPosition;
-        Supplie.GetComponent<SurpplieBox>().onLandingShelter += OnLandingSurpplieForShelter;
+    
+        SurpplieBox box = Supplie.GetComponent<SurpplieBox>();
+        box.onLandingShelter += OnLandingSurpplieForShelter;
+        box.inRangeCanGet += InRangeSurpplie;
+        box.outRangeCanGet += OutRangeSurpplie;
     }
 
     public override void OnEpisodeBegin() {
@@ -75,20 +80,6 @@ public class SurpplieAgent : Agent {
         }
     }
 
-
-    /// <summary>
-    /// 物資が避難所に着陸した時のイベントハンドラー
-    /// </summary>
-    private void OnLandingSurpplieForShelter() {
-        AddReward(1.0f);
-    }
-
-    private void OnChargingBattery() {
-        Debug.Log(LogPrefix + "Charging Battery");
-        AddReward(0.5f);
-    }
-
-
     /// <summary>
     /// 他のドローンからメッセージを受信した時のイベントハンドラー
     /// </summary>
@@ -107,21 +98,47 @@ public class SurpplieAgent : Agent {
         shelterPosition = new Vector3(x, y, z);
     }
 
+    /// <summary>
+    /// 物資が避難所に着陸した時のイベントハンドラー
+    /// </summary>
+    private void OnLandingSurpplieForShelter() {
+        AddReward(1.0f);
+    }
+
     private void OnCrash(Vector3 position) {
         Debug.Log(LogPrefix + "Crash at " + position);
         SetReward(-1.0f);
         EndEpisode();
     }
 
-    private void OnEmpty() {
-        Debug.Log(LogPrefix + "Battery is empty");
-        SetReward(-1.0f);
-        EndEpisode();
+    private void OnChargingBattery() {
+        if(Ctrl.batteryLevel < 20) {
+            AddReward(0.5f);
+        }
     }
 
-    private void GetSupplie() { //TODO:物資が近くにあるかどうかの判定
+    private void OnEmpty() {
+        Debug.Log(LogPrefix + "Battery is empty");
+        //EndEpisode();
+    }
 
-        if(wasRelease || isGetSupplie){
+    private void InRangeSurpplie() {
+        if(isGetSupplie) {
+            return;
+        }
+        Debug.Log(LogPrefix + "InRangeCanGet");
+        AddReward(0.1f);
+        canGetSupplie = true;
+    }
+
+    private void OutRangeSurpplie() {
+        Debug.Log(LogPrefix + "OutRangeCanGet");
+        canGetSupplie = false;
+    }
+
+    private void GetSupplie() { 
+
+        if(!canGetSupplie) {
             return;
         }
 
@@ -132,7 +149,6 @@ public class SurpplieAgent : Agent {
         Supplie.transform.parent = transform;
         // 物資の位置をドローンの下部に設定
         Supplie.transform.localPosition = new Vector3(0, -4f, 0);
-        Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
         Supplie.transform.localRotation = Quaternion.Euler(0, 0, 0);
         //位置を固定
         Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -158,12 +174,14 @@ public class SurpplieAgent : Agent {
         */
         transform.localPosition = StartPosition;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
-        //Rigidbodyの状態をリセット
+
+        Ctrl.Rbody.velocity = Vector3.zero;
         Ctrl.Rbody.useGravity = false;
-        Ctrl.Rbody.constraints = RigidbodyConstraints.FreezePosition | RigidbodyConstraints.FreezeRotation;
+        //X,Z回転を固定
+        Ctrl.Rbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         //バッテリーをリセット
         Ctrl.batteryLevel = 100;
-        //GetSupplie();
+        GetSupplie();
     }
 
     
