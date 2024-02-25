@@ -12,6 +12,7 @@ public class SpyAgent : Agent {
     //TODO:以下複数の避難所を検出する場合の対応
     private string targetTag = "Shelter";
     private Vector3 targetPos = Vector3.zero;
+    private bool isFindTarget = false;
     
     private DroneController _controller;
     private EnvManager _env;
@@ -35,6 +36,7 @@ public class SpyAgent : Agent {
 
     public override void OnEpisodeBegin() {
         _env.InitializeRandomPositions();
+        Reset();
     }
 
     /// <summary>
@@ -54,6 +56,7 @@ public class SpyAgent : Agent {
             }
         }
         sensor.AddObservation(targetPos);
+        sensor.AddObservation(isFindTarget);
     }
 
     public override void OnActionReceived(ActionBuffers actions) {
@@ -96,8 +99,13 @@ public class SpyAgent : Agent {
     private void _OnFindShelter(Vector3 pos) {
         //検出情報を発信
         _findCount++;
-        _controller.Communicate(pos.ToString());
+        var data = new Types.MessageData {
+            type = "Shelter",
+            content = pos.ToString()
+        };
+        _controller.Communicate(data);
         Debug.Log(LogPrefix + "Find shelter at " + pos.ToString());
+        isFindTarget = true; //TODO:この情報を観測に追加するように
     }
 
 

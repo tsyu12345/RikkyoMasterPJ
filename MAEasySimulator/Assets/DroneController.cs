@@ -139,12 +139,13 @@ public class DroneController : MonoBehaviour {
     /// <summary>
     /// 他のドローンにメッセージを送信する。
     /// </summary>
-    public bool Communicate(string message) {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, communicationRange); //範囲内にあるコライダーを取得
+    public bool Communicate(Types.MessageData messageData) {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, communicationRange);
         var result = false;
         foreach (var hitCollider in hitColliders) {
             if (CommunicateTargetTags.Contains(hitCollider.tag)) {
-                hitCollider.GetComponent<DroneController>().ReceiveMessage(message);
+                var json = messageData.ToJson();
+                hitCollider.GetComponent<DroneController>().ReceiveMessage(json);
                 result = true;
             }
         }
@@ -154,9 +155,10 @@ public class DroneController : MonoBehaviour {
     /// <summary>
     /// 他のドローンからメッセージを受信する（させる）。
     /// </summary>
-    public void ReceiveMessage(string message) {
-        Debug.Log("Message received: " + message);
-        onReceiveMsg?.Invoke(message);
+    public void ReceiveMessage(string json) {
+        var messageData = Types.MessageData.FromJson(json);
+        Debug.Log($"Message received: Type={messageData.type}, Content={messageData.content}");
+        onReceiveMsg?.Invoke(json);
     }
 
 

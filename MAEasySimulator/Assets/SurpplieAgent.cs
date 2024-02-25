@@ -24,6 +24,7 @@ public class SurpplieAgent : Agent {
     private EnvManager env;
     private int GetSupplieCount = 0;
     private Vector3 shelterPosition = Vector3.zero;
+    private bool isGetShelterPos = false;
     private string LogPrefix = "[Agent Surpplier]";
     private Vector3 StartPosition;
 
@@ -53,6 +54,7 @@ public class SurpplieAgent : Agent {
         sensor.AddObservation(Ctrl.Rbody.velocity);
         //偵察エージェントから受け取った情報を観測
         sensor.AddObservation(shelterPosition);
+        sensor.AddObservation(isGetShelterPos);
     }
 
     public override void OnActionReceived(ActionBuffers actions) {
@@ -96,6 +98,7 @@ public class SurpplieAgent : Agent {
 
         //観察に追加
         shelterPosition = new Vector3(x, y, z);
+        isGetShelterPos = true;
     }
 
     /// <summary>
