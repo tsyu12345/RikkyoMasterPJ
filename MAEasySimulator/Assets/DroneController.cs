@@ -66,7 +66,7 @@ public class DroneController : MonoBehaviour {
 
     public void InHeuristicCtrl(in ActionBuffers actionsOut) {
         var action = actionsOut.ContinuousActions;
-        //WASD定義
+        //WASD定義 TODO:Enumにでもまとめること
         if(Input.GetKey(KeyCode.W)) {
             //前進
             action[1] = 1f;
@@ -175,7 +175,7 @@ public class DroneController : MonoBehaviour {
             //Debug.Log($"Battery Level: {batteryLevel}%");
         }
         onEmptyBattery?.Invoke();
-        FreeFall();
+        FreeFall(); //TODO:イベントハンドラーに記載する
     }
 
     private void Charge() {

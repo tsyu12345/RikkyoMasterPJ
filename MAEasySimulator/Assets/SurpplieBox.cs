@@ -16,6 +16,12 @@ public class SurpplieBox : MonoBehaviour {
         StartPos = transform.localPosition;
     }
 
+    void Update() {
+        if(transform.position.y < 0) {
+            Reset();
+        }
+    }
+
     private void OnTriggerEnter(Collider other) {
         ///Debug.LogWarning("SurpplieBox: OnTriggerEnter" + other.tag);
         if (other.CompareTag("Shelter")) {

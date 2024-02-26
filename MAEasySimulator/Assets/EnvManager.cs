@@ -9,6 +9,7 @@ public class EnvManager : MonoBehaviour {
     [Header("GameObjects")]
     public GameObject FieldPlane;
     public GameObject Field;
+    public GameObject SubFieldPlane;
 
     public List<GameObject> buildings;
     public GameObject DroneStation;
@@ -34,28 +35,32 @@ public class EnvManager : MonoBehaviour {
         Vector3 fieldPlaneSize = FieldPlane.GetComponent<Collider>().bounds.size;
         Vector3 fieldPlaneCenter = FieldPlane.transform.position;
         int maxAttempts = 100; // 最大試行回数を設定
-        int attempts = 0;
+        int attempts;
 
-        //buildingsの位置をランダムに設定（DroneStationとTODO:他のbuildingと重ならないように）
+        // buildingsの位置をランダムに設定, SubFieldPlaneの範囲内でランダムに配置
         foreach (GameObject building in buildings) {
             Vector3 newBuildingPos;
+            attempts = 0; // 試行回数のリセット
             do {
-                newBuildingPos = GenerateRandomPosition(fieldPlaneCenter, fieldPlaneSize);
+                newBuildingPos = GenerateRandomPosition(SubFieldPlane.transform.position, SubFieldPlane.GetComponent<Collider>().bounds.size);
                 attempts++;
             } while (Vector3.Distance(newBuildingPos, DroneStation.transform.position) < someMinimumDistance && attempts < maxAttempts);
-            
+
             if (attempts >= maxAttempts) {
                 Debug.LogWarning("Failed to place building sufficiently apart from DroneStation");
                 return; // 適切な位置を見つけられなかった場合は処理を中断 無限ループを防ぐため
             }
-            building.transform.position = newBuildingPos;
-        }        
+            building.transform.position = newBuildingPos; // ローカル座標を使用して位置を設定
+        }
     }
 
     private Vector3 GenerateRandomPosition(Vector3 center, Vector3 size) {
         float x = Random.Range(center.x - size.x / 2, center.x + size.x / 2);
         float z = Random.Range(center.z - size.z / 2, center.z + size.z / 2);
-        return new Vector3(x, 0, z); // y座標は0としておき、後で変更する
+
+        // 生成されたXとZ座標を使用して新しい位置Vector3を返す
+        // y座標はSubFieldPlaneのy座標に合わせるか、必要に応じて調整
+        return new Vector3(x, center.y, z);
     }
 
 }

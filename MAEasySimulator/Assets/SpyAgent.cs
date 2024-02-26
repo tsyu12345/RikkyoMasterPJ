@@ -30,6 +30,7 @@ public class SpyAgent : Agent {
         _controller.AddCommunicateTarget(targetTag);
         _controller.onCrash += OnCrash;
         _controller.onEmptyBattery += OnEmpty;
+        _controller.onChargingBattery += OnChargingBattery;
         Sensor = transform.Find("Sensor");
         StartPosition = transform.localPosition;
     }
