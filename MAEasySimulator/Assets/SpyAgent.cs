@@ -7,6 +7,11 @@ using Unity.MLAgents.Sensors;
 
 public class SpyAgent : Agent {
 
+
+    [Header("Sensor Settings")]
+    public int SensorCount = 5;
+    public float SensorDistance = 10f;
+
     private Transform Sensor;
     private float rayDistance = 40f; // レイキャストの距離
     //TODO:以下複数の避難所を検出する場合の対応
@@ -22,6 +27,8 @@ public class SpyAgent : Agent {
     private OnFindShelter _onFindShelter;
     private string LogPrefix = "[Agent Spy]";
     private Vector3 StartPosition;
+
+    private Ray SpySensor;
     
     void Start() {
         _controller = GetComponent<DroneController>();
@@ -33,6 +40,7 @@ public class SpyAgent : Agent {
         _controller.onChargingBattery += OnChargingBattery;
         Sensor = transform.Find("Sensor");
         StartPosition = transform.localPosition;
+        SpySensor = new Ray(Sensor.position, Sensor.forward);
     }
 
     public override void OnEpisodeBegin() {
@@ -58,6 +66,7 @@ public class SpyAgent : Agent {
         }
         sensor.AddObservation(targetPos);
         sensor.AddObservation(isFindTarget);
+        Debug.DrawRay(SpySensor.origin, SpySensor.direction * 10, Color.red, 5);
     }
 
     public override void OnActionReceived(ActionBuffers actions) {
