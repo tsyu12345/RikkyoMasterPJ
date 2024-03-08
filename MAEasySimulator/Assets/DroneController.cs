@@ -139,16 +139,11 @@ public class DroneController : MonoBehaviour {
     /// <summary>
     /// 他のドローンにメッセージを送信する。
     /// </summary>
-    public bool Communicate(Types.MessageData messageData) {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, communicationRange);
+    public bool Communicate(Types.MessageData messageData, GameObject target) {
         var result = false;
-        foreach (var hitCollider in hitColliders) {
-            if (CommunicateTargetTags.Contains(hitCollider.tag)) {
-                var json = messageData.ToJson();
-                hitCollider.GetComponent<DroneController>().ReceiveMessage(json);
-                result = true;
-            }
-        }
+        //一旦距離制限は考えない
+        target.GetComponent<DroneController>().ReceiveMessage(messageData.ToJson());
+        result = true;
         return result;
     }
 

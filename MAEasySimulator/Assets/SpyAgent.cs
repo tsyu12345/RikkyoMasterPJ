@@ -9,8 +9,15 @@ public class SpyAgent : Agent {
 
 
     [Header("Sensor Settings")]
-    public int SensorCount = 5;
-    public float SensorDistance = 10f;
+    public int SensorCount = 5; //レイキャストの本数（この本数のレイを扇型に展開）
+    public float SensorDistance = 10f; //レイ１本あたりの長さ
+    public float SensorAngle = 120.0f; //レイ全体（扇型）の角度
+    [Header("Sensor Color Settings")]
+    public Color Detected = Color.red;
+    public Color DetectedOthers = Color.yellow;
+    public Color NotDetected = Color.blue;
+    [Header("Communicate Settings")]
+    public string CommunicationTargetTag = "Surpplier";
 
     private Transform Sensor;
     private float rayDistance = 40f; // レイキャストの距離
@@ -38,6 +45,7 @@ public class SpyAgent : Agent {
         _controller.onCrash += OnCrash;
         _controller.onEmptyBattery += OnEmpty;
         _controller.onChargingBattery += OnChargingBattery;
+        _onFindShelter += _OnFindShelter;
         Sensor = transform.Find("Sensor");
         StartPosition = transform.localPosition;
         SpySensor = new Ray(Sensor.position, Sensor.forward);
@@ -56,17 +64,10 @@ public class SpyAgent : Agent {
     /// <param name="sensor"></param>
     public override void CollectObservations(VectorSensor sensor) {
         sensor.AddObservation(_controller.Rbody.velocity);
-        RaycastHit hit;
-        // 子GameObjectの位置と方向からレイキャストを実行
-        if (Physics.Raycast(Sensor.transform.position, Sensor.forward, out hit, rayDistance)) {
-            if (hit.collider.CompareTag(targetTag)) {
-                targetPos = hit.point;
-                _onFindShelter?.Invoke(targetPos);
-            }
-        }
+        var findShelterCount = ShelterScan();
         sensor.AddObservation(targetPos);
         sensor.AddObservation(isFindTarget);
-        Debug.DrawRay(SpySensor.origin, SpySensor.direction * 10, Color.red, 5);
+        sensor.AddObservation(findShelterCount);
     }
 
     public override void OnActionReceived(ActionBuffers actions) {
@@ -75,11 +76,10 @@ public class SpyAgent : Agent {
     }
 
     private void RewardDefinition() {
-        //1エピソード中に避難所を検出した回数に応じて報酬を与える
-        if (_findCount > 0) {
-            AddReward(0.5f);
-        }
+        
     }
+
+    /**EventHandlers**/
 
     private void OnCrash(Vector3 position) {
         Debug.Log(LogPrefix + "Crash at " + position);
@@ -98,6 +98,8 @@ public class SpyAgent : Agent {
         }
     }
 
+    /*********/
+
     public override void Heuristic(in ActionBuffers actionsOut) {
         _controller.InHeuristicCtrl(actionsOut);
     }
@@ -108,14 +110,49 @@ public class SpyAgent : Agent {
     /// <param name="pos"></param> <summary>
     private void _OnFindShelter(Vector3 pos) {
         //検出情報を発信
-        _findCount++;
         var data = new Types.MessageData {
             type = "Shelter",
             content = pos.ToString()
         };
-        _controller.Communicate(data);
         Debug.Log(LogPrefix + "Find shelter at " + pos.ToString());
         isFindTarget = true; //TODO:この情報を観測に追加するように
+        //Surpplierエージェントに伝送
+        var targetDrones = GameObject.FindGameObjectsWithTag(CommunicationTargetTag);
+        foreach (var drone in targetDrones) {
+            _controller.Communicate(data, drone);
+        }
+    }
+
+
+    private int ShelterScan() {
+        int count = 0;
+        RaycastHit hit;
+        float startAngle = -SensorAngle / 2; // 最初のレイの角度
+        float angleStep = SensorAngle / (SensorCount - 1); // 各レイ間の角度
+
+        for (int i = 0; i < SensorCount; i++) {
+            float currentAngle = startAngle + angleStep * i;
+            Vector3 direction = Quaternion.Euler(0, currentAngle, 0) * Sensor.forward; // 現在のレイの方向
+
+            // 子GameObjectの位置と方向からレイキャストを実行
+            // 子GameObjectの位置と方向からレイキャストを実行
+            if (Physics.Raycast(Sensor.position, direction, out hit, SensorDistance)) {
+                if (hit.collider.CompareTag(targetTag)) {
+                    targetPos = hit.point;
+                    _onFindShelter?.Invoke(targetPos);
+                    count = 1; //TODO:複数の避難所を検出する場合の対応
+                    // レイが避難所にヒットしたことを示すために、色を変更して描画
+                    Debug.DrawRay(Sensor.position, direction * SensorDistance, Detected);
+                } else {
+                    // レイが避難所以外のものにヒットした場合
+                    Debug.DrawRay(Sensor.position, direction * SensorDistance, DetectedOthers);
+                }
+            } else {
+                // レイが何もヒットしなかった場合
+                Debug.DrawRay(Sensor.position, direction * SensorDistance, NotDetected);
+            }
+        }
+        return count;
     }
 
 
