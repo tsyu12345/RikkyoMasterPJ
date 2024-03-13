@@ -89,16 +89,14 @@ public class SurpplieAgent : Agent {
     /// ShelterのXYZ座標
     /// 例：(10.0, 0.0, 10.0)
     /// </param>
-    private void OnReceiveMessage(string message) {
+    private void OnReceiveMessage(Types.MessageData data) {
         //Vector3に変換
-        var shelterPos = message.Trim('(', ')').Split(',');
-        var x = float.Parse(shelterPos[0]);
-        var y = float.Parse(shelterPos[1]);
-        var z = float.Parse(shelterPos[2]);
-
-        //観察に追加
-        shelterPosition = new Vector3(x, y, z);
-        isGetShelterPos = true;
+        var detectType = data.type;
+        if(detectType == "Shelter") {
+            Vector3 pos = Utils.ConvertStringToVector3(data.content);
+            shelterPosition = new Vector3(pos.x, pos.y, pos.z);
+            isGetShelterPos = true;
+        }
     }
 
     /// <summary>

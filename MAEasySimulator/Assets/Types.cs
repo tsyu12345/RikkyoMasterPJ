@@ -8,13 +8,5 @@ public class Types : MonoBehaviour {
     public class MessageData {
         public string type;
         public string content;
-
-        public string ToJson() {
-            return JsonUtility.ToJson(this);
-        }
-
-        public static MessageData FromJson(string json) {
-            return JsonUtility.FromJson<MessageData>(json);
-        }
     }
 }

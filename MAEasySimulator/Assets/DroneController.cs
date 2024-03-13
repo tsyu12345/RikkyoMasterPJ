@@ -25,7 +25,7 @@ public class DroneController : MonoBehaviour {
     public Rigidbody Rbody;
 
     /**Events*/
-    public delegate void OnReceiveMessage(string message);
+    public delegate void OnReceiveMessage(Types.MessageData Data);
     public OnReceiveMessage onReceiveMsg;
     public delegate void OnCrash(Vector3 crashPos);
     public OnCrash onCrash;
@@ -142,7 +142,7 @@ public class DroneController : MonoBehaviour {
     public bool Communicate(Types.MessageData messageData, GameObject target) {
         var result = false;
         //一旦距離制限は考えない
-        target.GetComponent<DroneController>().ReceiveMessage(messageData.ToJson());
+        target.GetComponent<DroneController>().ReceiveMessage(messageData);
         result = true;
         return result;
     }
@@ -150,10 +150,8 @@ public class DroneController : MonoBehaviour {
     /// <summary>
     /// 他のドローンからメッセージを受信する（させる）。
     /// </summary>
-    public void ReceiveMessage(string json) {
-        var messageData = Types.MessageData.FromJson(json);
-        Debug.Log($"Message received: Type={messageData.type}, Content={messageData.content}");
-        onReceiveMsg?.Invoke(json);
+    public void ReceiveMessage(Types.MessageData Data) {
+        onReceiveMsg?.Invoke(Data);
     }
 
 

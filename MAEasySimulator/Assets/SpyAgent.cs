@@ -64,9 +64,9 @@ public class SpyAgent : Agent {
     /// <param name="sensor"></param>
     public override void CollectObservations(VectorSensor sensor) {
         sensor.AddObservation(_controller.Rbody.velocity);
-        var findShelterCount = ShelterScan();
+        var findShelterCount = ShelterScan(); //レイキャストによる避難所検出
+        //TODO:複数の避難所を検出する場合の対応
         sensor.AddObservation(targetPos);
-        sensor.AddObservation(isFindTarget);
         sensor.AddObservation(findShelterCount);
     }
 
