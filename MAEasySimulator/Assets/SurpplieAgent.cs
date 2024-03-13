@@ -104,6 +104,7 @@ public class SurpplieAgent : Agent {
     /// </summary>
     private void OnLandingSurpplieForShelter() {
         AddReward(1.0f);
+        EndEpisode(); //TODO:複数個の物資を運ぶ場合の対応
     }
 
     private void OnCrash(Vector3 position) {

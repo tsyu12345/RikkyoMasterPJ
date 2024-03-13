@@ -89,6 +89,7 @@ public class SpyAgent : Agent {
 
     private void OnEmpty() {
         Debug.Log(LogPrefix + "Battery is empty");
+        SetReward(-1.0f);
     }
 
     private void OnChargingBattery() {
@@ -115,7 +116,7 @@ public class SpyAgent : Agent {
             content = pos.ToString()
         };
         Debug.Log(LogPrefix + "Find shelter at " + pos.ToString());
-        isFindTarget = true; //TODO:この情報を観測に追加するように
+        isFindTarget = true; 
         //Surpplierエージェントに伝送
         var targetDrones = GameObject.FindGameObjectsWithTag(CommunicationTargetTag);
         foreach (var drone in targetDrones) {
