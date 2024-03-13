@@ -11,7 +11,6 @@ using Unity.MLAgents.Sensors;
 public class SurpplieAgent : Agent {
    [Header("Operation Targets")]
     public GameObject DronePlatform; //ドローンの離着陸プラットフォーム 
-    public GameObject Supplie; // 物資
     public GameObject FieldArea;
 
     [Header("State of Drone")]
@@ -20,6 +19,7 @@ public class SurpplieAgent : Agent {
     //public bool isOnShelter = false; // 避難所の範囲内にいるかどうか
     public bool canGetSupplie = false; // 物資を取得できるかどうか
 
+    private GameObject Supplie; // 物資
     private DroneController Ctrl;
     private EnvManager env;
     private int GetSupplieCount = 0;
@@ -39,7 +39,9 @@ public class SurpplieAgent : Agent {
         Ctrl.onChargingBattery += OnChargingBattery;
         Ctrl.RegisterTeam(gameObject.tag);
         StartPosition = transform.localPosition;
-    
+
+        //TODO:子要素にある物資オブジェクトからSurpplieBoxコンポーネントを取得
+        Supplie = transform.Find("BoxReady").gameObject;
         SurpplieBox box = Supplie.GetComponent<SurpplieBox>();
         box.onLandingShelter += OnLandingSurpplieForShelter;
         box.inRangeCanGet += InRangeSurpplie;
@@ -62,22 +64,17 @@ public class SurpplieAgent : Agent {
     public override void OnActionReceived(ActionBuffers actions) {
         Ctrl.FlyingCtrl(actions);
         
-        var doRelease = actions.DiscreteActions[0] == 2 ? true : false;
-        var doGetSupplie = actions.DiscreteActions[0] == 1 ? true : false;
+        var doRelease = actions.DiscreteActions[0] == 1 ? true : false;
         var doNothing = actions.DiscreteActions[0] == 0 ? true : false;
 
         if (doRelease) {
             ReleaseSupplie();
-        } else if (doGetSupplie) {
-            GetSupplie();
         }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut) {
         Ctrl.InHeuristicCtrl(actionsOut);
         if(Input.GetKey(KeyCode.R)) {
-            actionsOut.DiscreteActions.Array[0] = 2;
-        } else if (Input.GetKey(KeyCode.G)) {
             actionsOut.DiscreteActions.Array[0] = 1;
         } else {
             actionsOut.DiscreteActions.Array[0] = 0;
@@ -143,12 +140,6 @@ public class SurpplieAgent : Agent {
     }
 
     private void GetSupplie() { 
-
-        if(!canGetSupplie) {
-            return;
-        }
-
-        Debug.Log("[Agent] Get Supplie");
         //物資の重力を無効化 
         Supplie.GetComponent<Rigidbody>().useGravity = false;
         // 物資を取る : オブジェクトの親をドローンに設定
@@ -159,9 +150,6 @@ public class SurpplieAgent : Agent {
         //位置を固定
         Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         isGetSupplie = true;
-        GetSupplieCount++;
-        AddReward(0.1f);
-        //GetSupplieCounter.text = GetSupplieCount.ToString();
     }
     private void ReleaseSupplie() { 
         //物資を落とす
@@ -187,6 +175,7 @@ public class SurpplieAgent : Agent {
         Ctrl.Rbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         //バッテリーをリセット
         Ctrl.batteryLevel = 100;
+        Supplie.GetComponent<SurpplieBox>().Reset();
         GetSupplie();
     }
 

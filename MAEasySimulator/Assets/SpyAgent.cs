@@ -115,7 +115,7 @@ public class SpyAgent : Agent {
             type = "Shelter",
             content = pos.ToString()
         };
-        Debug.Log(LogPrefix + "Find shelter at " + pos.ToString());
+        //Debug.Log(LogPrefix + "Find shelter at " + pos.ToString());
         isFindTarget = true; 
         //Surpplierエージェントに伝送
         var targetDrones = GameObject.FindGameObjectsWithTag(CommunicationTargetTag);
