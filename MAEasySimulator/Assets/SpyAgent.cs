@@ -30,8 +30,8 @@ public class SpyAgent : Agent {
     private EnvManager _env;
     private int _findCount = 0;
 
-    private delegate void OnFindShelter(Vector3 pos);
-    private OnFindShelter _onFindShelter;
+    public delegate void OnFindShelter(Vector3 pos);
+    public OnFindShelter onFindShelter;
     private string LogPrefix = "[Agent Spy]";
     private Vector3 StartPosition;
 
@@ -45,7 +45,7 @@ public class SpyAgent : Agent {
         _controller.onCrash += OnCrash;
         _controller.onEmptyBattery += OnEmpty;
         _controller.onChargingBattery += OnChargingBattery;
-        _onFindShelter += _OnFindShelter;
+        onFindShelter += onDetectShelter;
         Sensor = transform.Find("Sensor");
         StartPosition = transform.localPosition;
         SpySensor = new Ray(Sensor.position, Sensor.forward);
@@ -109,7 +109,7 @@ public class SpyAgent : Agent {
     /// レイキャストで避難所を検出した際のイベントハンドラー
     /// </summary>
     /// <param name="pos"></param> <summary>
-    private void _OnFindShelter(Vector3 pos) {
+    private void onDetectShelter(Vector3 pos) {
         //検出情報を発信
         var data = new Types.MessageData {
             type = "Shelter",
@@ -140,7 +140,7 @@ public class SpyAgent : Agent {
             if (Physics.Raycast(Sensor.position, direction, out hit, SensorDistance)) {
                 if (hit.collider.CompareTag(targetTag)) {
                     targetPos = hit.point;
-                    _onFindShelter?.Invoke(targetPos);
+                    onFindShelter?.Invoke(targetPos);
                     count = 1; //TODO:複数の避難所を検出する場合の対応
                     // レイが避難所にヒットしたことを示すために、色を変更して描画
                     Debug.DrawRay(Sensor.position, direction * SensorDistance, Detected);
