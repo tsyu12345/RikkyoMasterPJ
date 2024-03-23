@@ -19,7 +19,7 @@ public class SurpplieAgent : Agent {
     //public bool isOnShelter = false; // 避難所の範囲内にいるかどうか
     public bool canGetSupplie = false; // 物資を取得できるかどうか
 
-    private GameObject Supplie; // 物資
+    public GameObject Supplie; // 物資
     private DroneController Ctrl;
     private EnvManager env;
     private int GetSupplieCount = 0;
@@ -40,7 +40,7 @@ public class SurpplieAgent : Agent {
         Ctrl.RegisterTeam(gameObject.tag);
         StartPosition = transform.localPosition;
 
-        //TODO:子要素にある物資オブジェクトからSurpplieBoxコンポーネントを取得
+        GetSupplie();
         Supplie = transform.Find("BoxReady").gameObject;
         SurpplieBox box = Supplie.GetComponent<SurpplieBox>();
         box.onLandingShelter += OnLandingSurpplieForShelter;

@@ -7,17 +7,17 @@ public class SurpplieBox : MonoBehaviour {
     public OnLanding onLandingShelter;
     public delegate void InRangeCanGet();
     public InRangeCanGet inRangeCanGet;
-    public Vector3 StartPos;
+    public GameObject StartPosArea;
     public delegate void OutRangeCanGet();
     public OutRangeCanGet outRangeCanGet;
     public string GetableTag;
 
     void Start() {
-        StartPos = transform.localPosition;
+        
     }
 
     void Update() {
-        if(transform.position.y < 0) {
+        if(transform.localPosition.y < 0) {
             Reset();
         }
     }
@@ -47,7 +47,8 @@ public class SurpplieBox : MonoBehaviour {
     }
 
     public void Reset() {
-        transform.localPosition = StartPos;
+        Vector3 renewPos = new Vector3(StartPosArea.transform.localPosition.x, StartPosArea.transform.localPosition.y + 5, StartPosArea.transform.localPosition.z);
+        transform.localPosition = renewPos;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         Debug.Log("Reset Supplie");
     }
