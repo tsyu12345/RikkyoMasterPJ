@@ -17,7 +17,7 @@ public class SurpplieAgent : Agent {
     public bool isGetSupplie = false; // 物資を持っているかどうか
     public bool wasRelease = false; // 物資を投下したかどうか
     //public bool isOnShelter = false; // 避難所の範囲内にいるかどうか
-    public bool canGetSupplie = false; // 物資を取得できるかどうか
+    public bool canGetSupplie = true; // 物資を取得できるかどうか
 
     public GameObject Supplie; // 物資
     private DroneController Ctrl;
@@ -41,7 +41,6 @@ public class SurpplieAgent : Agent {
         StartPosition = transform.localPosition;
 
         GetSupplie();
-        Supplie = transform.Find("BoxReady").gameObject;
         SurpplieBox box = Supplie.GetComponent<SurpplieBox>();
         box.onLandingShelter += OnLandingSurpplieForShelter;
         box.inRangeCanGet += InRangeSurpplie;
@@ -63,21 +62,29 @@ public class SurpplieAgent : Agent {
 
     public override void OnActionReceived(ActionBuffers actions) {
         Ctrl.FlyingCtrl(actions);
-        
+        var doGetting = actions.DiscreteActions[0] == 2 ? true : false;
         var doRelease = actions.DiscreteActions[0] == 1 ? true : false;
         var doNothing = actions.DiscreteActions[0] == 0 ? true : false;
 
         if (doRelease) {
             ReleaseSupplie();
+        } else if (doGetting) {
+            GetSupplie();
+        } else if (doNothing) {
+            //何もしない
+
         }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut) {
         Ctrl.InHeuristicCtrl(actionsOut);
+        actionsOut.DiscreteActions.Array[0] = 0;
         if(Input.GetKey(KeyCode.R)) {
             actionsOut.DiscreteActions.Array[0] = 1;
-        } else {
-            actionsOut.DiscreteActions.Array[0] = 0;
+        }
+        if(Input.GetKey(KeyCode.G)) {
+            Debug.Log("Heuristic: GetSupplie");
+            actionsOut.DiscreteActions.Array[0] = 2;
         }
     }
 
@@ -139,7 +146,12 @@ public class SurpplieAgent : Agent {
         canGetSupplie = false;
     }
 
-    private void GetSupplie() { 
+    private void GetSupplie(bool force=false) { 
+        Debug.Log(LogPrefix + "canGetSupplie" + canGetSupplie);
+        if(!canGetSupplie && !force) {
+            return;
+        }
+        Debug.Log(LogPrefix + "GetSupplie");
         //物資の重力を無効化 
         Supplie.GetComponent<Rigidbody>().useGravity = false;
         // 物資を取る : オブジェクトの親をドローンに設定
@@ -176,7 +188,8 @@ public class SurpplieAgent : Agent {
         //バッテリーをリセット
         Ctrl.batteryLevel = 100;
         Supplie.GetComponent<SurpplieBox>().Reset();
-        GetSupplie();
+        canGetSupplie = true;
+        GetSupplie(true);
     }
 
     

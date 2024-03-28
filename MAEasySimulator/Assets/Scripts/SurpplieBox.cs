@@ -30,7 +30,7 @@ public class SurpplieBox : MonoBehaviour {
             Reset();
         } else if (other.CompareTag("Obstacle")) {
             Debug.LogWarning("SurpplieBox: OnCrash");
-            Reset();
+            //Reset();
         }
     }
 
@@ -47,7 +47,7 @@ public class SurpplieBox : MonoBehaviour {
     }
 
     public void Reset() {
-        Vector3 renewPos = new Vector3(StartPosArea.transform.localPosition.x, StartPosArea.transform.localPosition.y + 5, StartPosArea.transform.localPosition.z);
+        Vector3 renewPos = new Vector3(StartPosArea.transform.localPosition.x, StartPosArea.transform.localPosition.y, StartPosArea.transform.localPosition.z);
         transform.localPosition = renewPos;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         Debug.Log("Reset Supplie");
