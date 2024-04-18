@@ -116,7 +116,7 @@ public class SurpplieAgent : Agent {
     }
 
     private void OnCrash(Vector3 position) {
-        Debug.Log(LogPrefix + "Crash at " + position);
+        Debug.Log(LogPrefix + "Crash at obstacle");
         SetReward(-1.0f);
         EndEpisode();
     }
