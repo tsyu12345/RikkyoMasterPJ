@@ -17,20 +17,21 @@ public class SurpplieBox : MonoBehaviour {
     }
 
     void Update() {
-        if(transform.localPosition.y < 0) {
-            Reset();
-        }
+        
     }
 
     private void OnTriggerEnter(Collider other) {
         ///Debug.LogWarning("SurpplieBox: OnTriggerEnter" + other.tag);
+        if (transform.parent.CompareTag(GetableTag)) {
+            return;
+        }
         if (other.CompareTag("Shelter")) {
             onLandingShelter?.Invoke();
             Debug.LogWarning("SurpplieBox: OnLandingShelter");
             Reset();
         } else if (other.CompareTag("Obstacle")) {
             Debug.LogWarning("SurpplieBox: OnCrash");
-            //Reset();
+            Reset();
         }
     }
 
@@ -50,6 +51,6 @@ public class SurpplieBox : MonoBehaviour {
         Vector3 renewPos = new Vector3(StartPosArea.transform.localPosition.x, StartPosArea.transform.localPosition.y, StartPosArea.transform.localPosition.z);
         transform.localPosition = renewPos;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
-        Debug.Log("Reset Supplie");
+        Debug.Log("SurpplieBox: Reset Supplie");
     }
 }

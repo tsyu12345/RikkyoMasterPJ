@@ -165,8 +165,8 @@ public class SurpplieAgent : Agent {
     }
     private void ReleaseSupplie() { 
         //物資を落とす
-        Supplie.GetComponent<Rigidbody>().useGravity = true;
         Supplie.transform.parent = FieldArea.transform;
+        Supplie.GetComponent<Rigidbody>().useGravity = true;
         //位置を固定解除
         Supplie.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         isGetSupplie = false;
@@ -187,7 +187,7 @@ public class SurpplieAgent : Agent {
         Ctrl.Rbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         //バッテリーをリセット
         Ctrl.batteryLevel = 100;
-        Supplie.GetComponent<SurpplieBox>().Reset();
+        //Supplie.GetComponent<SurpplieBox>().Reset();
         canGetSupplie = true;
         GetSupplie(true);
     }
