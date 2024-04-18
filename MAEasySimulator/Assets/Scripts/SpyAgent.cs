@@ -20,7 +20,7 @@ public class SpyAgent : Agent {
     public string CommunicationTargetTag = "Surpplier";
 
     private Transform Sensor;
-    private float rayDistance = 40f; // レイキャストの距離
+    private float rayDistance = 100f; // レイキャストの距離
     //TODO:以下複数の避難所を検出する場合の対応
     private string targetTag = "Shelter";
     private Vector3 targetPos = Vector3.zero;
@@ -73,7 +73,7 @@ public class SpyAgent : Agent {
 
     public override void OnActionReceived(ActionBuffers actions) {
         _controller.FlyingCtrl(actions);
-        RewardDefinition();
+        //RewardDefinition();
     }
 
 

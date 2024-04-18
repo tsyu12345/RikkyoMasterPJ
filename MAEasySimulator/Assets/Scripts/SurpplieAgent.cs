@@ -109,7 +109,7 @@ public class SurpplieAgent : Agent {
     /// 物資が避難所に着陸した時のイベントハンドラー
     /// </summary>
     private void OnLandingSurpplieForShelter() {
-        AddReward(1.0f);
+        SetReward(2.0f);
         onLandingSurpplieShelter?.Invoke();
         EndEpisode(); //TODO:複数個の物資を運ぶ場合の対応
         
@@ -137,7 +137,7 @@ public class SurpplieAgent : Agent {
             return;
         }
         Debug.Log(LogPrefix + "InRangeCanGet");
-        AddReward(0.1f);
+        SetReward(0.1f);
         canGetSupplie = true;
     }
 
