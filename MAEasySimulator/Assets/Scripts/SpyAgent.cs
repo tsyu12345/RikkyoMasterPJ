@@ -52,7 +52,7 @@ public class SpyAgent : Agent {
     }
 
     public override void OnEpisodeBegin() {
-        _env.InitializeRandomPositions();
+        //_env.InitializeRandomPositions();
         Reset();
     }
 
@@ -68,6 +68,7 @@ public class SpyAgent : Agent {
         //TODO:複数の避難所を検出する場合の対応
         sensor.AddObservation(targetPos);
         sensor.AddObservation(findShelterCount);
+        AddReward(findShelterCount);
     }
 
     public override void OnActionReceived(ActionBuffers actions) {
@@ -75,9 +76,6 @@ public class SpyAgent : Agent {
         RewardDefinition();
     }
 
-    private void RewardDefinition() {
-        
-    }
 
     /**EventHandlers**/
 
