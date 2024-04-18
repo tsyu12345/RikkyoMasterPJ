@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -3713612480836557185}
   - component: {fileID: -2810409007917956328}
   - component: {fileID: -7801201687882758552}
+  - component: {fileID: 4105898892222437657}
   m_Layer: 0
   m_Name: SurpplieAgent
   m_TagString: Surpplier
@@ -230,8 +231,29 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!65 &4105898892222437657
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4567794751423368210}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5, y: 1, z: 4}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7551201119055863154
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +264,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8983697745115193007}
   - component: {fileID: 5900651902300955687}
-  - component: {fileID: 8924315156600755304}
   - component: {fileID: 6910662737266330722}
   m_Layer: 0
   m_Name: Camera
@@ -317,14 +338,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8924315156600755304
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7551201119055863154}
-  m_Enabled: 1
 --- !u!114 &6910662737266330722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,6 +394,7 @@ GameObject:
   - component: {fileID: 3202019202187731792}
   - component: {fileID: 8204467498397979531}
   - component: {fileID: 3447869938172008056}
+  - component: {fileID: 4046734995951615646}
   m_Layer: 0
   m_Name: CommunicateArea
   m_TagString: Untagged
@@ -474,6 +488,33 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5000002
   m_Center: {x: 3.637979e-12, y: 0, z: 0.0000028610193}
+--- !u!54 &4046734995951615646
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8303635654864621995}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &393291724298388612
 PrefabInstance:
   m_ObjectHideFlags: 0

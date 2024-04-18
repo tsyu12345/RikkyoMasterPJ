@@ -25,7 +25,7 @@ public class DroneController : MonoBehaviour {
     public Rigidbody Rbody;
 
     /**Events*/
-    public delegate void OnReceiveMessage(string message);
+    public delegate void OnReceiveMessage(Types.MessageData Data);
     public OnReceiveMessage onReceiveMsg;
     public delegate void OnCrash(Vector3 crashPos);
     public OnCrash onCrash;
@@ -39,20 +39,18 @@ public class DroneController : MonoBehaviour {
 
     void Start() {
         Rbody = GetComponent<Rigidbody>();
-        Rbody.useGravity = false;
         communicateArea.transform.localScale = new Vector3(communicationRange, communicationRange, communicationRange);
         StartCoroutine(BatteryDrainCoroutine());
     }
 
     void OnTriggerEnter(Collider other) {
-        if (other.transform.parent != transform) { //子要素のコライダーは無視
-            return;
-        }
-        Debug.LogWarning("DroneController: OnTriggerEnter" + other.tag);
         if (CrashTags.Contains(other.tag)) {
-            onCrash?.Invoke(other.transform.position);
             FreeFall();
+            onCrash?.Invoke(other.transform.position);
         }
+    }
+
+    void OnTriggerStay(Collider other) {
         if(other.tag == "Station") {
             onChargingBattery?.Invoke();
             Charge();
@@ -68,7 +66,7 @@ public class DroneController : MonoBehaviour {
 
     public void InHeuristicCtrl(in ActionBuffers actionsOut) {
         var action = actionsOut.ContinuousActions;
-        //WASD定義
+        //WASD定義 TODO:Enumにでもまとめること
         if(Input.GetKey(KeyCode.W)) {
             //前進
             action[1] = 1f;
@@ -141,24 +139,19 @@ public class DroneController : MonoBehaviour {
     /// <summary>
     /// 他のドローンにメッセージを送信する。
     /// </summary>
-    public bool Communicate(string message) {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, communicationRange); //範囲内にあるコライダーを取得
+    public bool Communicate(Types.MessageData messageData, GameObject target) {
         var result = false;
-        foreach (var hitCollider in hitColliders) {
-            if (CommunicateTargetTags.Contains(hitCollider.tag)) {
-                hitCollider.GetComponent<DroneController>().ReceiveMessage(message);
-                result = true;
-            }
-        }
+        //一旦距離制限は考えない
+        target.GetComponent<DroneController>().ReceiveMessage(messageData);
+        result = true;
         return result;
     }
 
     /// <summary>
     /// 他のドローンからメッセージを受信する（させる）。
     /// </summary>
-    public void ReceiveMessage(string message) {
-        Debug.Log("Message received: " + message);
-        onReceiveMsg?.Invoke(message);
+    public void ReceiveMessage(Types.MessageData Data) {
+        onReceiveMsg?.Invoke(Data);
     }
 
 
@@ -175,7 +168,7 @@ public class DroneController : MonoBehaviour {
             //Debug.Log($"Battery Level: {batteryLevel}%");
         }
         onEmptyBattery?.Invoke();
-        FreeFall();
+        FreeFall(); //TODO:イベントハンドラーに記載する
     }
 
     private void Charge() {
