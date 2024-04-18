@@ -13,3 +13,4 @@ MAEasySimulator/Assets/Cell[[:space:]]tower[[:space:]]lowpoly/** filter=lfs diff
 MAEasySimulator/Assets/Inguz[[:space:]]Media[[:space:]]Studio/** filter=lfs diff=lfs merge=lfs -text
 MAEasySimulator/Assets/NAACo/** filter=lfs diff=lfs merge=lfs -text
 MAEasySimulator/Assets/PBR[[:space:]]Folding[[:space:]]Chairs/** filter=lfs diff=lfs merge=lfs -text
+MAEasySimulator/Assets/Models/** filter=lfs diff=lfs merge=lfs -text
